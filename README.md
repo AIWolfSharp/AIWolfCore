@@ -8,7 +8,8 @@ AIWolf.NETとは，人狼知能プラットフォームのライブラリ群を.
   
   1. AIWolf_NET-0.1.0.zipをダウンロードする
   
-    AIWolf_NET-0.1.0.zipは，ライブラリ(AIWolfLibCommon.dll, AIWolfLibClient.dll)と
+    [AIWolf_NET-0.1.0.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.1.0/AIWolf_NET-0.1.0.zip)は，
+ライブラリ(AIWolfLibCommon.dll, AIWolfLibClient.dll)と
 クライアントスターター(ClientStarter.exe)そしてAPIリファレンス(html)をまとめたものです．
 ライブラリのソースファイルが必要でなければ，これをダウンロードするだけで
 人狼知能エージェントを作成することができます．
