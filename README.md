@@ -32,5 +32,6 @@ AIWolf_NET-0.1.0.zipを展開したディレクトリで，
         
 1. 独自のエージェントを作成
 
-     とりあえずサンプルプレイヤーのソースを参考にしてみてください．
-     今後，エージェント作成のチュートリアルを用意する予定です．
+     エージェント作成のチュートリアルをご覧ください．
+     * [C#版人狼知能エージェントの作り方（Visual Studio編）](http://www.slideshare.net/takots/c-59927842)
+     * [C#版人狼知能エージェントの作り方(MonoDevelop/Xamarin Studio編)](http://www.slideshare.net/takots/cmonodevelopxamarin-studio)
