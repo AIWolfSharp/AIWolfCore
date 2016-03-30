@@ -2,8 +2,7 @@
 # AIWolf.NET(aka AIWolf#)
 ## .NET version of AIWolf Library
 
-AIWolf.NET is a library for AIWolf (artificial intelligence based werewolf) player agent
-for .NET Framework 4.5.
+AIWolf.NET is a AIWolf (artificial intelligence based werewolf) library for .NET Framework 4.5.
 This library is written in C#, and current version number is 0.1.0.
 
 1. Quick start
