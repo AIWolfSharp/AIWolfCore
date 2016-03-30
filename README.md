@@ -1,37 +1,39 @@
+[View in Japanese （日本語）](http://aiwolfsharp.github.io/AIWolf_NET)
 # AIWolf.NET(aka AIWolf#)
 ## .NET version of AIWolf Library
 
-AIWolf.NETとは，人狼知能プラットフォームのライブラリ群を.NET Framework 4.5用にC#で書き直したもので，
-最新バージョンは0.1.0です．
+AIWolf.NET is a library for AIWolf (artificial intelligence based werewolf) player agent
+for .NET Framework 4.5.
+This library is written in C#, and current version number is 0.1.0.
 
-1. クイックスタート
+1. Quick start
   
-  1. AIWolf_NET-0.1.0.zipをダウンロードする
+  1. Download AIWolf_NET-0.1.0.zip
   
-    [AIWolf_NET-0.1.0.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.1.0/AIWolf_NET-0.1.0.zip)は，
-ライブラリ(AIWolfLibCommon.dll, AIWolfLibClient.dll)と
-クライアントスターター(ClientStarter.exe)そしてAPIリファレンス(html)をまとめたものです．
-ライブラリのソースファイルが必要でなければ，これをダウンロードするだけで
-人狼知能エージェントを作成することができます．
-なお，Windowsではダウンロードしたファイルがブロックされるため，そのままでは動作しない場合があります．
-その場合はコンテキストメニューの「プロパティ」よりブロックを解除してください．
+    [AIWolf_NET-0.1.0.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.1.0/AIWolf_NET-0.1.0.zip)
+includes two dlls (AIWolfLibCommon.dll, AIWolfLibClient.dll),
+starter executable (ClientStarter.exe)
+and API reference manual in html folder.
+This is enough to make an AIWolf agent
+if you don't need source code of the library.
+In case the downloaded files do not work properly becase Windows blocks them,
+unblock them using "Properties" in context menu.
     
-  1. 必要なライブラリを入手する
+  1. Obtain Json.NET
   
-    ClientStarterを使用する場合にはJson.NETが必要です．
-    入手したらNewtonsoft.Json.dllをAIWolf_NET-0.1.0.zipを展開したディレクトリに置いてください．
+    Json.NET is necessary for ClientStarter.exe to work properly.
+    Put Newtonsoft.Json.dll into the same folder of AIWolf.NET. 
   
-  1. サンプルプレイヤーを起動してみる
+  1. Try sample agent.
   
-    人狼知能プラットフォームを入手し，ServerStarterで人狼知能サーバーを起動しておきます．
-ここでは，サーバーがlocalhost上のポート10000番で接続を待っているとします．
-AIWolf_NET-0.1.0.zipを展開したディレクトリで，
-コマンドプロンプトから以下のコマンドを発行すると，サーバーにSampleRoleAssignPlayerが接続したことが表示されるはずです．
-    
+    Download [AIWolf platform](http://www.aiwolf.org/aiwp/wp-content/uploads/2014/03/aiwolf-ver0.3.2.zip),
+and start ServerStarter.bat to launch the game server.
+In order to connect sample agent to the server listening port 10000 on localhost,
+execute the following command on command prompt in the folder of AIWolf.NET.
+
         `ClientStarter.exe –h localhost –p 10000 –c AIWolf.Client.Base.Smpl.SampleRoleAssignPlayer AIWolfLibClient.dll`
         
-1. 独自のエージェントを作成
+1. Making my own agent
 
-     エージェント作成のチュートリアルをご覧ください．
-     * [C#版人狼知能エージェントの作り方（Visual Studio編）](http://www.slideshare.net/takots/c-59927842)
-     * [C#版人狼知能エージェントの作り方(MonoDevelop/Xamarin Studio編)](http://www.slideshare.net/takots/cmonodevelopxamarin-studio)
+     The tutorial for making an AIWolf agent in C# can be viewed
+     [here](http://www.slideshare.net/takots/how-to-make-an-artificial-intelligence-based-werewolf-agent-in-c-using-visual-studio). 
