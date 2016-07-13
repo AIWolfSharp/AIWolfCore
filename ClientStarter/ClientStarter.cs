@@ -10,7 +10,7 @@ namespace AIWolf.ClientStarter
     /// AIWolf client starter.
     /// </summary>
     /// <remarks>
-    /// Usage: -h host -p port -c clientClass dllName [roleRequest] [-n name]
+    /// Usage: [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name]
     /// </remarks>
     public class ClientStarter
     {
@@ -27,12 +27,13 @@ namespace AIWolf.ClientStarter
         /// <remarks></remarks>
         public static void Main(string[] args)
         {
-            string host = null;
-            int port = -1;
+            string host = "localhost";
+            int port = 10000;
             string clsName = null;
             string dllName = null;
             Role? roleRequest = null;
             string playerName = null;
+            int timeout = 100; // ms
 
             for (int i = 0; i < args.Length; i++)
             {
@@ -76,11 +77,16 @@ namespace AIWolf.ClientStarter
                         i++;
                         playerName = args[i];
                     }
+                    else if (args[i].Equals("-t"))
+                    {
+                        i++;
+                        timeout = int.Parse(args[i]);
+                    }
                 }
             }
-            if (port < 0 || host == null || clsName == null)
+            if (port < 0 || clsName == null)
             {
-                Console.Error.WriteLine("Usage:" + typeof(ClientStarter).Name + " -h host -p port -c clientClass dllName [roleRequest] [-n name]");
+                Console.Error.WriteLine("Usage:" + typeof(ClientStarter).Name + " [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
                 return;
             }
 
@@ -112,11 +118,19 @@ namespace AIWolf.ClientStarter
             }
 
             TcpipClient client = new TcpipClient(host, port, roleRequest);
+            client.Timeout = timeout;
             if (playerName != null)
             {
                 client.PlayerName = playerName;
             }
-            client.Connect(player);
+            try
+            {
+                client.Connect(player);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.StackTrace);
+            }
         }
     }
 }
