@@ -12,7 +12,7 @@ namespace AIWolf.Common.Data
     /// Each agent has a unique index number.
     /// </remarks>
     [DataContract]
-    public class Agent : IComparable<Agent>
+    public sealed class Agent : IComparable<Agent>
     {
         static Dictionary<int, Agent> agentIndexMap = new Dictionary<int, Agent>();
 
