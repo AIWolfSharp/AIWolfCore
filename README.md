@@ -9,7 +9,7 @@ This library is written in C#, and current version number is 0.2.0.
   
   1. Download AIWolf_NET-0.2.0.zip
   
-    [AIWolf_NET-0.1.0.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.2.0/AIWolf_NET-0.2.0.zip)
+    [AIWolf_NET-0.2.0.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.2.0/AIWolf_NET-0.2.0.zip)
 includes two dlls (AIWolfLibCommon.dll, AIWolfLibClient.dll),
 starter executable (ClientStarter.exe)
 and API reference manual in html folder.
@@ -25,7 +25,7 @@ unblock them using "Properties" in context menu.
   
   1. Try sample agent.
   
-    Download [AIWolf platform](http://www.aiwolf.org/aiwp/wp-content/uploads/2014/03/aiwolf-ver0.3.2.zip),
+    Download [AIWolf platform](http://aiwolf.org/control-panel/wp-content/uploads/2014/03/aiwolf-ver0.3.5.zip),
 and start ServerStarter.bat to launch the game server.
 In order to connect sample agent to the server listening port 10000 on localhost,
 execute the following command on command prompt in the folder of AIWolf.NET.
