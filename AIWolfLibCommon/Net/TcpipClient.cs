@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace AIWolf.Common.Net
 {
@@ -34,13 +34,6 @@ namespace AIWolf.Common.Net
         /// <remarks></remarks>
         public bool Running { get; private set; }
 
-        /// <summary>
-        /// Whether or not this client is connecting server.
-        /// </summary>
-        /// <value>True if this client is connecting server, otherwise, false.</value>
-        /// <remarks></remarks>
-        public bool Connecting { get; private set; }
-
         GameInfo lastGameInfo;
 
         /// <summary>
@@ -49,6 +42,13 @@ namespace AIWolf.Common.Net
         /// <value>The name of player this client manages.</value>
         /// <remarks></remarks>
         public string PlayerName { get; set; }
+
+        /// <summary>
+        /// The number of milliseconds to wait for the request call.
+        /// </summary>
+        /// <value>The number of milliseconds.</value>
+        /// <remarks></remarks>
+        public int Timeout { get; set; } = 100;
 
         /// <summary>
         /// Initializes a new instance of this class which connects given port of given host.
@@ -70,45 +70,23 @@ namespace AIWolf.Common.Net
         /// <param name="port">Port number this client connects.</param>
         /// <param name="requestRole">Role this client requests.</param>
         /// <remarks></remarks>
-        public TcpipClient(string host, int port, Role? requestRole)
+        public TcpipClient(string host, int port, Role? requestRole) : this(host, port)
         {
-            this.host = host;
-            this.port = port;
             RequestRole = requestRole;
-            Running = false;
         }
 
         /// <summary>
         /// Connects the player to the server.
         /// </summary>
         /// <param name="player">The player to be connected.</param>
-        /// <returns>True if the connection succeeds, otherwise, false.</returns>
         /// <remarks></remarks>
-        public bool Connect(IPlayer player)
+        public void Connect(IPlayer player)
         {
             this.player = player;
 
-            try
-            {
-                tcpClient = new TcpClient();
-                tcpClient.Connect(Dns.GetHostAddresses(host), port);
-                Connecting = true;
+            tcpClient = new TcpClient();
+            tcpClient.Connect(Dns.GetHostAddresses(host), port);
 
-                Thread th = new Thread(new ThreadStart(Run));
-                th.Start();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e.StackTrace);
-                Connecting = false;
-                return false;
-            }
-        }
-
-        void Run()
-        {
             try
             {
                 StreamReader sr = new StreamReader(tcpClient.GetStream());
@@ -137,16 +115,11 @@ namespace AIWolf.Common.Net
                     }
                 }
             }
-            catch
+            catch (IOException e)
             {
-                if (Connecting)
+                if (Running)
                 {
-                    Connecting = false;
-                    if (Running)
-                    {
-                        Running = false;
-                        throw new AIWolfRuntimeException();
-                    }
+                    throw e;
                 }
             }
             finally
@@ -204,85 +177,106 @@ namespace AIWolf.Common.Net
                 }
             }
 
-            object returnObject = null;
-            switch (packet.Request)
+            Task<object> task = Task.Run(() =>
             {
-                case Request.INITIALIZE:
-                    Running = true;
-                    player.Initialize(gameInfo, gameSetting);
-                    break;
-                case Request.DAILY_INITIALIZE:
-                    player.Update(gameInfo);
-                    player.DayStart();
-                    break;
-                case Request.DAILY_FINISH:
-                    player.Update(gameInfo);
-                    break;
-                case Request.NAME:
-                    if (PlayerName == null)
-                    {
-                        returnObject = player.Name;
+                object returnObject = null;
+                switch (packet.Request)
+                {
+                    case Request.INITIALIZE:
+                        Running = true;
+                        player.Initialize(gameInfo, gameSetting);
+                        break;
+                    case Request.DAILY_INITIALIZE:
+                        player.Update(gameInfo);
+                        player.DayStart();
+                        break;
+                    case Request.DAILY_FINISH:
+                        player.Update(gameInfo);
+                        break;
+                    case Request.NAME:
+                        if (PlayerName == null)
+                        {
+                            returnObject = player.Name;
+                            if (returnObject == null)
+                            {
+                                returnObject = player.GetType().Name;
+                            }
+                        }
+                        else
+                        {
+                            returnObject = PlayerName;
+                        }
+                        break;
+                    case Request.ROLE:
+                        if (RequestRole != null)
+                        {
+                            returnObject = RequestRole.ToString();
+                        }
+                        else
+                        {
+                            returnObject = "none";
+                        }
+                        break;
+                    case Request.ATTACK:
+                        player.Update(gameInfo);
+                        returnObject = player.Attack();
+                        break;
+                    case Request.TALK:
+                        player.Update(gameInfo);
+                        returnObject = player.Talk();
                         if (returnObject == null)
                         {
-                            returnObject = player.GetType().Name;
+                            returnObject = Talk.SKIP;
                         }
-                    }
-                    else
-                    {
-                        returnObject = PlayerName;
-                    }
-                    break;
-                case Request.ROLE:
-                    if (RequestRole != null)
-                    {
-                        returnObject = RequestRole.ToString();
-                    }
-                    else
-                    {
-                        returnObject = "none";
-                    }
-                    break;
-                case Request.ATTACK:
-                    player.Update(gameInfo);
-                    returnObject = player.Attack();
-                    break;
-                case Request.TALK:
-                    player.Update(gameInfo);
-                    returnObject = player.Talk();
-                    if (returnObject == null)
-                    {
-                        returnObject = Talk.SKIP;
-                    }
-                    break;
-                case Request.WHISPER:
-                    player.Update(gameInfo);
-                    returnObject = player.Whisper();
-                    if (returnObject == null)
-                    {
-                        returnObject = Talk.SKIP;
-                    }
-                    break;
-                case Request.DIVINE:
-                    player.Update(gameInfo);
-                    returnObject = player.Divine();
-                    break;
-                case Request.GUARD:
-                    player.Update(gameInfo);
-                    returnObject = player.Guard();
-                    break;
-                case Request.VOTE:
-                    player.Update(gameInfo);
-                    returnObject = player.Vote();
-                    break;
-                case Request.FINISH:
-                    player.Update(gameInfo);
-                    player.Finish();
-                    Running = false;
-                    break;
-                default:
-                    break;
+                        break;
+                    case Request.WHISPER:
+                        player.Update(gameInfo);
+                        returnObject = player.Whisper();
+                        if (returnObject == null)
+                        {
+                            returnObject = Talk.SKIP;
+                        }
+                        break;
+                    case Request.DIVINE:
+                        player.Update(gameInfo);
+                        returnObject = player.Divine();
+                        break;
+                    case Request.GUARD:
+                        player.Update(gameInfo);
+                        returnObject = player.Guard();
+                        break;
+                    case Request.VOTE:
+                        player.Update(gameInfo);
+                        returnObject = player.Vote();
+                        break;
+                    case Request.FINISH:
+                        player.Update(gameInfo);
+                        player.Finish();
+                        Running = false;
+                        break;
+                    default:
+                        break;
+                }
+                return returnObject;
+            });
+            try
+            {
+                if (task.Wait(Timeout))
+                {
+                    return task.Result;
+                }
+                else
+                {
+                    Console.Error.WriteLine(packet.Request + "@" + player.Name + " aborts because of timeout(" + Timeout + "ms).");
+                    Environment.Exit(0);
+                }
             }
-            return returnObject;
+            catch (AggregateException e)
+            {
+                Console.Error.WriteLine(e.InnerException.StackTrace);
+                Environment.Exit(0);
+            }
+            return null;
         }
 
         /// <summary>
