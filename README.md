@@ -27,10 +27,12 @@ unblock them using "Properties" in context menu.
   
     Download [AIWolf platform](http://aiwolf.org/control-panel/wp-content/uploads/2014/03/aiwolf-ver0.3.5.zip),
 and start ServerStarter.bat to launch the game server.
-In order to connect sample agent to the server listening port 10000 on localhost,
-execute the following command on command prompt in the folder of AIWolf.NET.
+Since AIWolf.NET version 0.2.0, timeout option `-t` is introduced to limit the time for agent's processing one request.
+If a request runs out of time, the agent is terminated immediately.
+In the folder of AIWolf.NET, the following command connects a sample agent
+to the server listening port 10000 on localhost, with timeout of 100ms.
 
-        `ClientStarter.exe -h localhost -p 10000 -c AIWolf.Client.Base.Smpl.SampleRoleAssignPlayer AIWolfLibClient.dll`
+        `ClientStarter.exe -h localhost -p 10000 -t 100 -c AIWolf.Client.Base.Smpl.SampleRoleAssignPlayer AIWolfLibClient.dll`
         
 1. Making my own agent
 
