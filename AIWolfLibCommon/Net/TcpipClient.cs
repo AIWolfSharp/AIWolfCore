@@ -48,7 +48,7 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <value>The number of milliseconds.</value>
         /// <remarks></remarks>
-        public int Timeout { get; set; } = 100;
+        public int Timeout { get; set; } = -1; // Do not limit by default.
 
         /// <summary>
         /// Initializes a new instance of this class which connects given port of given host.

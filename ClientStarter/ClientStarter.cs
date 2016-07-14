@@ -10,7 +10,7 @@ namespace AIWolf.ClientStarter
     /// AIWolf client starter.
     /// </summary>
     /// <remarks>
-    /// Usage: [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name]
+    /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name]
     /// </remarks>
     public class ClientStarter
     {
@@ -33,7 +33,7 @@ namespace AIWolf.ClientStarter
             string dllName = null;
             Role? roleRequest = null;
             string playerName = null;
-            int timeout = 100; // ms
+            int timeout = -1; // Do not limit by default.
 
             for (int i = 0; i < args.Length; i++)
             {
