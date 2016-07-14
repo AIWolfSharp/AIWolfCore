@@ -219,7 +219,7 @@
       </div>
       <h2 class="Section">Requirements</h2>
       <div class="SectionBox" id="T:AIWolf.Common.Net.TcpipClient:Docs:Version Information">
-        <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+        <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
       <h2 class="Section" id="Members">Members</h2>
       <div class="SectionBox" id="_Members">
         <p>
@@ -268,20 +268,6 @@
           <div class="SubsectionBox">
             <table class="TypeMembers">
               <tr valign="top">
-                <td>[read-only]<div></div></td>
-                <td>
-                  <b>
-                    <a href="#P:AIWolf.Common.Net.TcpipClient.Connecting">Connecting</a>
-                  </b>
-                </td>
-                <td>
-                  <i>
-                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a>
-                  </i>. 
-            Whether or not this client is connecting server.
-            </td>
-              </tr>
-              <tr valign="top">
                 <td>
                   <div>
                   </div>
@@ -329,6 +315,23 @@
             Whether or not this client is running.
             </td>
               </tr>
+              <tr valign="top">
+                <td>
+                  <div>
+                  </div>
+                </td>
+                <td>
+                  <b>
+                    <a href="#P:AIWolf.Common.Net.TcpipClient.Timeout">Timeout</a>
+                  </b>
+                </td>
+                <td>
+                  <i>
+                    <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a>
+                  </i>. 
+            The number of milliseconds to wait for the request call.
+            </td>
+              </tr>
             </table>
           </div>
         </div>
@@ -344,7 +347,7 @@
                 <td colspan="2">
                   <b>
                     <a href="#M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer)">Connect</a>
-                  </b>(<a href="../AIWolf.Common.Data/IPlayer.html">AIWolf.Common.Data.IPlayer</a>)<nobr> : <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a></nobr><blockquote>
+                  </b>(<a href="../AIWolf.Common.Data/IPlayer.html">AIWolf.Common.Data.IPlayer</a>)<blockquote>
             Connects the player to the server.
             </blockquote></td>
               </tr>
@@ -393,7 +396,7 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="C:AIWolf.Common.Net.TcpipClient(System.String,System.Int32):Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="C:AIWolf.Common.Net.TcpipClient(System.String,System.Int32,System.Nullable{AIWolf.Common.Data.Role})">TcpipClient Constructor</h3>
@@ -425,7 +428,7 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="C:AIWolf.Common.Net.TcpipClient(System.String,System.Int32,System.Nullable{AIWolf.Common.Data.Role}):Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer)">Connect Method</h3>
@@ -434,7 +437,7 @@
             Connects the player to the server.
             </div>
           <h2>Syntax</h2>
-          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>Connect</b> (<a href="../AIWolf.Common.Data/IPlayer.html">AIWolf.Common.Data.IPlayer</a> player)</div>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Void">void</a> <b>Connect</b> (<a href="../AIWolf.Common.Data/IPlayer.html">AIWolf.Common.Data.IPlayer</a> player)</div>
           <h4 class="Subsection">Parameters</h4>
           <blockquote class="SubsectionBox" id="M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer):Parameters">
             <dl>
@@ -444,31 +447,12 @@
               <dd>The player to be connected.</dd>
             </dl>
           </blockquote>
-          <h4 class="Subsection">Returns</h4>
-          <blockquote class="SubsectionBox" id="M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer):Returns">True if the connection succeeds, otherwise, false.</blockquote>
           <h2 class="Section">Remarks</h2>
           <div class="SectionBox" id="M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer):Remarks">
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="M:AIWolf.Common.Net.TcpipClient.Connect(AIWolf.Common.Data.IPlayer):Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
-          <hr size="1" />
-        </blockquote>
-        <h3 id="P:AIWolf.Common.Net.TcpipClient.Connecting">Connecting Property</h3>
-        <blockquote id="P:AIWolf.Common.Net.TcpipClient.Connecting:member">
-          <div class="msummary">
-            Whether or not this client is connecting server.
-            </div>
-          <h2>Syntax</h2>
-          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Boolean">bool</a> <b>Connecting</b>  { get; }</div>
-          <h4 class="Subsection">Value</h4>
-          <blockquote class="SubsectionBox" id="P:AIWolf.Common.Net.TcpipClient.Connecting:Value">True if this client is connecting server, otherwise, false.</blockquote>
-          <h2 class="Section">Remarks</h2>
-          <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.Connecting:Remarks">
-          </div>
-          <h2 class="Section">Requirements</h2>
-          <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.Connecting:Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="P:AIWolf.Common.Net.TcpipClient.PlayerName">PlayerName Property</h3>
@@ -485,7 +469,7 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.PlayerName:Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="M:AIWolf.Common.Net.TcpipClient.Recieve(AIWolf.Common.Net.Packet)">Recieve Method</h3>
@@ -511,7 +495,7 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="M:AIWolf.Common.Net.TcpipClient.Recieve(AIWolf.Common.Net.Packet):Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="P:AIWolf.Common.Net.TcpipClient.RequestRole">RequestRole Property</h3>
@@ -528,7 +512,7 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.RequestRole:Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
         <h3 id="P:AIWolf.Common.Net.TcpipClient.Running">Running Property</h3>
@@ -545,7 +529,24 @@
           </div>
           <h2 class="Section">Requirements</h2>
           <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.Running:Version Information">
-            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.1.0.0</div>
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
+          <hr size="1" />
+        </blockquote>
+        <h3 id="P:AIWolf.Common.Net.TcpipClient.Timeout">Timeout Property</h3>
+        <blockquote id="P:AIWolf.Common.Net.TcpipClient.Timeout:member">
+          <div class="msummary">
+            The number of milliseconds to wait for the request call.
+            </div>
+          <h2>Syntax</h2>
+          <div class="Signature">public <a href="http://www.go-mono.com/docs/monodoc.ashx?link=T:System.Int32">int</a> <b>Timeout</b>  { get; set; }</div>
+          <h4 class="Subsection">Value</h4>
+          <blockquote class="SubsectionBox" id="P:AIWolf.Common.Net.TcpipClient.Timeout:Value">The number of milliseconds.</blockquote>
+          <h2 class="Section">Remarks</h2>
+          <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.Timeout:Remarks">
+          </div>
+          <h2 class="Section">Requirements</h2>
+          <div class="SectionBox" id="P:AIWolf.Common.Net.TcpipClient.Timeout:Version Information">
+            <b>Namespace: </b>AIWolf.Common.Net<br /><b>Assembly: </b>AIWolfLibCommon (in AIWolfLibCommon.dll)<br /><b>Assembly Versions: </b>0.2.6039.22191</div>
           <hr size="1" />
         </blockquote>
       </div>

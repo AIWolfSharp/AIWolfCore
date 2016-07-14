@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed Request extends System.Enum" />
   <AssemblyInfo>
     <AssemblyName>AIWolfLibCommon</AssemblyName>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Enum</BaseTypeName>
@@ -20,7 +20,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request ATTACK = int32(7)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -36,7 +36,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request DAILY_FINISH = int32(10)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -52,7 +52,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request DAILY_INITIALIZE = int32(9)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -68,7 +68,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request DIVINE = int32(5)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -84,7 +84,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request DUMMY = int32(12)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -100,7 +100,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request FINISH = int32(11)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -116,7 +116,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request GUARD = int32(6)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -132,7 +132,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request INITIALIZE = int32(8)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -148,7 +148,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request NAME = int32(0)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -164,7 +164,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request ROLE = int32(1)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -180,7 +180,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request TALK = int32(2)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -196,7 +196,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request VOTE = int32(4)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>
@@ -212,7 +212,7 @@
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype AIWolf.Common.Data.Request WHISPER = int32(3)" />
       <MemberType>Field</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Request</ReturnType>

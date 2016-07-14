@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AbstractWerewolf extends AIWolf.Client.Base.Player.AbstractRole" />
   <AssemblyInfo>
     <AssemblyName>AIWolfLibClient</AssemblyName>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>AIWolf.Client.Base.Player.AbstractRole</BaseTypeName>
@@ -21,7 +21,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
@@ -36,7 +36,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class AIWolf.Common.Data.Agent Attack() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Agent</ReturnType>
@@ -55,7 +55,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void DayStart() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -73,7 +73,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class AIWolf.Common.Data.Agent Divine() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Agent</ReturnType>
@@ -92,7 +92,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void Finish() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -110,7 +110,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class AIWolf.Common.Data.Agent Guard() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Agent</ReturnType>
@@ -129,7 +129,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string Talk() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -151,7 +151,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class AIWolf.Common.Data.Agent Vote() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Agent</ReturnType>
@@ -170,7 +170,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string Whisper() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -192,7 +192,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.List`1&lt;class AIWolf.Common.Data.Agent&gt; WolfList" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22153</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Collections.Generic.List&lt;AIWolf.Common.Data.Agent&gt;</ReturnType>

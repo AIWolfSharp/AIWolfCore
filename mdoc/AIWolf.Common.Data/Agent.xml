@@ -1,9 +1,9 @@
 <Type Name="Agent" FullName="AIWolf.Common.Data.Agent">
-  <TypeSignature Language="C#" Value="public class Agent : IComparable&lt;AIWolf.Common.Data.Agent&gt;" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Agent extends System.Object implements class System.IComparable`1&lt;class AIWolf.Common.Data.Agent&gt;" />
+  <TypeSignature Language="C#" Value="public sealed class Agent : IComparable&lt;AIWolf.Common.Data.Agent&gt;" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit Agent extends System.Object implements class System.IComparable`1&lt;class AIWolf.Common.Data.Agent&gt;" />
   <AssemblyInfo>
     <AssemblyName>AIWolfLibCommon</AssemblyName>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -33,7 +33,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance int32 AgentIdx" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -56,7 +56,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance int32 CompareTo(class AIWolf.Common.Data.Agent target) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -83,7 +83,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance bool Equals(object obj) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
@@ -105,7 +105,7 @@
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig class AIWolf.Common.Data.Agent GetAgent(int32 idx) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Data.Agent</ReturnType>
@@ -127,7 +127,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance int32 GetHashCode() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Int32</ReturnType>
@@ -146,7 +146,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>

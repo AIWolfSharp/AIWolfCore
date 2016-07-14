@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit GameSetting extends System.Object implements class System.ICloneable" />
   <AssemblyInfo>
     <AssemblyName>AIWolfLibCommon</AssemblyName>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -30,7 +30,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
@@ -45,7 +45,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance object Clone() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Object</ReturnType>
@@ -64,7 +64,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool EnableNoAttack" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -87,7 +87,7 @@
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig class AIWolf.Common.Net.GameSetting GetDefaultGame(int32 agentNum) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Net.GameSetting</ReturnType>
@@ -109,7 +109,7 @@
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig class AIWolf.Common.Net.GameSetting GetSeminarGame() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>AIWolf.Common.Net.GameSetting</ReturnType>
@@ -128,7 +128,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance int32 MaxTalk" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -151,7 +151,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance int32 PlayerNum" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -174,7 +174,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance int64 RandomSeed" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -197,7 +197,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.Dictionary`2&lt;valuetype AIWolf.Common.Data.Role, int32&gt; RoleNumMap" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -220,7 +220,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool VotableInFirstDay" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>
@@ -243,7 +243,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool VoteVisible" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>0.1.0.0</AssemblyVersion>
+        <AssemblyVersion>0.2.6039.22191</AssemblyVersion>
       </AssemblyInfo>
       <Attributes>
         <Attribute>

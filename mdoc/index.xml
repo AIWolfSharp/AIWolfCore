@@ -1,6 +1,6 @@
 <Overview>
   <Assemblies>
-    <Assembly Name="AIWolfLibClient" Version="0.1.0.0">
+    <Assembly Name="AIWolfLibClient" Version="0.2.6039.22153">
       <Attributes>
         <Attribute>
           <AttributeName>System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute+DebuggingModes.IgnoreSymbolStoreSequencePoints)</AttributeName>
@@ -18,10 +18,10 @@
           <AttributeName>System.Reflection.AssemblyDescription("")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyFileVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyFileVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
           <AttributeName>System.Reflection.AssemblyProduct("AIWolfLibClient")</AttributeName>
@@ -49,7 +49,7 @@
         </Attribute>
       </Attributes>
     </Assembly>
-    <Assembly Name="AIWolfLibCommon" Version="0.1.0.0">
+    <Assembly Name="AIWolfLibCommon" Version="0.2.6039.22191">
       <Attributes>
         <Attribute>
           <AttributeName>System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute+DebuggingModes.IgnoreSymbolStoreSequencePoints)</AttributeName>
@@ -67,10 +67,10 @@
           <AttributeName>System.Reflection.AssemblyDescription("")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyFileVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyFileVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
           <AttributeName>System.Reflection.AssemblyProduct("AIWolfLibCommon")</AttributeName>
@@ -98,7 +98,7 @@
         </Attribute>
       </Attributes>
     </Assembly>
-    <Assembly Name="ClientStarter" Version="0.1.0.0">
+    <Assembly Name="ClientStarter" Version="0.2.6039.22192">
       <Attributes>
         <Attribute>
           <AttributeName>System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute+DebuggingModes.IgnoreSymbolStoreSequencePoints)</AttributeName>
@@ -116,10 +116,10 @@
           <AttributeName>System.Reflection.AssemblyDescription("")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyFileVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyFileVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.1.0.0")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("0.2.1.0")</AttributeName>
         </Attribute>
         <Attribute>
           <AttributeName>System.Reflection.AssemblyProduct("ClientStarter")</AttributeName>
@@ -148,8 +148,7 @@
       </Attributes>
     </Assembly>
   </Assemblies>
-  <Remarks>
-  </Remarks>
+  <Remarks></Remarks>
   <Copyright>(C) 2016 Takashi OTSUKI</Copyright>
   <Types>
     <Namespace Name="AIWolf.Client.Base.Player">
@@ -209,7 +208,7 @@
       <Type Name="ShuffleExtensions" Kind="Class" />
     </Namespace>
   </Types>
-  <Title>AIWolf.NET-0.1 API Reference</Title>
+  <Title>AIWolf.NET-0.2 API Reference</Title>
   <ExtensionMethods>
     <ExtensionMethod>
       <Targets>
