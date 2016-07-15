@@ -59,4 +59,4 @@ This library is written in C#, and current version number is 0.2.1.
         - Redistribution of Json.NET 9.0 Release 1.
 
 ---
-This software is released under the MIT License, see LICENSE.
+This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
