@@ -3,13 +3,13 @@
 ## .NET version of AIWolf Library
 
 AIWolf.NET is a AIWolf (artificial intelligence based werewolf) library for .NET Framework 4.5.
-This library is written in C#, and current version number is 0.2.1.
+This library is written in C#, and current version number is 0.2.2.
 
 1. QUICK START
 
-    1. Download AIWolf_NET-0.2.1.zip.
+    1. Download AIWolf_NET-0.2.2.zip.
 
-        [AIWolf_NET-0.2.1.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.2.1/AIWolf_NET-0.2.1.zip)
+        [AIWolf_NET-0.2.2.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.2.2/AIWolf_NET-0.2.2.zip)
         includes two dlls (AIWolfLibCommon.dll, AIWolfLibClient.dll),
         starter executable (ClientStarter.exe)
         and API reference manual in html folder.
@@ -19,7 +19,7 @@ This library is written in C#, and current version number is 0.2.1.
         In case the downloaded files do not work properly becase Windows blocks them,
         unblock them using "Properties" in context menu.
 
-    1. Extract AIWolf_NET-0.2.1.zip
+    1. Extract AIWolf_NET-0.2.2.zip
     and put Newtonsoft.Json.dll into the same folder of the extracted files. 
 
     1. Try sample agent.
@@ -32,7 +32,7 @@ This library is written in C#, and current version number is 0.2.1.
 
         `ClientStarter.exe -h localhost -p 10000 -t 100 -c AIWolf.Client.Base.Smpl.SampleRoleAssignPlayer AIWolfLibClient.dll`
 
-    1. Making my own agent
+    1. Making your own agent
 
         You can view the tutorial for making an AIWolf agent in C#
         [here](http://www.slideshare.net/takots/how-to-make-an-artificial-intelligence-based-werewolf-agent-in-c-using-visual-studio). 
@@ -57,6 +57,12 @@ This library is written in C#, and current version number is 0.2.1.
         - In case of no timeout option, ClientStarter.exe does not limit the time for processing a request.
 
         - Redistribution of Json.NET 9.0 Release 1.
+
+    * 0.2.2
+
+        - Make exception handling smarter.
+
+        - Make ClientStarter.exe show more information in case of exception.
 
 ---
 This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
