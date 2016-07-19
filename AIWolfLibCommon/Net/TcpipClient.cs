@@ -259,24 +259,14 @@ namespace AIWolf.Common.Net
                 }
                 return returnObject;
             });
-            try
+            if (task.Wait(Timeout))
             {
-                if (task.Wait(Timeout))
-                {
-                    return task.Result;
-                }
-                else
-                {
-                    Console.Error.WriteLine(packet.Request + "@" + player.Name + " aborts because of timeout(" + Timeout + "ms).");
-                    Environment.Exit(0);
-                }
+                return task.Result;
             }
-            catch (AggregateException e)
+            else
             {
-                Console.Error.WriteLine(e.InnerException.StackTrace);
-                Environment.Exit(0);
+                throw new TimeoutException(packet.Request + "@" + player.Name + " aborts because of timeout(" + Timeout + "ms).");
             }
-            return null;
         }
 
         /// <summary>
