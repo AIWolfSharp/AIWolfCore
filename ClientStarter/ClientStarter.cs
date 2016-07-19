@@ -100,9 +100,10 @@ namespace AIWolf.ClientStarter
                 Console.Error.WriteLine("Can not find " + dllName);
                 return;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.Error.WriteLine("Error in loading " + dllName);
+                Console.Error.WriteLine(e);
                 return;
             }
 
@@ -111,9 +112,10 @@ namespace AIWolf.ClientStarter
             {
                 player = (IPlayer)Activator.CreateInstance(assembly.GetType(clsName));
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.Error.WriteLine("Error in creating instance of " + clsName);
+                Console.Error.WriteLine(e);
                 return;
             }
 
@@ -127,9 +129,15 @@ namespace AIWolf.ClientStarter
             {
                 client.Connect(player);
             }
+            catch (AggregateException e)
+            {
+                Console.Error.WriteLine(e.InnerException);
+                return;
+            }
             catch (Exception e)
             {
-                Console.Error.WriteLine(e.StackTrace);
+                Console.Error.WriteLine(e);
+                return;
             }
         }
     }
