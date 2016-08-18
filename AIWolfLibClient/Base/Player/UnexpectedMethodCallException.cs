@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 
 namespace AIWolf.Client.Base.Player
 {
-    [Serializable]
     class UnexpectedMethodCallException : AIWolfRuntimeException
     {
         public UnexpectedMethodCallException()
@@ -16,10 +15,6 @@ namespace AIWolf.Client.Base.Player
         }
 
         public UnexpectedMethodCallException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected UnexpectedMethodCallException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

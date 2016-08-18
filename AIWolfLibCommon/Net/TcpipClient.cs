@@ -85,7 +85,7 @@ namespace AIWolf.Common.Net
             this.player = player;
 
             tcpClient = new TcpClient();
-            tcpClient.Connect(Dns.GetHostAddresses(host), port);
+            tcpClient.ConnectAsync(host, port).Wait();
 
             try
             {

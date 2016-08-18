@@ -8,7 +8,6 @@ namespace AIWolf.Common
     /// Exception that occurs during execution of AIWolf agent.
     /// </summary>
     /// <remarks></remarks>
-    [Serializable]
     public class AIWolfAgentException : AIWolfRuntimeException
     {
         private Agent agent;
@@ -58,16 +57,6 @@ namespace AIWolf.Common
             this.agent = agent;
             this.method = method;
             exception = innerException;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the AIWolfAgentException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        /// <remarks></remarks>
-        protected AIWolfAgentException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
         }
     }
 }

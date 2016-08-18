@@ -11,7 +11,7 @@ namespace AIWolf.Common.Net
     /// </summary>
     /// <remarks></remarks>
     [DataContract]
-    public class GameSetting : ICloneable
+    public class GameSetting
     {
         /// <summary>
         /// Number of each roles.

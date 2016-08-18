@@ -1,0 +1,17 @@
+{
+  "title": "AIWolfLibClient",
+  "copyright": "Copyright © 2016 Takashi OTSUKI",
+  "description": "The library for AIWolf client.",
+  "version": "0.3.0-*",
+
+  "dependencies": {
+    "AIWolfLibCommon": "0.3.0-*",
+    "NETStandard.Library": "1.6.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

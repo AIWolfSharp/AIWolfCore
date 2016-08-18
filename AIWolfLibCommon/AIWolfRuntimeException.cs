@@ -7,7 +7,6 @@ namespace AIWolf.Common
     /// Exception that occurs during execution of AIWolf application.
     /// </summary>
     /// <remarks></remarks>
-    [Serializable]
     public class AIWolfRuntimeException : Exception
     {
         /// <summary>
@@ -36,16 +35,6 @@ namespace AIWolf.Common
         /// or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         /// <remarks></remarks>
         public AIWolfRuntimeException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the AIWolfRuntimeException class with serialized data.
-        /// </summary>
-        /// <param name="info">The SerializationInfo that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The StreamingContext that contains contextual information about the source or destination.</param>
-        /// <remarks></remarks>
-        protected AIWolfRuntimeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

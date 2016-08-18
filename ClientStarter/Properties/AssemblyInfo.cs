@@ -2,36 +2,18 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
-// アセンブリに関連付けられている情報を変更するには、
-// これらの属性値を変更してください。
-[assembly: AssemblyTitle("ClientStarter")]
-[assembly: AssemblyDescription("")]
+// General Information about an assembly is controlled through the following
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ClientStarter")]
-[assembly: AssemblyCopyright("Copyright ©  2016 Takashi OTSUKI")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
-// ComVisible を false に設定すると、その型はこのアセンブリ内で COM コンポーネントから 
-// 参照不可能になります。COM からこのアセンブリ内の型にアクセスする場合は、
-// その型の ComVisible 属性を true に設定してください。
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
+// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-// このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("4d126ccd-7614-49c2-8652-7c2be3d45caf")]
-
-// アセンブリのバージョン情報は次の 4 つの値で構成されています:
-//
-//      メジャー バージョン
-//      マイナー バージョン
-//      ビルド番号
-//      Revision
-//
-// すべての値を指定するか、下のように '*' を使ってビルドおよびリビジョン番号を 
-// 既定値にすることができます:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.*")]
-[assembly: AssemblyFileVersion("0.2.2.0")]
-[assembly: AssemblyInformationalVersion("0.2.2.0")]
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("9011f2a7-069a-4569-b0cb-19e18862e3fc")]

@@ -3,6 +3,7 @@ using AIWolf.Common.Net;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Loader;
 
 namespace AIWolf.ClientStarter
 {
@@ -93,12 +94,7 @@ namespace AIWolf.ClientStarter
             Assembly assembly;
             try
             {
-                assembly = Assembly.LoadFrom(dllName);
-            }
-            catch (FileNotFoundException)
-            {
-                Console.Error.WriteLine("Can not find " + dllName);
-                return;
+                assembly = new AssemblyLoader().LoadFromAssemblyPath(Path.GetFullPath(dllName));
             }
             catch (Exception e)
             {
@@ -139,6 +135,14 @@ namespace AIWolf.ClientStarter
                 Console.Error.WriteLine(e);
                 return;
             }
+        }
+    }
+
+    class AssemblyLoader : AssemblyLoadContext
+    {
+        protected override Assembly Load(AssemblyName assemblyName)
+        {
+            throw new NotImplementedException();
         }
     }
 }
