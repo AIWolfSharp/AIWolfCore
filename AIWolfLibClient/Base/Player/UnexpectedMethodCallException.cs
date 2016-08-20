@@ -1,6 +1,5 @@
 ﻿using AIWolf.Common;
 using System;
-using System.Runtime.Serialization;
 
 namespace AIWolf.Client.Base.Player
 {
