@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using AIWolf.Common.Data;
 
 namespace AIWolf.Common
