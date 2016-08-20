@@ -1,7 +1,9 @@
 ﻿using AIWolf.Common.Data;
 using AIWolf.Common.Net;
+using Microsoft.Extensions.DependencyModel;
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 
@@ -142,7 +144,8 @@ namespace AIWolf.ClientStarter
     {
         protected override Assembly Load(AssemblyName assemblyName)
         {
-            throw new NotImplementedException();
+            string name = DependencyContext.Default.CompileLibraries.Where(d => d.Name.Contains(assemblyName.Name)).First().Name;
+            return Assembly.Load(new AssemblyName(name));
         }
     }
 }
