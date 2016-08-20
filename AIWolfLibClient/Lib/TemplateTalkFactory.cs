@@ -148,7 +148,6 @@ namespace AIWolf.Client.Lib
         /// There is nothing to talk.
         /// </summary>
         /// <returns>String "Over".</returns>
-        /// <remarks></remarks>
         public static string Over()
         {
             return Talk.OVER;
@@ -158,7 +157,6 @@ namespace AIWolf.Client.Lib
         /// Skip this turn though there is something to talk.
         /// </summary>
         /// <returns>String "Skip".</returns>
-        /// <remarks></remarks>
         public static string Skip()
         {
             return Talk.SKIP;

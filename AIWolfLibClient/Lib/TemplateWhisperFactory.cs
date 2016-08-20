@@ -1,25 +1,26 @@
-﻿using AIWolf.Common.Data;
+﻿using AIWolf.Common;
+using AIWolf.Common.Data;
 
 namespace AIWolf.Client.Lib
 {
     /// <summary>
     /// Factory class to create whisper contents.
     /// </summary>
-    /// <remarks></remarks>
     public class TemplateWhisperFactory
     {
-        TemplateWhisperFactory() { }
-
         /// <summary>
         /// Returns whisper about attack.
         /// </summary>
         /// <param name="target">The agent whom the whisperer wants to attack.</param>
         /// <returns>Whisper about attack.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Attack(Agent target)
         {
-            string[] split = { Topic.ATTACK.ToString(), (target != null) ? target.ToString() : "null" };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Attack: Target is null.");
+            }
+            return Topic.ATTACK.ToString() + " " + target.ToString();
         }
 
         /// <summary>
@@ -28,11 +29,14 @@ namespace AIWolf.Client.Lib
         /// <param name="target">The agent estimated.</param>
         /// <param name="role">The estimated role.</param>
         /// <returns>Whisper about estimation.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Estimate(Agent target, Role role)
         {
-            string[] split = { Topic.ESTIMATE.ToString(), (target != null) ? target.ToString() : "null", role.ToString() };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Estimate: Target is null.");
+            }
+            return Topic.ESTIMATE.ToString() + " " + target.ToString() + " " + role.ToString();
         }
 
         /// <summary>
@@ -41,11 +45,14 @@ namespace AIWolf.Client.Lib
         /// <param name="target">The agent who playing the role.</param>
         /// <param name="role">The role which the agent is playing.</param>
         /// <returns>Whisper about comingout that which role someone is playing.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Comingout(Agent target, Role role)
         {
-            string[] split = { Topic.COMINGOUT.ToString(), (target != null) ? target.ToString() : "null", role.ToString() };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Comingout: Target is null.");
+            }
+            return Topic.COMINGOUT.ToString() + " " + target.ToString() + " " + role.ToString();
         }
 
         /// <summary>
@@ -54,11 +61,14 @@ namespace AIWolf.Client.Lib
         /// <param name="target">The agent divined.</param>
         /// <param name="species">The species which the divined agent is found to be.</param>
         /// <returns>Whisper about divination.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Divined(Agent target, Species species)
         {
-            string[] split = { Topic.DIVINED.ToString(), (target != null) ? target.ToString() : "null", species.ToString() };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Divined: Target is null.");
+            }
+            return Topic.DIVINED.ToString() + " " + target.ToString() + " " + species.ToString();
         }
 
         /// <summary>
@@ -67,11 +77,14 @@ namespace AIWolf.Client.Lib
         /// <param name="target">The agent inquired.</param>
         /// <param name="species">The species which the inquired agent is found to be.</param>
         /// <returns>Whisper about inquest.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Inquested(Agent target, Species species)
         {
-            string[] split = { Topic.INQUESTED.ToString(), (target != null) ? target.ToString() : "null", species.ToString() };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Inquested: Target is null.");
+            }
+            return Topic.INQUESTED.ToString() + " " + target.ToString() + " " + species.ToString();
         }
 
         /// <summary>
@@ -79,11 +92,16 @@ namespace AIWolf.Client.Lib
         /// </summary>
         /// <param name="target">The agent guarded.</param>
         /// <returns>Whisper about guard.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Guarded(Agent target)
         {
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Guarded: Target is null.");
+            }
+
             string[] split = { Topic.GUARDED.ToString(), (target != null) ? target.ToString() : "null" };
-            return WordAttachment(split);
+            return Topic.GUARDED.ToString() + " " + target.ToString();
         }
 
         /// <summary>
@@ -91,11 +109,14 @@ namespace AIWolf.Client.Lib
         /// </summary>
         /// <param name="target">The agent whom the whisperer wants to execute.</param>
         /// <returns>Whisper about vote for execution.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If target is null, this throws AIWolfAgentException.</remarks>
         public static string Vote(Agent target)
         {
-            string[] split = { Topic.VOTE.ToString(), (target != null) ? target.ToString() : "null" };
-            return WordAttachment(split);
+            if (target == null)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Vote: Target is null.");
+            }
+            return Topic.VOTE.ToString() + " " + target.ToString();
         }
 
         /// <summary>
@@ -105,11 +126,18 @@ namespace AIWolf.Client.Lib
         /// <param name="day">The day of talk/whisper.</param>
         /// <param name="id">Index number of talk/whisper.</param>
         /// <returns>Whisper about agreement.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If day or id is negative, this throws AIWolfAgentException.</remarks>
         public static string Agree(TalkType talkType, int day, int id)
         {
-            string[] split = { Topic.AGREE.ToString(), talkType.ToString(), "day" + day, "ID:" + id };
-            return WordAttachment(split);
+            if (day < 0)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Agree: Invalid day " + day + ".");
+            }
+            if (id < 0)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Agree: Invalid id " + id + ".");
+            }
+            return Topic.AGREE.ToString() + " " + talkType.ToString() + " day" + day + " ID:" + id;
         }
 
         /// <summary>
@@ -119,18 +147,24 @@ namespace AIWolf.Client.Lib
         /// <param name="day">The day of talk/whisper.</param>
         /// <param name="id">Index number of talk/whisper.</param>
         /// <returns>Whisper about disagreement.</returns>
-        /// <remarks></remarks>
+        /// <remarks>If day or id is negative, this throws AIWolfAgentException.</remarks>
         public static string Disagree(TalkType talkType, int day, int id)
         {
-            string[] split = { Topic.DISAGREE.ToString(), talkType.ToString(), "day" + day, "ID:" + id };
-            return WordAttachment(split);
+            if (day < 0)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Disagree: Invalid day " + day + ".");
+            }
+            if (id < 0)
+            {
+                throw new AIWolfAgentException("TemplateWhisperFactory.Disagree: Invalid id " + id + ".");
+            }
+            return Topic.DISAGREE.ToString() + " " + talkType.ToString() + " day" + day + " ID:" + id;
         }
 
         /// <summary>
         /// There is nothing to whisper.
         /// </summary>
         /// <returns>String "Over".</returns>
-        /// <remarks></remarks>
         public static string Over()
         {
             return Talk.OVER;
@@ -140,20 +174,9 @@ namespace AIWolf.Client.Lib
         /// Skip this turn though there is something to whisper.
         /// </summary>
         /// <returns>String "Skip".</returns>
-        /// <remarks></remarks>
         public static string Skip()
         {
             return Talk.SKIP;
-        }
-
-        private static string WordAttachment(string[] split)
-        {
-            var answer = "";
-            for (var i = 0; i < split.Length; i++)
-            {
-                answer += split[i] + " ";
-            }
-            return answer.Trim();
         }
     }
 }
