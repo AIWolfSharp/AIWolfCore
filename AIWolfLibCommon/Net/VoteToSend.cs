@@ -1,4 +1,13 @@
-﻿using AIWolf.Common.Data;
+﻿//
+// VoteToSend.cs
+//
+// Copyright (c) 2016 Takashi OTSUKI
+//
+// This software is released under the MIT License.
+// http://opensource.org/licenses/mit-license.php
+//
+
+using AIWolf.Common.Data;
 using System.Runtime.Serialization;
 
 namespace AIWolf.Common.Net

@@ -1,4 +1,13 @@
-﻿namespace AIWolf.Client.Lib
+﻿//
+// Topic.cs
+//
+// Copyright (c) 2016 Takashi OTSUKI
+//
+// This software is released under the MIT License.
+// http://opensource.org/licenses/mit-license.php
+//
+
+namespace AIWolf.Client.Lib
 {
     /// <summary>
     /// Enum class for topic of talk/whisper.

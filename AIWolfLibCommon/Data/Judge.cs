@@ -1,4 +1,13 @@
-﻿using System.Runtime.Serialization;
+﻿//
+// Judge.cs
+//
+// Copyright (c) 2016 Takashi OTSUKI
+//
+// This software is released under the MIT License.
+// http://opensource.org/licenses/mit-license.php
+//
+
+using System.Runtime.Serialization;
 
 namespace AIWolf.Common.Data
 {
