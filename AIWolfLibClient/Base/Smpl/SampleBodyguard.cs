@@ -47,14 +47,15 @@ namespace AIWolf.Client.Base.Smpl
         /// </remarks>
         public override string Talk()
         {
+            TalkBuilder talkBuilder = new TalkBuilder(GameInfoMap[Day]);
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TalkBuilder.Vote(planningVoteAgent);
+                return talkBuilder.Vote(planningVoteAgent);
             }
             else
             {
-                return TalkBuilder.Over();
+                return talkBuilder.Over();
             }
         }
 

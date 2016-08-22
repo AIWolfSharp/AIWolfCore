@@ -49,10 +49,12 @@ namespace AIWolf.Client.Base.Smpl
 
         public override string Talk()
         {
+            TalkBuilder talkBuilder = new TalkBuilder(GameInfoMap[Day]);
+
             if (!isCameout && Day >= comingoutDay)
             {
                 isCameout = true;
-                return TalkBuilder.Comingout(Me, (Role)MyRole);
+                return talkBuilder.Comingout(Me, (Role)MyRole);
             }
             else if (isCameout && !isSaidAllDivineResult)
             {
@@ -61,7 +63,7 @@ namespace AIWolf.Client.Base.Smpl
                     if (!declaredJudgedAgentList.Contains(judge))
                     {
                         declaredJudgedAgentList.Add(judge);
-                        return TalkBuilder.Divined(judge.Target, judge.Result);
+                        return talkBuilder.Divined(judge.Target, judge.Result);
                     }
                 }
                 isSaidAllDivineResult = true;
@@ -70,7 +72,7 @@ namespace AIWolf.Client.Base.Smpl
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TalkBuilder.Vote(planningVoteAgent);
+                return talkBuilder.Vote(planningVoteAgent);
             }
             else
             {

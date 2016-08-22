@@ -66,10 +66,12 @@ namespace AIWolf.Client.Base.Smpl
 
         public override string Talk()
         {
+            TalkBuilder talkBuilder = new TalkBuilder(GameInfoMap[Day]);
+
             if (!isCameout && Day >= comingoutDay)
             {
                 isCameout = true;
-                return TalkBuilder.Comingout(Me, fakeRole);
+                return talkBuilder.Comingout(Me, fakeRole);
             }
             else if (isCameout && !isSaidAllFakeResult)
             {
@@ -80,12 +82,12 @@ namespace AIWolf.Client.Base.Smpl
                         if (fakeRole == Role.SEER)
                         {
                             declaredFakeJudgedAgentList.Add(judge);
-                            return TalkBuilder.Divined(judge.Target, judge.Result);
+                            return talkBuilder.Divined(judge.Target, judge.Result);
                         }
                         else if (fakeRole == Role.MEDIUM)
                         {
                             declaredFakeJudgedAgentList.Add(judge);
-                            return TalkBuilder.Inquested(judge.Target, judge.Result);
+                            return talkBuilder.Inquested(judge.Target, judge.Result);
                         }
                     }
                 }
@@ -95,7 +97,7 @@ namespace AIWolf.Client.Base.Smpl
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TalkBuilder.Vote(planningVoteAgent);
+                return talkBuilder.Vote(planningVoteAgent);
             }
             else
             {
@@ -105,7 +107,8 @@ namespace AIWolf.Client.Base.Smpl
 
         public override string Whisper()
         {
-            return TalkBuilder.Over();
+            WhisperBuilder whisperBuilder = new WhisperBuilder(GameInfoMap[Day]);
+            return whisperBuilder.Over();
         }
 
         public override Agent Vote()
