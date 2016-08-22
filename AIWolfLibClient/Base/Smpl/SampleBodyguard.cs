@@ -50,11 +50,11 @@ namespace AIWolf.Client.Base.Smpl
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TemplateTalkFactory.Vote(planningVoteAgent);
+                return TalkBuilder.Vote(planningVoteAgent);
             }
             else
             {
-                return TemplateTalkFactory.Over();
+                return TalkBuilder.Over();
             }
         }
 

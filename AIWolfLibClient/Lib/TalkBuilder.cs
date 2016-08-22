@@ -1,12 +1,13 @@
 ﻿using AIWolf.Common;
 using AIWolf.Common.Data;
+using AIWolf.Common.Net;
 
 namespace AIWolf.Client.Lib
 {
     /// <summary>
-    /// Factory class to create talk contents.
+    /// Class to create talk contents.
     /// </summary>
-    public class TemplateTalkFactory
+    public class TalkBuilder
     {
         /// <summary>
         /// Returns talk about estimation.

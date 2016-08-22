@@ -69,7 +69,7 @@ namespace AIWolf.Client.Base.Smpl
             if (!isCameout && Day >= comingoutDay)
             {
                 isCameout = true;
-                return TemplateTalkFactory.Comingout(Me, fakeRole);
+                return TalkBuilder.Comingout(Me, fakeRole);
             }
             else if (isCameout && !isSaidAllFakeResult)
             {
@@ -80,12 +80,12 @@ namespace AIWolf.Client.Base.Smpl
                         if (fakeRole == Role.SEER)
                         {
                             declaredFakeJudgedAgentList.Add(judge);
-                            return TemplateTalkFactory.Divined(judge.Target, judge.Result);
+                            return TalkBuilder.Divined(judge.Target, judge.Result);
                         }
                         else if (fakeRole == Role.MEDIUM)
                         {
                             declaredFakeJudgedAgentList.Add(judge);
-                            return TemplateTalkFactory.Inquested(judge.Target, judge.Result);
+                            return TalkBuilder.Inquested(judge.Target, judge.Result);
                         }
                     }
                 }
@@ -95,7 +95,7 @@ namespace AIWolf.Client.Base.Smpl
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TemplateTalkFactory.Vote(planningVoteAgent);
+                return TalkBuilder.Vote(planningVoteAgent);
             }
             else
             {
@@ -105,7 +105,7 @@ namespace AIWolf.Client.Base.Smpl
 
         public override string Whisper()
         {
-            return TemplateTalkFactory.Over();
+            return TalkBuilder.Over();
         }
 
         public override Agent Vote()

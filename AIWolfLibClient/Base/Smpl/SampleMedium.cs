@@ -52,7 +52,7 @@ namespace AIWolf.Client.Base.Smpl
             if (!isCameout && Day >= comingoutDay)
             {
                 isCameout = true;
-                return TemplateTalkFactory.Comingout(Me, (Role)MyRole);
+                return TalkBuilder.Comingout(Me, (Role)MyRole);
             }
             else if (isCameout && !isSaidAllInquestResult)
             {
@@ -61,7 +61,7 @@ namespace AIWolf.Client.Base.Smpl
                     if (!declaredJudgedAgentList.Contains(judge))
                     {
                         declaredJudgedAgentList.Add(judge);
-                        return TemplateTalkFactory.Inquested(judge.Target, judge.Result);
+                        return TalkBuilder.Inquested(judge.Target, judge.Result);
                     }
                 }
                 isSaidAllInquestResult = true;
@@ -70,7 +70,7 @@ namespace AIWolf.Client.Base.Smpl
             if (declaredPlanningVoteAgent != planningVoteAgent)
             {
                 declaredPlanningVoteAgent = planningVoteAgent;
-                return TemplateTalkFactory.Vote(planningVoteAgent);
+                return TalkBuilder.Vote(planningVoteAgent);
             }
             else
             {

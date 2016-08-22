@@ -4,9 +4,9 @@ using AIWolf.Common.Data;
 namespace AIWolf.Client.Lib
 {
     /// <summary>
-    /// Factory class to create whisper contents.
+    /// Class to create whisper contents.
     /// </summary>
-    public class TemplateWhisperFactory
+    public class WhisperBuilder
     {
         /// <summary>
         /// Returns whisper about attack.
