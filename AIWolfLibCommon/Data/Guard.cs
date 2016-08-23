@@ -12,7 +12,7 @@ using System.Runtime.Serialization;
 namespace AIWolf.Common.Data
 {
     /// <summary>
-    /// Information of the guard carried out by the bodyguard.
+    /// Guard class.
     /// </summary>
     /// <remarks></remarks>
     [DataContract]
@@ -22,7 +22,6 @@ namespace AIWolf.Common.Data
         /// The day of the guard.
         /// </summary>
         /// <value>The day of the guard.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "day")]
         public int Day { get; }
 
@@ -30,7 +29,6 @@ namespace AIWolf.Common.Data
         /// The agent of the bodyguard.
         /// </summary>
         /// <value>The agent of the bodyguard.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "agent")]
         public Agent Agent { get; }
 
@@ -38,17 +36,15 @@ namespace AIWolf.Common.Data
         /// The agent guarded by the bodyguard.
         /// </summary>
         /// <value>The agent guarded.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "target")]
         public Agent Target { get; }
 
         /// <summary>
-        /// Initializes a new instance of Guard class.
+        /// Initializes a new instance of this class.
         /// </summary>
         /// <param name="day">The day of guard.</param>
         /// <param name="agent">The agent of the bodyguard.</param>
         /// <param name="target">The agent guarded by the bodyguard.</param>
-        /// <remarks></remarks>
         public Guard(int day, Agent agent, Agent target)
         {
             Day = day;
