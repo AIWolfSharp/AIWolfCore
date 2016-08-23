@@ -10,13 +10,13 @@
 using AIWolf.Common.Data;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace AIWolf.Common.Net
 {
     /// <summary>
     /// Game information.
     /// </summary>
-    /// <remarks></remarks>
     [DataContract]
     public class GameInfo
     {
@@ -24,7 +24,6 @@ namespace AIWolf.Common.Net
         /// Current day.
         /// </summary>
         /// <value>Current day.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "day")]
         public int Day { get; set; }
 
@@ -32,7 +31,6 @@ namespace AIWolf.Common.Net
         /// The agent who receives this GameInfo.
         /// </summary>
         /// <value>The agent who receives this GameInfo.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "agent")]
         public Agent Agent { get; set; }
 
@@ -40,7 +38,6 @@ namespace AIWolf.Common.Net
         /// The role of player who receives this GameInfo.
         /// </summary>
         /// <value>The role of player who receives this GameInfo.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "role")]
         public Role? Role
         {
@@ -70,7 +67,6 @@ namespace AIWolf.Common.Net
         /// The agent executed last night.
         /// </summary>
         /// <value>The agent executed last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "executedAgent")]
         public Agent ExecutedAgent { get; set; }
 
@@ -78,7 +74,6 @@ namespace AIWolf.Common.Net
         /// The agent attacked last night.
         /// </summary>
         /// <value>The agent attacked last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "attackedAgent")]
         public Agent AttackedAgent { get; set; }
 
@@ -86,7 +81,6 @@ namespace AIWolf.Common.Net
         /// The agent guarded last night.
         /// </summary>
         /// <value>The agent guarded last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "guardedAgent")]
         public Agent GuardedAgent { get; set; }
 
@@ -110,7 +104,6 @@ namespace AIWolf.Common.Net
         /// The list of today's talks.
         /// </summary>
         /// <value>The list of today's talks.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "talkList")]
         public List<Talk> TalkList { get; set; }
 
@@ -126,7 +119,6 @@ namespace AIWolf.Common.Net
         /// The statuses of all agents.
         /// </summary>
         /// <value>The dictionary storing the statuses of all agents.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "statusMap")]
         public Dictionary<Agent, Status> StatusMap { get; set; }
 
@@ -145,7 +137,6 @@ namespace AIWolf.Common.Net
         /// The list of agents.
         /// </summary>
         /// <value>The list of agents.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "agentList")]
         public List<Agent> AgentList
         {
@@ -159,31 +150,19 @@ namespace AIWolf.Common.Net
         /// The list of alive agents.
         /// </summary>
         /// <value>The list of alive agents.</value>
-        /// <remarks></remarks>
+        /// <remarks>If all agents are dead, this returns an empty list, not null.</remarks>
         [DataMember(Name = "aliveAgentList")]
         public List<Agent> AliveAgentList
         {
             get
             {
-                List<Agent> aliveAgentList = new List<Agent>();
-                if (AgentList != null)
-                {
-                    foreach (Agent target in AgentList)
-                    {
-                        if (StatusMap[target] == Status.ALIVE)
-                        {
-                            aliveAgentList.Add(target);
-                        }
-                    }
-                }
-                return aliveAgentList;
+                return AgentList.Where(a => StatusMap[a] == Status.ALIVE).ToList();
             }
         }
 
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <remarks></remarks>
         public GameInfo()
         {
             VoteList = new List<Vote>();
