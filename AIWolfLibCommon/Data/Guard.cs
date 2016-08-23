@@ -14,7 +14,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Guard class.
     /// </summary>
-    /// <remarks></remarks>
     [DataContract]
     public class Guard
     {
@@ -47,6 +46,18 @@ namespace AIWolf.Common.Data
         /// <param name="target">The agent guarded by the bodyguard.</param>
         public Guard(int day, Agent agent, Agent target)
         {
+            if (day < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+            }
+            if (agent == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Agent is null.");
+            }
+            if (target == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Target is null.");
+            }
             Day = day;
             Agent = agent;
             Target = target;
@@ -56,7 +67,6 @@ namespace AIWolf.Common.Data
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        /// <remarks></remarks>
         public override string ToString()
         {
             return Agent + " guarded " + Target + "@" + Day;
