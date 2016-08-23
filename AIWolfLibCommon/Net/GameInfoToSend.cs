@@ -92,7 +92,7 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <value>The list of today's talks.</value>
         [DataMember(Name = "talkList")]
-        public List<TalkToSend> TalkList { get; set; }
+        public List<Talk> TalkList { get; set; }
 
         /// <summary>
         /// The list of today's whispers.
@@ -100,7 +100,7 @@ namespace AIWolf.Common.Net
         /// <value>The list of today's whispers.</value>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "whisperList")]
-        public List<TalkToSend> WhisperList { get; set; }
+        public List<Talk> WhisperList { get; set; }
 
         /// <summary>
         /// The statuses of all agents.
@@ -129,8 +129,8 @@ namespace AIWolf.Common.Net
             AttackVoteList = new List<VoteToSend>();
             StatusMap = new Dictionary<int, string>();
             RoleMap = new Dictionary<int, string>();
-            TalkList = new List<TalkToSend>();
-            WhisperList = new List<TalkToSend>();
+            TalkList = new List<Talk>();
+            WhisperList = new List<Talk>();
         }
 
         /// <summary>
@@ -167,14 +167,14 @@ namespace AIWolf.Common.Net
             }
 
             gi.TalkList = new List<Talk>();
-            foreach (TalkToSend talk in TalkList)
+            foreach (Talk talk in TalkList)
             {
-                gi.TalkList.Add(talk.ToTalk());
+                gi.TalkList.Add(talk);
             }
             gi.WhisperList = new List<Talk>();
-            foreach (TalkToSend whisper in WhisperList)
+            foreach (Talk whisper in WhisperList)
             {
-                gi.WhisperList.Add(whisper.ToTalk());
+                gi.WhisperList.Add(whisper);
             }
 
             gi.StatusMap = new Dictionary<Agent, Status>();

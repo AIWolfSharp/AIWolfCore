@@ -15,27 +15,23 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Talk/whisper.
     /// </summary>
-    /// <remarks></remarks>
     [DataContract]
     public class Talk
     {
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
-        /// <remarks></remarks>
         public const string OVER = "Over";
 
         /// <summary>
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
-        /// <remarks></remarks>
         public const string SKIP = "Skip";
 
         /// <summary>
         /// The index number of this talk/whisper.
         /// </summary>
         /// <value>The index number of this talk/whisper.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "idx")]
         public int Idx { get; }
 
@@ -43,7 +39,6 @@ namespace AIWolf.Common.Data
         /// The day of this talk/whisper.
         /// </summary>
         /// <value>The day of this talk/whisper.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "day")]
         public int Day { get; }
 
@@ -52,8 +47,15 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <value>The agent who talked/whispered.</value>
         /// <remarks></remarks>
-        [DataMember(Name = "agent")]
         public Agent Agent { get; }
+
+        /// <summary>
+        /// The index number of the agent who talked/whispered.
+        /// </summary>
+        /// <value>The index number of the agent who talked/whispered.</value>
+        /// <remarks></remarks>
+        [DataMember(Name = "agent")]
+        public int _Agent { get; set; }
 
         /// <summary>
         /// The contents of this talk/whisper.
@@ -73,9 +75,30 @@ namespace AIWolf.Common.Data
         /// <remarks></remarks>
         public Talk(int idx, int day, Agent agent, string content)
         {
+            if (idx < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid idx " + idx + ".");
+            }
+            if (day < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+            }
+            if (agent == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Agent is null.");
+            }
+            if (content == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Content is null.");
+            }
+            if (content.Length == 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Content is empty.");
+            }
             Idx = idx;
             Day = day;
             Agent = agent;
+            _Agent = Agent.AgentIdx;
             Content = content;
         }
 
@@ -84,7 +107,7 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <value>True if this talk/whisper is SKIP, otherwise, false.</value>
         /// <remarks></remarks>
-        [DataMember(Name = "skip")]
+        //[DataMember(Name = "skip")]
         public bool Skip
         {
             get { return Content.Equals(SKIP); }
@@ -95,7 +118,7 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <value>True if this talk/whisper is OVER, otherwise, false.</value>
         /// <remarks></remarks>
-        [DataMember(Name = "over")]
+        //[DataMember(Name = "over")]
         public bool Over
         {
             get { return Content.Equals(OVER); }

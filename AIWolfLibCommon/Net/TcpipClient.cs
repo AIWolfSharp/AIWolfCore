@@ -155,7 +155,7 @@ namespace AIWolf.Common.Net
                 {
                     if (IsAfter(talk, lastTalk))
                     {
-                        gameInfo.TalkList.Add(talk.ToTalk());
+                        gameInfo.TalkList.Add(talk);
                     }
                 }
             }
@@ -171,7 +171,7 @@ namespace AIWolf.Common.Net
                 {
                     if (IsAfter(whisper, lastWhisper))
                     {
-                        gameInfo.WhisperList.Add(whisper.ToTalk());
+                        gameInfo.WhisperList.Add(whisper);
                     }
                 }
             }
@@ -275,7 +275,7 @@ namespace AIWolf.Common.Net
         /// <param name="lastTalk"></param>
         /// <returns></returns>
         /// <remarks>If it is same, return false.</remarks>
-        private bool IsAfter(TalkToSend talk, Talk lastTalk)
+        private bool IsAfter(Talk talk, Talk lastTalk)
         {
             if (lastTalk != null)
             {

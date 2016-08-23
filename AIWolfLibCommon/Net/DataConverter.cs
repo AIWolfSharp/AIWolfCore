@@ -89,8 +89,8 @@ namespace AIWolf.Common.Net
             }
             else if (map["talkHistory"] != null)
             {
-                List<TalkToSend> talkHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["talkHistory"], serializerSetting), serializerSetting));
-                List<TalkToSend> whisperHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["whisperHistory"], serializerSetting), serializerSetting));
+                List<Talk> talkHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["talkHistory"], serializerSetting), serializerSetting));
+                List<Talk> whisperHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["whisperHistory"], serializerSetting), serializerSetting));
                 return new Packet(request, talkHistoryList, whisperHistoryList);
             }
             else
@@ -99,12 +99,12 @@ namespace AIWolf.Common.Net
             }
         }
 
-        private List<TalkToSend> ToTalkList(List<Dictionary<string, string>> mapList)
+        private List<Talk> ToTalkList(List<Dictionary<string, string>> mapList)
         {
-            List<TalkToSend> list = new List<TalkToSend>();
+            List<Talk> list = new List<Talk>();
             foreach (var value in mapList)
             {
-                TalkToSend talk = JsonConvert.DeserializeObject<TalkToSend>(JsonConvert.SerializeObject(value, serializerSetting), serializerSetting);
+                Talk talk = JsonConvert.DeserializeObject<Talk>(JsonConvert.SerializeObject(value, serializerSetting), serializerSetting);
                 list.Add(talk);
             }
             return list;
