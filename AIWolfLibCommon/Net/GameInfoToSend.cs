@@ -77,7 +77,7 @@ namespace AIWolf.Common.Net
         /// <value>The list of votes for execution.</value>
         /// <remarks>You can see who votes to who.</remarks>
         [DataMember(Name = "voteList")]
-        public List<VoteToSend> VoteList { get; set; }
+        public List<Vote> VoteList { get; set; }
 
         /// <summary>
         /// The list of votes for attack.
@@ -85,7 +85,7 @@ namespace AIWolf.Common.Net
         /// <value>The list of votes for attack.</value>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "attackVoteList")]
-        public List<VoteToSend> AttackVoteList { get; set; }
+        public List<Vote> AttackVoteList { get; set; }
 
         /// <summary>
         /// The list of today's talks.
@@ -125,8 +125,8 @@ namespace AIWolf.Common.Net
         /// </summary>
         public GameInfoToSend()
         {
-            VoteList = new List<VoteToSend>();
-            AttackVoteList = new List<VoteToSend>();
+            VoteList = new List<Vote>();
+            AttackVoteList = new List<Vote>();
             StatusMap = new Dictionary<int, string>();
             RoleMap = new Dictionary<int, string>();
             TalkList = new List<Talk>();
@@ -156,14 +156,14 @@ namespace AIWolf.Common.Net
             gi.GuardedAgent = Data.Agent.GetAgent(GuardedAgent);
 
             gi.VoteList = new List<Vote>();
-            foreach (VoteToSend vote in VoteList)
+            foreach (Vote vote in VoteList)
             {
-                gi.VoteList.Add(vote.ToVote());
+                gi.VoteList.Add(vote);
             }
             gi.AttackVoteList = new List<Vote>();
-            foreach (VoteToSend vote in AttackVoteList)
+            foreach (Vote vote in AttackVoteList)
             {
-                gi.AttackVoteList.Add(vote.ToVote());
+                gi.AttackVoteList.Add(vote);
             }
 
             gi.TalkList = new List<Talk>();
