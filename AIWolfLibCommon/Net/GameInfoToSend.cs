@@ -17,7 +17,6 @@ namespace AIWolf.Common.Net
     /// <summary>
     ///  The game information to be sent to each player.
     /// </summary>
-    /// <remarks></remarks>
     [DataContract]
     public class GameInfoToSend
     {
@@ -25,7 +24,6 @@ namespace AIWolf.Common.Net
         /// Current day.
         /// </summary>
         /// <value>Current day.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "day")]
         public int Day { get; set; }
 
@@ -33,7 +31,6 @@ namespace AIWolf.Common.Net
         /// The index number of agent who receives this game information.
         /// </summary>
         /// <value>The index number of agent who receives this game information.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "agent")]
         public int Agent { get; set; }
 
@@ -57,7 +54,6 @@ namespace AIWolf.Common.Net
         /// The index number of the agent executed last night.
         /// </summary>
         /// <value>The index number of the agent executed last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "executedAgent")]
         public int ExecutedAgent { get; set; } = -1;
 
@@ -65,7 +61,6 @@ namespace AIWolf.Common.Net
         /// The index number of the agent attacked last night.
         /// </summary>
         /// <value>The index number of the agent attacked last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "attackedAgent")]
         public int AttackedAgent { get; set; } = -1;
 
@@ -73,7 +68,6 @@ namespace AIWolf.Common.Net
         /// The index number of the agent guarded last night.
         /// </summary>
         /// <value>The index number of the agent guarded last night.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "guardedAgent")]
         public int GuardedAgent { get; set; } = -1;
 
@@ -97,7 +91,6 @@ namespace AIWolf.Common.Net
         /// The list of today's talks.
         /// </summary>
         /// <value>The list of today's talks.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "talkList")]
         public List<TalkToSend> TalkList { get; set; }
 
@@ -113,7 +106,6 @@ namespace AIWolf.Common.Net
         /// The statuses of all agents.
         /// </summary>
         /// <value>Dictionary storing the statuses of all agents.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "statusMap")]
         public Dictionary<int, string> StatusMap { get; set; }
 
@@ -131,7 +123,6 @@ namespace AIWolf.Common.Net
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <remarks></remarks>
         public GameInfoToSend()
         {
             VoteList = new List<VoteToSend>();
@@ -146,7 +137,6 @@ namespace AIWolf.Common.Net
         /// Returns the instance of GameInfo class equivalent to this.
         /// </summary>
         /// <returns>The instance of GameInfo class equivalent to this.</returns>
-        /// <remarks></remarks>
         public GameInfo ToGameInfo()
         {
             GameInfo gi = new GameInfo();
