@@ -14,21 +14,18 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Defines a generalized methods that a class implements to be a player of AIWolf.
     /// </summary>
-    /// <remarks></remarks>
     public interface IPlayer
     {
         /// <summary>
         /// This player's name.
         /// </summary>
         /// <value>This player's name.</value>
-        /// <remarks></remarks>
         string Name { get; }
 
         /// <summary>
         /// Called when the game information is updated.
         /// </summary>
         /// <param name="gameInfo">The current information of this game.</param>
-        /// <remarks></remarks>
         void Update(GameInfo gameInfo);
 
         /// <summary>
@@ -36,13 +33,11 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <param name="gameInfo">The current information of this game.</param>
         /// <param name="gameSetting">The setting of this game.</param>
-        /// <remarks></remarks>
         void Initialize(GameInfo gameInfo, GameSetting gameSetting);
 
         /// <summary>
         /// Called when the day started.
         /// </summary>
-        /// <remarks></remarks>
         void DayStart();
 
         /// <summary>
@@ -69,28 +64,28 @@ namespace AIWolf.Common.Data
         /// Returns the agent this player wants to execute.
         /// </summary>
         /// <returns>The agent this player wants to execute.</returns>
-        /// <remarks></remarks>
+        /// <remarks>Null results in random vote.</remarks>
         Agent Vote();
 
         /// <summary>
         /// Returns the agent this werewolf wants to attack.
         /// </summary>
         /// <returns>The agent this werewolf wants to attack.</returns>
-        /// <remarks></remarks>
+        /// <remarks>No attack in case of null.</remarks>
         Agent Attack();
 
         /// <summary>
         /// Returns the agent this seer wants to divine.
         /// </summary>
         /// <returns>The agent this seer wants to divine.</returns>
-        /// <remarks></remarks>
+        /// <remarks>Null is not allowed.</remarks>
         Agent Divine();
 
         /// <summary>
         /// Returns the agent this bodyguard wants to guard.
         /// </summary>
         /// <returns>The agent this bodyguard wants to guard.</returns>
-        /// <remarks></remarks>
+        /// <remarks>No guard in case of null.</remarks>
         Agent Guard();
 
         /// <summary>
