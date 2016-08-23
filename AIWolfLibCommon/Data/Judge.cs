@@ -14,7 +14,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// The judge whether the player is human or werewolf.
     /// </summary>
-    /// <remarks></remarks>
     [DataContract]
     public class Judge
     {
@@ -22,7 +21,6 @@ namespace AIWolf.Common.Data
         /// The day of this judge.
         /// </summary>
         /// <value>The day of this judge.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "day")]
         public int Day { get; }
 
@@ -30,25 +28,42 @@ namespace AIWolf.Common.Data
         /// The agent who judged.
         /// </summary>
         /// <value>The agent who judged.</value>
-        /// <remarks></remarks>
-        [DataMember(Name = "agent")]
         public Agent Agent { get; }
+
+        /// <summary>
+        /// The index number of the agent who judged.
+        /// </summary>
+        /// <value>The index number of the agent who judged.</value>
+        [DataMember(Name = "agent")]
+        public int _Agent { get; }
 
         /// <summary>
         /// The judged agent.
         /// </summary>
         /// <value>The judged agent.</value>
-        /// <remarks></remarks>
-        [DataMember(Name = "target")]
         public Agent Target { get; }
+
+        /// <summary>
+        /// The index nunmber of the judged agent.
+        /// </summary>
+        /// <value>The index number of the judged agent.</value>
+        [DataMember(Name = "target")]
+        public int _Target { get; }
+
 
         /// <summary>
         /// The result of this judge.
         /// </summary>
         /// <value>Whether the judged agent is human or werewolf.</value>
-        /// <remarks></remarks>
-        [DataMember(Name = "result")]
         public Species Result { get; }
+
+        /// <summary>
+        /// The result of this judge in string.
+        /// </summary>
+        /// <value>"HUMAN" or "WEREWOLF".</value>
+        [DataMember(Name = "result")]
+        public string _Result { get; }
+
 
         /// <summary>
         /// Initializes a new instance of Judge class.
@@ -57,20 +72,33 @@ namespace AIWolf.Common.Data
         /// <param name="agent">The agent who judged.</param>
         /// <param name="target">The judged agent.</param>
         /// <param name="result">The result of this judge.</param>
-        /// <remarks></remarks>
         public Judge(int day, Agent agent, Agent target, Species result)
         {
+            if (day < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+            }
+            if (agent == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Agent is null.");
+            }
+            if (target == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Target is null.");
+            }
             Day = day;
             Agent = agent;
+            _Agent = Agent.AgentIdx;
             Target = target;
+            _Target = Target.AgentIdx;
             Result = result;
+            _Result = Result.ToString();
         }
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        /// <remarks></remarks>
         public override string ToString()
         {
             return Agent + "->" + Target + "@" + Day + ":" + Result;

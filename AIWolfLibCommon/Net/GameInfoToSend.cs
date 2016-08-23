@@ -40,7 +40,7 @@ namespace AIWolf.Common.Net
         /// <value>JudgeToSend representing the result of inquest.</value>
         /// <remarks>Medium only.</remarks>
         [DataMember(Name = "mediumResult")]
-        public JudgeToSend MediumResult { get; set; }
+        public Judge MediumResult { get; set; }
 
         /// <summary>
         /// The result of the divination.
@@ -48,7 +48,7 @@ namespace AIWolf.Common.Net
         /// <value>JudgeToSend representating the result of divination.</value>
         /// <remarks>Seer only.</remarks>
         [DataMember(Name = "divineResult")]
-        public JudgeToSend DivineResult { get; set; }
+        public Judge DivineResult { get; set; }
 
         /// <summary>
         /// The index number of the agent executed last night.
@@ -145,11 +145,11 @@ namespace AIWolf.Common.Net
 
             if (MediumResult != null)
             {
-                gi.MediumResult = MediumResult.ToJudge();
+                gi.MediumResult = MediumResult;
             }
             if (DivineResult != null)
             {
-                gi.DivineResult = DivineResult.ToJudge();
+                gi.DivineResult = DivineResult;
             }
             gi.ExecutedAgent = Data.Agent.GetAgent(ExecutedAgent);
             gi.AttackedAgent = Data.Agent.GetAgent(AttackedAgent);
