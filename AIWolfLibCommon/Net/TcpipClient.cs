@@ -18,8 +18,7 @@ namespace AIWolf.Common.Net
     /// <summary>
     /// AIWolf client using TCP/IP connection.
     /// </summary>
-    /// <remarks></remarks>
-    public class TcpipClient : IGameClient
+    public class TcpipClient
     {
         string host;
         int port;
@@ -28,34 +27,30 @@ namespace AIWolf.Common.Net
 
         IPlayer player;
 
+        GameInfo lastGameInfo;
+
         /// <summary>
         /// The requested role.
         /// </summary>
         /// <value>The requested role.</value>
-        /// <remarks></remarks>
         public Role? RequestRole { get; set; }
 
         /// <summary>
         /// Whether or not this client is running.
         /// </summary>
         /// <value>True if this client is running, otherwise, false.</value>
-        /// <remarks></remarks>
         public bool Running { get; private set; }
-
-        GameInfo lastGameInfo;
 
         /// <summary>
         /// The name of player this client manages.
         /// </summary>
         /// <value>The name of player this client manages.</value>
-        /// <remarks></remarks>
         public string PlayerName { get; set; }
 
         /// <summary>
         /// The number of milliseconds to wait for the request call.
         /// </summary>
         /// <value>The number of milliseconds.</value>
-        /// <remarks></remarks>
         public int Timeout { get; set; } = -1; // Do not limit by default.
 
         /// <summary>
@@ -63,7 +58,6 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <param name="host">Hostname this client connects.</param>
         /// <param name="port">Port number this client connects.</param>
-        /// <remarks></remarks>
         public TcpipClient(string host, int port)
         {
             this.host = host;
@@ -77,7 +71,6 @@ namespace AIWolf.Common.Net
         /// <param name="host">Hostname this client connects.</param>
         /// <param name="port">Port number this client connects.</param>
         /// <param name="requestRole">Role this client requests.</param>
-        /// <remarks></remarks>
         public TcpipClient(string host, int port, Role? requestRole) : this(host, port)
         {
             RequestRole = requestRole;
@@ -87,7 +80,6 @@ namespace AIWolf.Common.Net
         /// Connects the player to the server.
         /// </summary>
         /// <param name="player">The player to be connected.</param>
-        /// <remarks></remarks>
         public void Connect(IPlayer player)
         {
             this.player = player;
@@ -141,7 +133,6 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <param name="packet">The packet from the server.</param>
         /// <returns>The object returned from the player.</returns>
-        /// <remarks></remarks>
         public object Recieve(Packet packet)
         {
             GameInfo gameInfo = lastGameInfo;
