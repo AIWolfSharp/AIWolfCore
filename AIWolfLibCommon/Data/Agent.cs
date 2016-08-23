@@ -14,41 +14,35 @@ using System.Runtime.Serialization;
 namespace AIWolf.Common.Data
 {
     /// <summary>
-    /// Player agent of AIWolf game.
+    /// Agent class.
     /// </summary>
-    /// <remarks>
-    /// Each player can identify other players as Agent.
-    /// Each agent has a unique index number.
-    /// </remarks>
     [DataContract]
     public sealed class Agent : IComparable<Agent>
     {
-        static Dictionary<int, Agent> agentIndexMap = new Dictionary<int, Agent>();
+        static Dictionary<int, Agent> agentMap = new Dictionary<int, Agent>();
 
         /// <summary>
-        /// The agent of given index number.
+        /// Returns the agent of given index.
         /// </summary>
         /// <param name="idx">Agent's index number.</param>
         /// <returns>The agent of given index number.</returns>
-        /// <remarks></remarks>
         public static Agent GetAgent(int idx)
         {
             if (idx < 0)
             {
-                return null;
+                throw new AIWolfAgentException("Agent.GetAgent: Invalid index " + idx + ".");
             }
-            if (!agentIndexMap.ContainsKey(idx))
+            if (!agentMap.ContainsKey(idx))
             {
-                agentIndexMap[idx] = new Agent(idx);
+                agentMap[idx] = new Agent(idx);
             }
-            return agentIndexMap[idx];
+            return agentMap[idx];
         }
 
         /// <summary>
         /// The index number of this agent.
         /// </summary>
         /// <value>The index number of this agent.</value>
-        /// <remarks></remarks>
         [DataMember(Name = "agentIdx")]
         public int AgentIdx { get; }
 
@@ -56,7 +50,6 @@ namespace AIWolf.Common.Data
         /// Initializes a new instance of Agent class with given index number.
         /// </summary>
         /// <param name="idx">The index number of this agent.</param>
-        /// <remarks></remarks>
         private Agent(int idx)
         {
             AgentIdx = idx;
@@ -66,7 +59,6 @@ namespace AIWolf.Common.Data
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
-        /// <remarks></remarks>
         public override string ToString()
         {
             return string.Format("Agent[{0:00}]", AgentIdx);
@@ -76,7 +68,6 @@ namespace AIWolf.Common.Data
         /// Serves as the default hash function.
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
-        /// <remarks></remarks>
         public override int GetHashCode()
         {
             const int prime = 31;
@@ -89,8 +80,7 @@ namespace AIWolf.Common.Data
         /// Determines whether the specified object is equal to the current object.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
-        /// <remarks></remarks>
+        /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
         public override bool Equals(object obj)
         {
             if (this == obj)
