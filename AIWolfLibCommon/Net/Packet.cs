@@ -32,7 +32,7 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <value>The instance of GameInfoToSend class representating the game information.</value>
         [DataMember(Name = "gameInfo")]
-        public GameInfoToSend GameInfo { get; set; }
+        public GameInfo GameInfo { get; set; }
 
         /// <summary>
         /// The setting of game.
@@ -68,23 +68,23 @@ namespace AIWolf.Common.Net
         /// Initializes a new instance of this class with request and game information given.
         /// </summary>
         /// <param name="request">Request given.</param>
-        /// <param name="gameInfoToSend">GemeInfoToSend representation of game information given.</param>
-        public Packet(Request request, GameInfoToSend gameInfoToSend)
+        /// <param name="gameInfo">GemeInfoToSend representation of game information given.</param>
+        public Packet(Request request, GameInfo gameInfo)
         {
             Request = request;
-            GameInfo = gameInfoToSend;
+            GameInfo = gameInfo;
         }
 
         /// <summary>
         /// Initializes a new instance of this class with request, game information and setting of game given.
         /// </summary>
         /// <param name="request">Request given.</param>
-        /// <param name="gameInfoToSend">GemeInfoToSend representation of game information given.</param>
+        /// <param name="gameInfo">GemeInfoToSend representation of game information given.</param>
         /// <param name="gameSetting">GameSetting representation of setting of game given.</param>
-        public Packet(Request request, GameInfoToSend gameInfoToSend, GameSetting gameSetting)
+        public Packet(Request request, GameInfo gameInfo, GameSetting gameSetting)
         {
             Request = request;
-            GameInfo = gameInfoToSend;
+            GameInfo = gameInfo;
             GameSetting = gameSetting;
         }
 

@@ -140,7 +140,7 @@ namespace AIWolf.Common.Net
 
             if (packet.GameInfo != null)
             {
-                gameInfo = packet.GameInfo.ToGameInfo();
+                gameInfo = packet.GameInfo;
                 lastGameInfo = gameInfo;
             }
 

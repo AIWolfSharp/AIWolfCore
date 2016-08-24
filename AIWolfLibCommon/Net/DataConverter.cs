@@ -83,18 +83,18 @@ namespace AIWolf.Common.Net
             Dictionary<string, object> map = Deserialize<Dictionary<string, object>>(line);
 
             Request request = map["request"] != null ? (Request)Enum.Parse(typeof(Request), (string)map["request"]) : Request.DUMMY;
-            GameInfoToSend gameInfoToSend = null;
+            GameInfo gameInfo = null;
             if (map["gameInfo"] != null)
             {
-                gameInfoToSend = Deserialize<GameInfoToSend>(Serialize(map["gameInfo"]));
+                gameInfo = Deserialize<GameInfo>(Serialize(map["gameInfo"]));
                 if (map["gameSetting"] != null)
                 {
                     GameSetting gameSetting = Deserialize<GameSetting>(Serialize(map["gameSetting"]));
-                    return new Packet(request, gameInfoToSend, gameSetting);
+                    return new Packet(request, gameInfo, gameSetting);
                 }
                 else
                 {
-                    return new Packet(request, gameInfoToSend);
+                    return new Packet(request, gameInfo);
                 }
             }
             else if (map["talkHistory"] != null)
