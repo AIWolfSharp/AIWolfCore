@@ -18,24 +18,17 @@ using System.Runtime.Loader;
 namespace AIWolf.ClientStarter
 {
     /// <summary>
-    /// AIWolf client starter.
+    /// Client starter class.
     /// </summary>
-    /// <remarks>
-    /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name]
-    /// </remarks>
     public class ClientStarter
     {
-        /// <summary>
-        /// Initializes a new instance of ClientStarter class.
-        /// </summary>
-        /// <remarks></remarks>
-        public ClientStarter() { }
-
         /// <summary>
         /// Main method.
         /// </summary>
         /// <param name="args">Arguments.</param>
-        /// <remarks></remarks>
+        /// <remarks>
+        /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name]
+        /// </remarks>
         public static void Main(string[] args)
         {
             string host = "localhost";
@@ -53,7 +46,11 @@ namespace AIWolf.ClientStarter
                     if (args[i].Equals("-p"))
                     {
                         i++;
-                        port = int.Parse(args[i]);
+                        if (!int.TryParse(args[i], out port))
+                        {
+                            Console.Error.WriteLine("ClientStarter: Invalid port {0}.", args[i]);
+                            return;
+                        }
                     }
                     else if (args[i].Equals("-h"))
                     {
@@ -67,19 +64,16 @@ namespace AIWolf.ClientStarter
                         i++;
                         dllName = args[i];
                         i++;
-                        try
+                        if (i > args.Length - 1 || args[i].StartsWith("-")) // Role is not requested.
                         {
-                            if (i > args.Length - 1 || args[i].StartsWith("-")) // Roleでない
-                            {
-                                i--;
-                                roleRequest = null;
-                                continue;
-                            }
-                            roleRequest = (Role)Enum.Parse(typeof(Role), args[i]);
+                            i--;
+                            roleRequest = null;
+                            continue;
                         }
-                        catch (ArgumentException)
+                        Role role;
+                        if (!Enum.TryParse(args[i], out role))
                         {
-                            Console.Error.WriteLine("No such role as " + args[i]);
+                            Console.Error.WriteLine("ClientStarter: Invalid role {0}.", args[i]);
                             return;
                         }
                     }
@@ -91,13 +85,17 @@ namespace AIWolf.ClientStarter
                     else if (args[i].Equals("-t"))
                     {
                         i++;
-                        timeout = int.Parse(args[i]);
+                        if (!int.TryParse(args[i], out timeout))
+                        {
+                            Console.Error.WriteLine("ClientStarter: Invalid timeout {0}.", args[i]);
+                            return;
+                        }
                     }
                 }
             }
             if (port < 0 || clsName == null)
             {
-                Console.Error.WriteLine("Usage:" + typeof(ClientStarter).Name + " [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
+                Console.Error.WriteLine("Usage: ClientStarter [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
                 return;
             }
 
@@ -108,7 +106,7 @@ namespace AIWolf.ClientStarter
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine("Error in loading " + dllName);
+                Console.Error.WriteLine("ClientStarter: Error in loading {0}.", dllName);
                 Console.Error.WriteLine(e);
                 return;
             }
@@ -120,7 +118,7 @@ namespace AIWolf.ClientStarter
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine("Error in creating instance of " + clsName);
+                Console.Error.WriteLine("ClientStarter: Error in creating instance of {0}.", clsName);
                 Console.Error.WriteLine(e);
                 return;
             }
@@ -135,14 +133,17 @@ namespace AIWolf.ClientStarter
             {
                 client.Connect(player);
             }
-            catch (AggregateException e)
+            catch (Exception ex)
             {
-                Console.Error.WriteLine(e.InnerException);
-                return;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e);
+                Console.Error.WriteLine("ClientStarter: Error in runnning player.");
+                Console.Error.WriteLine(ex);
+                if (ex is AggregateException)
+                {
+                    foreach (var e in (ex as AggregateException).InnerExceptions)
+                    {
+                        Console.Error.WriteLine(e);
+                    }
+                }
                 return;
             }
         }
