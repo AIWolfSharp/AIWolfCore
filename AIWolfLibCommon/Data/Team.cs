@@ -12,7 +12,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Enum class for team.
     /// </summary>
-    /// <remarks></remarks>
     public enum Team
     {
         /// <summary>

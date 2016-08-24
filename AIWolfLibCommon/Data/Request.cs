@@ -14,7 +14,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Enum class for requests.
     /// </summary>
-    /// <remarks></remarks>
     public enum Request
     {
         /// <summary>
@@ -88,7 +87,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Defines extension method of enum Request.
     /// </summary>
-    /// <remarks></remarks>
     public static class RequestExtensions
     {
         static Dictionary<Request, bool> hasReturnMap = new Dictionary<Request, bool>();
@@ -106,7 +104,6 @@ namespace AIWolf.Common.Data
             hasReturnMap[Request.INITIALIZE] = false;
             hasReturnMap[Request.DAILY_INITIALIZE] = false;
             hasReturnMap[Request.DAILY_FINISH] = false;
-            //hasReturnMap[Request.UPDATE] = false;
             hasReturnMap[Request.FINISH] = false;
             hasReturnMap[Request.DUMMY] = false;
         }
@@ -116,7 +113,6 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <param name="request">Request.</param>
         /// <returns>True if the request waits for return value, otherwise, false.</returns>
-        /// <remarks></remarks>
         public static bool HasReturn(this Request request)
         {
             return hasReturnMap[request];
