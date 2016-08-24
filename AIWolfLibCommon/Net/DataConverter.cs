@@ -14,14 +14,12 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace AIWolf.Common.Net
 {
     /// <summary>
     /// Encodes object and decodes packet string.
     /// </summary>
-    /// <remarks></remarks>
     public class DataConverter
     {
         static DataConverter converter;
@@ -30,7 +28,6 @@ namespace AIWolf.Common.Net
         /// A unique instance of this class.
         /// </summary>
         /// <returns>A unique instance of DataConverter class.</returns>
-        /// <remarks></remarks>
         public static DataConverter GetInstance()
         {
             if (converter == null)
@@ -42,6 +39,9 @@ namespace AIWolf.Common.Net
 
         JsonSerializerSettings serializerSetting;
 
+        /// <summary>
+        /// Initializes a new instance.
+        /// </summary>
         DataConverter()
         {
             serializerSetting = new JsonSerializerSettings();
@@ -52,14 +52,24 @@ namespace AIWolf.Common.Net
         }
 
         /// <summary>
-        /// Returns the JSON string converted from the object given.
+        /// Serializes the given object into the JSON string.
         /// </summary>
-        /// <param name="obj">The object to be converted.</param>
-        /// <returns>The JSON string converted from the object.</returns>
-        /// <remarks></remarks>
-        public string Convert(object obj)
+        /// <param name="obj">The object to be serialized.</param>
+        /// <returns>The JSON string serialized from the given object.</returns>
+        public string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, serializerSetting);
+        }
+
+        /// <summary>
+        /// Deserializes the given JSON string into the object of type T.
+        /// </summary>
+        /// <typeparam name="T">The type of object returned.</typeparam>
+        /// <param name="json">The JSON string to be deserialized.</param>
+        /// <returns>The object of type T deserialized from the JSON string.</returns>
+        public T Deserialize<T>(string json)
+        {
+            return (T)JsonConvert.DeserializeObject<T>(json, serializerSetting);
         }
 
         /// <summary>
@@ -67,19 +77,19 @@ namespace AIWolf.Common.Net
         /// </summary>
         /// <param name="line">The JSON string to be converted.</param>
         /// <returns>The instance of Packet class converted from the JSON string.</returns>
-        /// <remarks></remarks>
+        /// TODO to be moved to TcpipClient class.
         public Packet ToPacket(string line)
         {
-            Dictionary<string, object> map = JsonConvert.DeserializeObject<Dictionary<string, object>>(line, serializerSetting);
+            Dictionary<string, object> map = Deserialize<Dictionary<string, object>>(line);
 
             Request request = map["request"] != null ? (Request)Enum.Parse(typeof(Request), (string)map["request"]) : Request.DUMMY;
             GameInfoToSend gameInfoToSend = null;
             if (map["gameInfo"] != null)
             {
-                gameInfoToSend = JsonConvert.DeserializeObject<GameInfoToSend>(JsonConvert.SerializeObject(map["gameInfo"], serializerSetting), serializerSetting);
+                gameInfoToSend = Deserialize<GameInfoToSend>(Serialize(map["gameInfo"]));
                 if (map["gameSetting"] != null)
                 {
-                    GameSetting gameSetting = JsonConvert.DeserializeObject<GameSetting>(JsonConvert.SerializeObject(map["gameSetting"], serializerSetting), serializerSetting);
+                    GameSetting gameSetting = Deserialize<GameSetting>(Serialize(map["gameSetting"]));
                     return new Packet(request, gameInfoToSend, gameSetting);
                 }
                 else
@@ -89,8 +99,8 @@ namespace AIWolf.Common.Net
             }
             else if (map["talkHistory"] != null)
             {
-                List<Talk> talkHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["talkHistory"], serializerSetting), serializerSetting));
-                List<Talk> whisperHistoryList = ToTalkList(JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(JsonConvert.SerializeObject(map["whisperHistory"], serializerSetting), serializerSetting));
+                List<Talk> talkHistoryList = ToTalkList(Deserialize<List<Dictionary<string, string>>>(Serialize(map["talkHistory"])));
+                List<Talk> whisperHistoryList = ToTalkList(Deserialize<List<Dictionary<string, string>>>(Serialize(map["whisperHistory"])));
                 return new Packet(request, talkHistoryList, whisperHistoryList);
             }
             else
@@ -99,73 +109,17 @@ namespace AIWolf.Common.Net
             }
         }
 
-        private List<Talk> ToTalkList(List<Dictionary<string, string>> mapList)
+        List<Talk> ToTalkList(List<Dictionary<string, string>> mapList)
         {
-            List<Talk> list = new List<Talk>();
-            foreach (var value in mapList)
-            {
-                Talk talk = JsonConvert.DeserializeObject<Talk>(JsonConvert.SerializeObject(value, serializerSetting), serializerSetting);
-                list.Add(talk);
-            }
-            return list;
+            return mapList.Select(m => Deserialize<Talk>(Serialize(m))).ToList();
         }
 
-        /// <summary>
-        /// Returns the instance of Agent class converted from the object given.
-        /// </summary>
-        /// <param name="obj">The object to be converted.</param>
-        /// <returns>The agent converted from the object.</returns>
-        /// <remarks></remarks>
-        public Agent ToAgent(object obj)
+        class OrderedContractResolver : DefaultContractResolver
         {
-            if (obj == null)
+            protected override System.Collections.Generic.IList<JsonProperty> CreateProperties(System.Type type, MemberSerialization memberSerialization)
             {
-                return null;
+                return base.CreateProperties(type, memberSerialization).OrderBy(p => p.PropertyName).ToList();
             }
-            if (obj is string)
-            {
-                Match m = new Regex(@"{""agentIdx"":(\d+)}").Match((string)obj);
-                if (m.Success)
-                {
-                    return Agent.GetAgent(int.Parse(m.Groups[1].Value));
-                }
-            }
-            if (obj is Agent)
-            {
-                return (Agent)obj;
-            }
-            else if (obj is Dictionary<string, object>)
-            {
-                return Agent.GetAgent((int)((Dictionary<string, object>)obj)["agentIdx"]);
-            }
-            else
-            {
-                throw new AIWolfRuntimeException("Can not convert to agent " + obj.GetType() + "\t" + obj);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Resolves member mappings for a type, camel casing ordered property names. 
-    /// </summary>
-    /// <remarks></remarks>
-    class OrderedCamelCasePropertyNamesContractResolver : CamelCasePropertyNamesContractResolver
-    {
-        protected override System.Collections.Generic.IList<JsonProperty> CreateProperties(System.Type type, MemberSerialization memberSerialization)
-        {
-            return base.CreateProperties(type, memberSerialization).OrderBy(p => p.PropertyName).ToList();
-        }
-    }
-
-    /// <summary>
-    /// Resolves a JsonContract for a given Type. 
-    /// </summary>
-    /// <remarks></remarks>
-    class OrderedContractResolver : DefaultContractResolver
-    {
-        protected override System.Collections.Generic.IList<JsonProperty> CreateProperties(System.Type type, MemberSerialization memberSerialization)
-        {
-            return base.CreateProperties(type, memberSerialization).OrderBy(p => p.PropertyName).ToList();
         }
     }
 }

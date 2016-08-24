@@ -109,7 +109,7 @@ namespace AIWolf.Common.Net
                         }
                         else
                         {
-                            sw.WriteLine(DataConverter.GetInstance().Convert(obj));
+                            sw.WriteLine(DataConverter.GetInstance().Serialize(obj));
                         }
                         sw.Flush();
                     }
