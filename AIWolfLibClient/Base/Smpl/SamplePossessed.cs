@@ -1,8 +1,8 @@
 ﻿using AIWolf.Client.Base.Player;
 using AIWolf.Client.Lib;
+using AIWolf.Common;
 using AIWolf.Common.Data;
 using AIWolf.Common.Net;
-using AIWolf.Common.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;

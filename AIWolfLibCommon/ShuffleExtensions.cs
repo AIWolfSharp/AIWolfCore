@@ -11,12 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AIWolf.Common.Util
+namespace AIWolf.Common
 {
     /// <summary>
     /// Defines extension method to shuffle what implements IEnumerable interface.
     /// </summary>
-    /// <remarks></remarks>
     public static class ShuffleExtensions
     {
         /// <summary>
@@ -25,7 +24,6 @@ namespace AIWolf.Common.Util
         /// <typeparam name="T"></typeparam>
         /// <param name="s">Sequence of T.</param>
         /// <returns>Randomized sequence of T.</returns>
-        /// <remarks></remarks>
         public static IOrderedEnumerable<T> Shuffle<T>(this IEnumerable<T> s)
         {
             return s.OrderBy(x => Guid.NewGuid());
