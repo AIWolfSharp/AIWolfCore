@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Talk/whisper.

@@ -1,8 +1,6 @@
 ﻿using AIWolf.Client.Base.Player;
 using AIWolf.Client.Lib;
-using AIWolf.Common;
-using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+using AIWolf.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +74,7 @@ namespace AIWolf.Client.Base.Smpl
             }
             else
             {
-                return Common.Data.Talk.OVER;
+                return AIWolf.Lib.Talk.OVER;
             }
         }
 
@@ -132,7 +130,7 @@ namespace AIWolf.Client.Base.Smpl
             readTalkListNum = talkList.Count;
         }
 
-        private void SetPlanningVoteAgent()
+        void SetPlanningVoteAgent()
         {
             List<Agent> aliveAgentList = LatestDayGameInfo.AliveAgentList;
             aliveAgentList.Remove(Me);

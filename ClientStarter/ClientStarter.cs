@@ -7,8 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+using AIWolf.Lib;
 using Microsoft.Extensions.DependencyModel;
 using System;
 using System.IO;

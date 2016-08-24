@@ -9,7 +9,7 @@
 
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Guard class.

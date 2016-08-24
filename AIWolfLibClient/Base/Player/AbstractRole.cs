@@ -1,5 +1,4 @@
-﻿using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+﻿using AIWolf.Lib;
 using System.Collections.Generic;
 
 namespace AIWolf.Client.Base.Player

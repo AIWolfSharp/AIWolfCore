@@ -7,9 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Net;
-
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Defines a generalized methods that a class implements to be a player of AIWolf.

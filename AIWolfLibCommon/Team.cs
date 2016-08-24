@@ -1,5 +1,5 @@
 ﻿//
-// Species.cs
+// Team.cs
 //
 // Copyright (c) 2016 Takashi OTSUKI
 //
@@ -7,20 +7,20 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for species.
+    /// Enum class for team.
     /// </summary>
-    public enum Species
+    public enum Team
     {
         /// <summary>
-        /// Human.
+        /// Team villager.
         /// </summary>
-        HUMAN,
+        VILLAGER,
 
         /// <summary>
-        /// Werewolf.
+        /// Team werewolf.
         /// </summary>
         WEREWOLF
     }

@@ -7,14 +7,13 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Net
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Game information.

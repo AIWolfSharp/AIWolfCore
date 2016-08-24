@@ -7,8 +7,8 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+
+using AIWolf.Lib;
 
 namespace AIWolf.Client.Lib
 {

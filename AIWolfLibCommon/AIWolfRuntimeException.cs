@@ -9,7 +9,7 @@
 
 using System;
 
-namespace AIWolf.Common
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Exception that occurs during execution of AIWolf application.

@@ -7,7 +7,6 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +14,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace AIWolf.Common.Net
+namespace AIWolf.Lib
 {
     /// <summary>
     /// AIWolf client using TCP/IP connection.

@@ -7,7 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
+using AIWolf.Lib;
 using System;
 using System.Text.RegularExpressions;
 
@@ -16,49 +16,42 @@ namespace AIWolf.Client.Lib
     /// <summary>
     /// Result of parsing talk/whisper.
     /// </summary>
-    /// <remarks></remarks>
     public class Utterance
     {
         /// <summary>
         /// The raw contents of the talk/whisper. 
         /// </summary>
         /// <value>The raw contents of the talk/whisper.</value>
-        /// <remarks></remarks>
         public string Text { get; }
 
         /// <summary>
         /// The topic of the talk/whisper.
         /// </summary>
         /// <value>The topic of the talk/whisper.</value>
-        /// <remarks></remarks>
         public Topic? Topic { get; }
 
         /// <summary>
         /// The agent whom the talker/whisperer aims at.
         /// </summary>
         /// <value>The agent whom the talker/whisperer aims at.</value>
-        /// <remarks></remarks>
         public Agent Target { get; }
 
         /// <summary>
         /// The type of the talk/whisper.
         /// </summary>
         /// <value>TALK/WHISPER.</value>
-        /// <remarks></remarks>
         public TalkType? TalkType { get; }
 
         /// <summary>
         /// The day of the talk/whisper of which the talker/whisperer agrees/disagrees.
         /// </summary>
         /// <value>The day of the talk/whisper of which the talker/whisperer agrees/disagrees.</value>
-        /// <remarks></remarks>
         public int TalkDay { get; }
 
         /// <summary>
         /// The index number of talk/whisper of which the talker/whisperer agrees/disagrees.
         /// </summary>
         /// <value>The index number of talk/whisper of which the talker/whisperer agrees/disagrees.</value>
-        /// <remarks></remarks>
         public int TalkID { get; }
 
         /// <summary>
@@ -79,7 +72,6 @@ namespace AIWolf.Client.Lib
         /// Initializes a new instance of Utterance class with the contents of the talk/whisper.
         /// </summary>
         /// <param name="input">The contents of the talk/whisper.</param>
-        /// <remarks></remarks>
         public Utterance(string input)
         {
             TalkDay = -1;

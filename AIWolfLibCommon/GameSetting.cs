@@ -7,13 +7,12 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Net
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Settings of game.

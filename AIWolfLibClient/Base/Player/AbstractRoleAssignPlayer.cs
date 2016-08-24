@@ -1,6 +1,5 @@
 ﻿using AIWolf.Client.Base.Smpl;
-using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+using AIWolf.Lib;
 
 namespace AIWolf.Client.Base.Player
 {

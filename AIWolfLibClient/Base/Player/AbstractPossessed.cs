@@ -1,4 +1,4 @@
-﻿using AIWolf.Common.Data;
+﻿using AIWolf.Lib;
 
 namespace AIWolf.Client.Base.Player
 {

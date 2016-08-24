@@ -1,5 +1,5 @@
 ﻿//
-// Team.cs
+// Status.cs
 //
 // Copyright (c) 2016 Takashi OTSUKI
 //
@@ -7,21 +7,21 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for team.
+    /// Enum class for whether the player is alive or dead.
     /// </summary>
-    public enum Team
+    public enum Status
     {
         /// <summary>
-        /// Team villager.
+        /// Alive.
         /// </summary>
-        VILLAGER,
+        ALIVE,
 
         /// <summary>
-        /// Team werewolf.
+        /// Dead.
         /// </summary>
-        WEREWOLF
+        DEAD
     }
 }

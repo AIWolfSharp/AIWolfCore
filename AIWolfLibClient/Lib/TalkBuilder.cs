@@ -7,9 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using AIWolf.Common;
-using AIWolf.Common.Data;
-using AIWolf.Common.Net;
+using AIWolf.Lib;
 
 namespace AIWolf.Client.Lib
 {
@@ -18,7 +16,7 @@ namespace AIWolf.Client.Lib
     /// </summary>
     public class TalkBuilder
     {
-        private GameInfo gameInfo;
+        GameInfo gameInfo;
 
         /// <summary>
         /// Initializes a new instance.

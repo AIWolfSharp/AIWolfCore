@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AIWolf.Common
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Defines extension method to shuffle what implements IEnumerable interface.

@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Enum class for roles of player.

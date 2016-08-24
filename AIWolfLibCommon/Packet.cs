@@ -7,12 +7,10 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-
-using AIWolf.Common.Data;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Net
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Packet for sending data to client.

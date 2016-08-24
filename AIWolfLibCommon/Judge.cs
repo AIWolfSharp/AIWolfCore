@@ -1,5 +1,5 @@
 ﻿//
-// Vote.cs
+// Judge.cs
 //
 // Copyright (c) 2016 Takashi OTSUKI
 //
@@ -8,57 +8,72 @@
 //
 
 using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
-    /// Information of vote for execution.
+    /// The judge whether the player is human or werewolf.
     /// </summary>
     [DataContract]
-    public class Vote
+    public class Judge
     {
         /// <summary>
-        /// The day of this vote.
+        /// The day of this judge.
         /// </summary>
-        /// <value>The day of this vote.</value>
+        /// <value>The day of this judge.</value>
         [DataMember(Name = "day")]
         public int Day { get; }
 
         /// <summary>
-        /// The agent who voted.
+        /// The agent who judged.
         /// </summary>
-        /// <value>The agent who voted.</value>
+        /// <value>The agent who judged.</value>
         public Agent Agent { get; }
 
         /// <summary>
-        /// The index number of the agent who voted.
+        /// The index number of the agent who judged.
         /// </summary>
-        /// <value>The index number of the agent who voted.</value>
+        /// <value>The index number of the agent who judged.</value>
         [DataMember(Name = "agent")]
         public int _Agent { get; }
 
         /// <summary>
-        /// The voted agent.
+        /// The judged agent.
         /// </summary>
-        /// <value>The voted agent.</value>
-        /// <remarks></remarks>
+        /// <value>The judged agent.</value>
         public Agent Target { get; }
 
         /// <summary>
-        /// The index number of the voted agent.
+        /// The index nunmber of the judged agent.
         /// </summary>
-        /// <value>The index number of the voted agent.</value>
+        /// <value>The index number of the judged agent.</value>
         [DataMember(Name = "target")]
         public int _Target { get; }
 
+
         /// <summary>
-        /// Initializes a new instance of this class.
+        /// The result of this judge.
         /// </summary>
-        /// <param name="day">The day of this vote.</param>
-        /// <param name="agent">The agent who voted.</param>
-        /// <param name="target">The voted agent.</param>
-        public Vote(int day, Agent agent, Agent target)
+        /// <value>Whether the judged agent is human or werewolf.</value>
+        public Species Result { get; }
+
+        /// <summary>
+        /// The result of this judge in string.
+        /// </summary>
+        /// <value>"HUMAN" or "WEREWOLF".</value>
+        [DataMember(Name = "result")]
+        public string _Result { get; }
+
+        /// <summary>
+        /// Initializes a new instance of Judge class.
+        /// </summary>
+        /// <param name="day">The day of this judge.</param>
+        /// <param name="agent">The agent who judged.</param>
+        /// <param name="target">The judged agent.</param>
+        /// <param name="result">The result of this judge.</param>
+        public Judge(int day, Agent agent, Agent target, Species result)
         {
             if (day < 0)
             {
@@ -77,16 +92,19 @@ namespace AIWolf.Common.Data
             _Agent = Agent.AgentIdx;
             Target = target;
             _Target = Target.AgentIdx;
+            Result = result;
+            _Result = Result.ToString();
         }
 
         /// <summary>
-        /// Initializes a new instance of this class.
+        /// Initializes a new instance of Judge class.
         /// </summary>
-        /// <param name="day">The day of this vote.</param>
-        /// <param name="agent">The index of agent who voted.</param>
-        /// <param name="target">The index of voted agent.</param>
+        /// <param name="day">The day of this judge.</param>
+        /// <param name="agent">The index of agent who judged.</param>
+        /// <param name="target">The index of judged agent.</param>
+        /// <param name="result">The result of this judge.</param>
         [JsonConstructor]
-        public Vote(int day, int agent, int target)
+        public Judge(int day, int agent, int target, string result)
         {
             if (day < 0)
             {
@@ -105,6 +123,8 @@ namespace AIWolf.Common.Data
             Agent = Agent.GetAgent(_Agent);
             _Target = target;
             Target = Agent.GetAgent(_Target);
+            _Result = result;
+            Result = (Species)Enum.Parse(typeof(Species), _Result);
         }
 
         /// <summary>
@@ -113,7 +133,7 @@ namespace AIWolf.Common.Data
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return Agent + "voted " + Target + "@" + Day;
+            return Agent + "->" + Target + "@" + Day + ":" + Result;
         }
     }
 }

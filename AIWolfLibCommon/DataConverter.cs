@@ -12,7 +12,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 
-namespace AIWolf.Common.Net
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Encodes object and decodes packet string.

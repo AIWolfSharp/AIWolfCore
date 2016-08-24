@@ -1,5 +1,5 @@
 ﻿//
-// Status.cs
+// Species.cs
 //
 // Copyright (c) 2016 Takashi OTSUKI
 //
@@ -7,21 +7,21 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for whether the player is alive or dead.
+    /// Enum class for species.
     /// </summary>
-    public enum Status
+    public enum Species
     {
         /// <summary>
-        /// Alive.
+        /// Human.
         /// </summary>
-        ALIVE,
+        HUMAN,
 
         /// <summary>
-        /// Dead.
+        /// Werewolf.
         /// </summary>
-        DEAD
+        WEREWOLF
     }
 }

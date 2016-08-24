@@ -1,4 +1,4 @@
-﻿using AIWolf.Common.Data;
+﻿using AIWolf.Lib;
 using System.Collections.Generic;
 
 namespace AIWolf.Client.Base.Smpl

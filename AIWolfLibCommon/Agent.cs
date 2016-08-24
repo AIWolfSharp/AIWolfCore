@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace AIWolf.Common.Data
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Agent class.
@@ -50,7 +50,7 @@ namespace AIWolf.Common.Data
         /// Initializes a new instance of Agent class with given index number.
         /// </summary>
         /// <param name="idx">The index number of this agent.</param>
-        private Agent(int idx)
+        Agent(int idx)
         {
             AgentIdx = idx;
         }

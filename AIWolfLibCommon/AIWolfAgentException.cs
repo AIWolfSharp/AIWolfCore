@@ -8,18 +8,17 @@
 //
 
 using System;
-using AIWolf.Common.Data;
 
-namespace AIWolf.Common
+namespace AIWolf.Lib
 {
     /// <summary>
     /// Exception that occurs during execution of AIWolf agent.
     /// </summary>
     public class AIWolfAgentException : AIWolfRuntimeException
     {
-        private Agent agent;
-        private Exception exception;
-        private string method;
+        Agent agent;
+        Exception exception;
+        string method;
 
         /// <summary>
         /// Initializes a new instance of the AIWolfAgentException class.
