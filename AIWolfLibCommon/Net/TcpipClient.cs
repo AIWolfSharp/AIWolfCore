@@ -9,7 +9,9 @@
 
 using AIWolf.Common.Data;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
@@ -94,7 +96,7 @@ namespace AIWolf.Common.Net
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    Packet packet = DataConverter.GetInstance().ToPacket(line);
+                    Packet packet = ToPacket(line);
 
                     object obj = Recieve(packet);
                     if (packet.Request.HasReturn())
@@ -275,7 +277,7 @@ namespace AIWolf.Common.Net
         /// <param name="lastTalk"></param>
         /// <returns></returns>
         /// <remarks>If it is same, return false.</remarks>
-        private bool IsAfter(Talk talk, Talk lastTalk)
+        bool IsAfter(Talk talk, Talk lastTalk)
         {
             if (lastTalk != null)
             {
@@ -289,6 +291,53 @@ namespace AIWolf.Common.Net
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Returns the instance of Packet class converted from the JSON string given.
+        /// </summary>
+        /// <param name="line">The JSON string to be converted.</param>
+        /// <returns>The instance of Packet class converted from the JSON string.</returns>
+        Packet ToPacket(string line)
+        {
+            DataConverter dc = DataConverter.GetInstance();
+            Dictionary<string, object> map = dc.Deserialize<Dictionary<string, object>>(line);
+
+            if (map["request"] == null)
+            {
+                throw new AIWolfRuntimeException(GetType() + ".ToPacket: There is no request in " + line + ".");
+            }
+            Request request;
+            if (!Enum.TryParse((string)map["requset"], out request))
+            {
+                throw new AIWolfRuntimeException(GetType() + ".ToPacket: Invalid request in " + line + ".");
+            }
+
+            if (map["gameInfo"] != null)
+            {
+                GameInfo gameInfo = dc.Deserialize<GameInfo>(dc.Serialize(map["gameInfo"]));
+                if (map["gameSetting"] != null)
+                {
+                    GameSetting gameSetting = dc.Deserialize<GameSetting>(dc.Serialize(map["gameSetting"]));
+                    return new Packet(request, gameInfo, gameSetting);
+                }
+                else
+                {
+                    return new Packet(request, gameInfo);
+                }
+            }
+            else if (map["talkHistory"] != null)
+            {
+                List<Talk> talkHistoryList = dc.Deserialize<List<Dictionary<string, string>>>(dc.Serialize(map["talkHistory"]))
+                    .Select(m => dc.Deserialize<Talk>(dc.Serialize(m))).ToList();
+                List<Talk> whisperHistoryList = dc.Deserialize<List<Dictionary<string, string>>>(dc.Serialize(map["whisperHistory"]))
+                    .Select(m => dc.Deserialize<Talk>(dc.Serialize(m))).ToList();
+                return new Packet(request, talkHistoryList, whisperHistoryList);
+            }
+            else
+            {
+                return new Packet(request);
+            }
         }
     }
 }
