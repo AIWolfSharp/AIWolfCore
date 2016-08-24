@@ -15,7 +15,6 @@ namespace AIWolf.Common
     /// <summary>
     /// Exception that occurs during execution of AIWolf agent.
     /// </summary>
-    /// <remarks></remarks>
     public class AIWolfAgentException : AIWolfRuntimeException
     {
         private Agent agent;
@@ -25,7 +24,6 @@ namespace AIWolf.Common
         /// <summary>
         /// Initializes a new instance of the AIWolfAgentException class.
         /// </summary>
-        /// <remarks></remarks>
         public AIWolfAgentException()
         {
         }
@@ -34,7 +32,6 @@ namespace AIWolf.Common
         /// Initializes a new instance of the AIWolfAgentException class with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <remarks></remarks>
         public AIWolfAgentException(string message) : base(message)
         {
         }
@@ -46,7 +43,6 @@ namespace AIWolf.Common
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        /// <remarks></remarks>
         public AIWolfAgentException(string message, Exception innerException) : base(message, innerException)
         {
         }
@@ -59,7 +55,6 @@ namespace AIWolf.Common
         /// <param name="method">The name of the method in which this exception occurred.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
-        /// <remarks></remarks>
         public AIWolfAgentException(Agent agent, string method, Exception innerException)
         {
             this.agent = agent;
