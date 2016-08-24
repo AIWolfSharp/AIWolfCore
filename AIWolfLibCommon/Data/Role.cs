@@ -14,18 +14,12 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Enum class for roles of player.
     /// </summary>
-    /// <remarks></remarks>
     public enum Role
     {
         /// <summary>
         /// Bodyguard.
         /// </summary>
         BODYGUARD,
-
-        /// <summary>
-        /// Freemason. This is not used for now.
-        /// </summary>
-        FREEMASON,
 
         /// <summary>
         /// Medium.
@@ -56,7 +50,6 @@ namespace AIWolf.Common.Data
     /// <summary>
     /// Defines extension method of enum Role.
     /// </summary>
-    /// <remarks></remarks>
     public static class RoleExtensions
     {
         static Dictionary<Role, Team> roleTeamMap = new Dictionary<Role, Team>();
@@ -66,10 +59,6 @@ namespace AIWolf.Common.Data
         {
             roleTeamMap[Role.BODYGUARD] = Team.VILLAGER;
             roleSpeciesMap[Role.BODYGUARD] = Species.HUMAN;
-
-            // This is not used for now.
-            roleTeamMap[Role.FREEMASON] = Team.VILLAGER;
-            roleSpeciesMap[Role.FREEMASON] = Species.HUMAN;
 
             roleTeamMap[Role.MEDIUM] = Team.VILLAGER;
             roleSpeciesMap[Role.MEDIUM] = Species.HUMAN;
@@ -92,7 +81,6 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <param name="role">Role.</param>
         /// <returns>The team the role belongs to.</returns>
-        /// <remarks></remarks>
         public static Team GetTeam(this Role role)
         {
             return roleTeamMap[role];
@@ -103,7 +91,6 @@ namespace AIWolf.Common.Data
         /// </summary>
         /// <param name="role">Role.</param>
         /// <returns>The species the role belongs to.</returns>
-        /// <remarks></remarks>
         public static Species GetSpecies(this Role role)
         {
             return roleSpeciesMap[role];
