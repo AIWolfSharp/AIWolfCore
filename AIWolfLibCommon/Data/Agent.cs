@@ -30,7 +30,7 @@ namespace AIWolf.Common.Data
         {
             if (idx < 0)
             {
-                throw new AIWolfAgentException("Agent.GetAgent: Invalid index " + idx + ".");
+                throw new AIWolfRuntimeException("Agent.GetAgent: Invalid index " + idx + ".");
             }
             if (!agentMap.ContainsKey(idx))
             {

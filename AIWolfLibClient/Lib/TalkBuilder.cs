@@ -33,11 +33,11 @@ namespace AIWolf.Client.Lib
         {
             if (target == null)
             {
-                throw new AIWolfAgentException(GetType().Name + "." + methodName + ": Target is null.");
+                throw new AIWolfRuntimeException(GetType().Name + "." + methodName + ": Target is null.");
             }
             if (!gameInfo.AgentList.Contains(target))
             {
-                throw new AIWolfAgentException(GetType().Name + "." + methodName + ": Invalid target " + target + ".");
+                throw new AIWolfRuntimeException(GetType().Name + "." + methodName + ": Invalid target " + target + ".");
             }
         }
 
@@ -129,11 +129,11 @@ namespace AIWolf.Client.Lib
         {
             if (day < 0 || day > gameInfo.Day)
             {
-                throw new AIWolfAgentException(GetType().Name + ".Agree: Invalid day " + day + ".");
+                throw new AIWolfRuntimeException(GetType().Name + ".Agree: Invalid day " + day + ".");
             }
             if (id < 0)
             {
-                throw new AIWolfAgentException(GetType().Name + ".Agree: Invalid id " + id + ".");
+                throw new AIWolfRuntimeException(GetType().Name + ".Agree: Invalid id " + id + ".");
             }
             return Topic.AGREE.ToString() + " " + talkType.ToString() + " day" + day + " ID:" + id;
         }
@@ -150,11 +150,11 @@ namespace AIWolf.Client.Lib
         {
             if (day < 0 || day > gameInfo.Day)
             {
-                throw new AIWolfAgentException(GetType().Name + ".Agree: Invalid day " + day + ".");
+                throw new AIWolfRuntimeException(GetType().Name + ".Agree: Invalid day " + day + ".");
             }
             if (id < 0)
             {
-                throw new AIWolfAgentException(GetType().Name + ".Agree: Invalid id " + id + ".");
+                throw new AIWolfRuntimeException(GetType().Name + ".Agree: Invalid id " + id + ".");
             }
             return Topic.DISAGREE.ToString() + " " + talkType.ToString() + " day" + day + " ID:" + id;
         }
