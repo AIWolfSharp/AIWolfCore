@@ -7,6 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace AIWolf.Common.Data
@@ -76,6 +77,34 @@ namespace AIWolf.Common.Data
             _Agent = Agent.AgentIdx;
             Target = target;
             _Target = Target.AgentIdx;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="day">The day of this vote.</param>
+        /// <param name="agent">The index of agent who voted.</param>
+        /// <param name="target">The index of voted agent.</param>
+        [JsonConstructor]
+        public Vote(int day, int agent, int target)
+        {
+            if (day < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+            }
+            if (agent < 1)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + agent + ".");
+            }
+            if (target < 1)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid target index " + target + ".");
+            }
+            Day = day;
+            _Agent = agent;
+            Agent = Agent.GetAgent(_Agent);
+            _Target = target;
+            Target = Agent.GetAgent(_Target);
         }
 
         /// <summary>

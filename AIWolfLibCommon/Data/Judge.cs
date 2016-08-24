@@ -7,6 +7,8 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
+using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 
 namespace AIWolf.Common.Data
@@ -64,7 +66,6 @@ namespace AIWolf.Common.Data
         [DataMember(Name = "result")]
         public string _Result { get; }
 
-
         /// <summary>
         /// Initializes a new instance of Judge class.
         /// </summary>
@@ -93,6 +94,37 @@ namespace AIWolf.Common.Data
             _Target = Target.AgentIdx;
             Result = result;
             _Result = Result.ToString();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of Judge class.
+        /// </summary>
+        /// <param name="day">The day of this judge.</param>
+        /// <param name="agent">The index of agent who judged.</param>
+        /// <param name="target">The index of judged agent.</param>
+        /// <param name="result">The result of this judge.</param>
+        [JsonConstructor]
+        public Judge(int day, int agent, int target, string result)
+        {
+            if (day < 0)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+            }
+            if (agent < 1)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + agent + ".");
+            }
+            if (target < 1)
+            {
+                throw new AIWolfRuntimeException(GetType() + ": Invalid target index " + target + ".");
+            }
+            Day = day;
+            _Agent = agent;
+            Agent = Agent.GetAgent(_Agent);
+            _Target = target;
+            Target = Agent.GetAgent(_Target);
+            _Result = result;
+            Result = (Species)Enum.Parse(typeof(Species), _Result);
         }
 
         /// <summary>
