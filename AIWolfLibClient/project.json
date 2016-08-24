@@ -5,7 +5,7 @@
   "version": "0.3.0-*",
 
   "dependencies": {
-    "AIWolfLibCommon": "0.3.0-*",
+    "AIWolfLib": "0.3.0-*",
     "NETStandard.Library": "1.6.0"
   },
 
