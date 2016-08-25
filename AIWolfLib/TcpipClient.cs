@@ -307,7 +307,7 @@ namespace AIWolf.Lib
                 throw new AIWolfRuntimeException(GetType() + ".ToPacket: There is no request in " + line + ".");
             }
             Request request;
-            if (!Enum.TryParse((string)map["requset"], out request))
+            if (!Enum.TryParse((string)map["request"], out request))
             {
                 throw new AIWolfRuntimeException(GetType() + ".ToPacket: Invalid request in " + line + ".");
             }
