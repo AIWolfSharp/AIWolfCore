@@ -35,7 +35,7 @@ namespace AIWolf.Client.Base.Smpl
             base.Initialize(gameInfo, gameSetting);
 
             List<Role> fakeRoles = gameSetting.RoleNumMap.Keys.ToList();
-            List<Role> nonFakeRoleList = new Role[] { Role.BODYGUARD, Role.POSSESSED, Role.WEREWOLF }.ToList();
+            List<Role> nonFakeRoleList = new Role[] { Role.BODYGUARD, Role.FREEMASON, Role.POSSESSED, Role.WEREWOLF }.ToList();
             fakeRoles.RemoveAll(role => nonFakeRoleList.Contains(role));
             fakeRole = fakeRoles[new Random().Next(fakeRoles.Count)];
 

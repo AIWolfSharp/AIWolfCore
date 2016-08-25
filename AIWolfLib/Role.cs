@@ -22,6 +22,11 @@ namespace AIWolf.Lib
         BODYGUARD,
 
         /// <summary>
+        /// Freemason. This is not used for now.
+        /// </summary>
+        FREEMASON,
+
+        /// <summary>
         /// Medium.
         /// </summary>
         MEDIUM,
@@ -59,6 +64,10 @@ namespace AIWolf.Lib
         {
             roleTeamMap[Role.BODYGUARD] = Team.VILLAGER;
             roleSpeciesMap[Role.BODYGUARD] = Species.HUMAN;
+
+            // This is not used for now.
+            roleTeamMap[Role.FREEMASON] = Team.VILLAGER;
+            roleSpeciesMap[Role.FREEMASON] = Species.HUMAN;
 
             roleTeamMap[Role.MEDIUM] = Team.VILLAGER;
             roleSpeciesMap[Role.MEDIUM] = Species.HUMAN;
