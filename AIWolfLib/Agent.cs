@@ -26,11 +26,12 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">Agent's index number.</param>
         /// <returns>The agent of given index number.</returns>
+        /// <remarks>If idx is negative, this returns null.</remarks>
         public static Agent GetAgent(int idx)
         {
             if (idx < 0)
             {
-                throw new AIWolfRuntimeException("Agent.GetAgent: Invalid index " + idx + ".");
+                return null;
             }
             if (!agentMap.ContainsKey(idx))
             {
