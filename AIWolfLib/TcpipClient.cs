@@ -150,15 +150,9 @@ namespace AIWolf.Lib
                 Talk lastTalk = null;
                 if (gameInfo.TalkList != null && gameInfo.TalkList.Count != 0)
                 {
-                    lastTalk = gameInfo.TalkList[gameInfo.TalkList.Count - 1];
+                    lastTalk = gameInfo.TalkList.Last();
                 }
-                foreach (var talk in packet.TalkHistory)
-                {
-                    if (IsAfter(talk, lastTalk))
-                    {
-                        gameInfo.TalkList.Add(talk);
-                    }
-                }
+                gameInfo.TalkList.AddRange(packet.TalkHistory.Where(t => IsAfter(t, lastTalk)));
             }
 
             if (packet.WhisperHistory != null)
@@ -166,15 +160,9 @@ namespace AIWolf.Lib
                 Talk lastWhisper = null;
                 if (gameInfo.WhisperList != null && gameInfo.WhisperList.Count != 0)
                 {
-                    lastWhisper = gameInfo.WhisperList[gameInfo.WhisperList.Count - 1];
+                    lastWhisper = gameInfo.WhisperList.Last();
                 }
-                foreach (var whisper in packet.WhisperHistory)
-                {
-                    if (IsAfter(whisper, lastWhisper))
-                    {
-                        gameInfo.WhisperList.Add(whisper);
-                    }
-                }
+                gameInfo.WhisperList.AddRange(packet.WhisperHistory.Where(w => IsAfter(w, lastWhisper)));
             }
 
             Task<object> task = Task.Run(() =>
