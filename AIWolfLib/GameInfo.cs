@@ -59,7 +59,7 @@ namespace AIWolf.Lib
             set
             {
                 agent = value;
-                _Agent = agent.AgentIdx;
+                _Agent = agent == null ? -1 : agent.AgentIdx;
             }
             get
             {
@@ -111,7 +111,7 @@ namespace AIWolf.Lib
             set
             {
                 executedAgent = value;
-                _ExecutedAgent = executedAgent.AgentIdx;
+                _ExecutedAgent = executedAgent == null ? -1 : executedAgent.AgentIdx;
             }
             get
             {
@@ -135,7 +135,7 @@ namespace AIWolf.Lib
             set
             {
                 attackedAgent = value;
-                _AttackedAgent = attackedAgent.AgentIdx;
+                _AttackedAgent = attackedAgent == null ? -1 : attackedAgent.AgentIdx;
             }
             get
             {
@@ -159,7 +159,7 @@ namespace AIWolf.Lib
             set
             {
                 guardedAgent = value;
-                _GuardedAgent = guardedAgent.AgentIdx;
+                _GuardedAgent = guardedAgent == null ? -1 : guardedAgent.AgentIdx;
             }
             get
             {
@@ -214,7 +214,7 @@ namespace AIWolf.Lib
             set
             {
                 statusMap = value;
-                _StatusMap = statusMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value.ToString());
+                _StatusMap = statusMap == null ? null : statusMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value.ToString());
             }
             get
             {
@@ -242,7 +242,7 @@ namespace AIWolf.Lib
             set
             {
                 roleMap = value;
-                _RoleMap = roleMap.ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
+                _RoleMap = roleMap == null ? null : roleMap.ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
             }
             get
             {
@@ -299,22 +299,6 @@ namespace AIWolf.Lib
             List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Talk> whisperList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
         {
-            if (agent < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + agent + ".");
-            }
-            if (executedAgent < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid executed agent index " + executedAgent + ".");
-            }
-            if (attackedAgent < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid attacked agent index " + attackedAgent + ".");
-            }
-            if (guardedAgent < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid guarded agent index " + guardedAgent + ".");
-            }
             Day = day;
 
             _Agent = agent;
@@ -341,10 +325,6 @@ namespace AIWolf.Lib
             _StatusMap = statusMap;
             foreach (var p in _StatusMap)
             {
-                if (p.Key < 1)
-                {
-                    throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + p.Key + ".");
-                }
                 Status status;
                 if (!Enum.TryParse(p.Value, out status))
                 {
@@ -357,10 +337,6 @@ namespace AIWolf.Lib
             _RoleMap = roleMap;
             foreach (var p in _RoleMap)
             {
-                if (p.Key < 1)
-                {
-                    throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + p.Key + ".");
-                }
                 Role role;
                 if (!Enum.TryParse(p.Value, out role))
                 {
