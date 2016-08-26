@@ -22,12 +22,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
-        public const string OVER = "Over";
+        public static string OVER { get; } = "Over";
 
         /// <summary>
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
-        public const string SKIP = "Skip";
+        public static string SKIP { get; } = "Skip";
 
         /// <summary>
         /// The index number of this talk/whisper.
@@ -134,24 +134,6 @@ namespace AIWolf.Lib
             _Agent = agent;
             Agent = Agent.GetAgent(_Agent);
             Content = content;
-        }
-
-        /// <summary>
-        /// Returns whether or not this talk/whisper is SKIP.
-        /// </summary>
-        /// <value>True if this talk/whisper is SKIP, otherwise, false.</value>
-        public bool Skip
-        {
-            get { return Content.Equals(SKIP); }
-        }
-
-        /// <summary>
-        /// Returns whether or not this talk/whisper is OVER.
-        /// </summary>
-        /// <value>True if this talk/whisper is OVER, otherwise, false.</value>
-        public bool Over
-        {
-            get { return Content.Equals(OVER); }
         }
 
         /// <summary>
