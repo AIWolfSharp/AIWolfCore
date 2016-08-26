@@ -17,29 +17,14 @@ namespace AIWolf.Lib
     /// <summary>
     /// Encodes object and decodes packet string.
     /// </summary>
-    public class DataConverter
+    public static class DataConverter
     {
-        static DataConverter converter;
-
-        /// <summary>
-        /// A unique instance of this class.
-        /// </summary>
-        /// <returns>A unique instance of DataConverter class.</returns>
-        public static DataConverter GetInstance()
-        {
-            if (converter == null)
-            {
-                converter = new DataConverter();
-            }
-            return converter;
-        }
-
-        JsonSerializerSettings serializerSetting;
+        static JsonSerializerSettings serializerSetting;
 
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        DataConverter()
+        static DataConverter()
         {
             serializerSetting = new JsonSerializerSettings();
             // Sort.
@@ -53,7 +38,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="obj">The object to be serialized.</param>
         /// <returns>The JSON string serialized from the given object.</returns>
-        public string Serialize(object obj)
+        public static string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, serializerSetting);
         }
@@ -64,7 +49,7 @@ namespace AIWolf.Lib
         /// <typeparam name="T">The type of object returned.</typeparam>
         /// <param name="json">The JSON string to be deserialized.</param>
         /// <returns>The object of type T deserialized from the JSON string.</returns>
-        public T Deserialize<T>(string json)
+        public static T Deserialize<T>(string json)
         {
             return (T)JsonConvert.DeserializeObject<T>(json, serializerSetting);
         }

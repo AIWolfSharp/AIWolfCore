@@ -110,7 +110,7 @@ namespace AIWolf.Lib
                         }
                         else
                         {
-                            sw.WriteLine(DataConverter.GetInstance().Serialize(obj));
+                            sw.WriteLine(DataConverter.Serialize(obj));
                         }
                         sw.Flush();
                     }
@@ -287,8 +287,7 @@ namespace AIWolf.Lib
         /// <returns>The instance of Packet class converted from the JSON string.</returns>
         Packet ToPacket(string line)
         {
-            DataConverter dc = DataConverter.GetInstance();
-            Dictionary<string, object> map = dc.Deserialize<Dictionary<string, object>>(line);
+            Dictionary<string, object> map = DataConverter.Deserialize<Dictionary<string, object>>(line);
 
             if (map["request"] == null)
             {
@@ -302,10 +301,10 @@ namespace AIWolf.Lib
 
             if (map["gameInfo"] != null)
             {
-                GameInfo gameInfo = dc.Deserialize<GameInfo>(dc.Serialize(map["gameInfo"]));
+                GameInfo gameInfo = DataConverter.Deserialize<GameInfo>(DataConverter.Serialize(map["gameInfo"]));
                 if (map["gameSetting"] != null)
                 {
-                    GameSetting gameSetting = dc.Deserialize<GameSetting>(dc.Serialize(map["gameSetting"]));
+                    GameSetting gameSetting = DataConverter.Deserialize<GameSetting>(DataConverter.Serialize(map["gameSetting"]));
                     return new Packet(request, gameInfo, gameSetting);
                 }
                 else
@@ -315,10 +314,10 @@ namespace AIWolf.Lib
             }
             else if (map["talkHistory"] != null)
             {
-                List<Talk> talkHistoryList = dc.Deserialize<List<Dictionary<string, string>>>(dc.Serialize(map["talkHistory"]))
-                    .Select(m => dc.Deserialize<Talk>(dc.Serialize(m))).ToList();
-                List<Talk> whisperHistoryList = dc.Deserialize<List<Dictionary<string, string>>>(dc.Serialize(map["whisperHistory"]))
-                    .Select(m => dc.Deserialize<Talk>(dc.Serialize(m))).ToList();
+                List<Talk> talkHistoryList = DataConverter.Deserialize<List<Dictionary<string, string>>>(DataConverter.Serialize(map["talkHistory"]))
+                    .Select(m => DataConverter.Deserialize<Talk>(DataConverter.Serialize(m))).ToList();
+                List<Talk> whisperHistoryList = DataConverter.Deserialize<List<Dictionary<string, string>>>(DataConverter.Serialize(map["whisperHistory"]))
+                    .Select(m => DataConverter.Deserialize<Talk>(DataConverter.Serialize(m))).ToList();
                 return new Packet(request, talkHistoryList, whisperHistoryList);
             }
             else
