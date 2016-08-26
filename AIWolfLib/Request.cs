@@ -76,12 +76,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// Request for agent's finish.
         /// </summary>
-        FINISH,
-
-        /// <summary>
-        /// Dummy request.
-        /// </summary>
-        DUMMY
+        FINISH
     }
 
     /// <summary>
@@ -105,7 +100,6 @@ namespace AIWolf.Lib
             hasReturnMap[Request.DAILY_INITIALIZE] = false;
             hasReturnMap[Request.DAILY_FINISH] = false;
             hasReturnMap[Request.FINISH] = false;
-            hasReturnMap[Request.DUMMY] = false;
         }
 
         /// <summary>
