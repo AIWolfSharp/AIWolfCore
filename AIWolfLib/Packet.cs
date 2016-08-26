@@ -23,14 +23,14 @@ namespace AIWolf.Lib
         /// </summary>
         /// <value>Request.</value>
         [DataMember(Name = "request")]
-        public Request Request { get; set; }
+        public Request Request { get; }
 
         /// <summary>
         /// The game information.
         /// </summary>
         /// <value>The instance of GameInfoToSend class representating the game information.</value>
         [DataMember(Name = "gameInfo")]
-        public GameInfo GameInfo { get; set; }
+        public GameInfo GameInfo { get; }
 
         /// <summary>
         /// The setting of game.
@@ -44,14 +44,14 @@ namespace AIWolf.Lib
         /// </summary>
         /// <value>The list of TalkToSend representating the history of talks.</value>
         [DataMember(Name = "talkHistory")]
-        public List<Talk> TalkHistory { get; set; }
+        public List<Talk> TalkHistory { get; }
 
         /// <summary>
         /// The history of whispers.
         /// </summary>
         /// <value>The list of TalkToSend representating the history of whispers.</value>
         [DataMember(Name = "whisperHistory")]
-        public List<Talk> WhisperHistory { get; set; }
+        public List<Talk> WhisperHistory { get; }
 
         /// <summary>
         /// Initializes a new instance of this class with given request.
