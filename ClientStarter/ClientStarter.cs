@@ -15,7 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace AIWolf.ClientStarter
+namespace AIWolf
 {
     /// <summary>
     /// Client starter class.
