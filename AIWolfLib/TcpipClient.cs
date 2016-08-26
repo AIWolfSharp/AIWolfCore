@@ -34,7 +34,7 @@ namespace AIWolf.Lib
         /// The requested role.
         /// </summary>
         /// <value>The requested role.</value>
-        public Role? RequestRole { get; set; }
+        public Role? RequestRole { get; }
 
         /// <summary>
         /// Whether or not this client is running.
@@ -253,7 +253,7 @@ namespace AIWolf.Lib
             }
             else
             {
-                throw new TimeoutException(packet.Request + "@" + player.Name + " aborts because of timeout(" + Timeout + "ms).");
+                throw new TimeoutException(string.Format("{0}@{1} aborts because of timeout({2}ms).", packet.Request, player.Name, Timeout));
             }
         }
 
