@@ -22,7 +22,7 @@ namespace AIWolf.Lib
         static JsonSerializerSettings serializerSetting;
 
         /// <summary>
-        /// Initializes a new instance.
+        /// Initializes this class.
         /// </summary>
         static DataConverter()
         {
