@@ -76,7 +76,7 @@ namespace AIWolf.Lib
         /// Returns the agent this seer wants to divine.
         /// </summary>
         /// <returns>The agent this seer wants to divine.</returns>
-        /// <remarks>Null is not allowed.</remarks>
+        /// <remarks>No divination in case of null.</remarks>
         Agent Divine();
 
         /// <summary>
