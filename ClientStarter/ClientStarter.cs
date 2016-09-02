@@ -143,7 +143,7 @@ namespace AIWolf
             Assembly assembly;
             try
             {
-                assembly = new AssemblyLoader().LoadFromAssemblyPath(Path.GetFullPath(dllName));
+                assembly = new AssemblyLoader(Path.GetDirectoryName(dllName)).LoadFromAssemblyPath(Path.GetFullPath(dllName));
             }
             catch (Exception e)
             {
@@ -198,10 +198,30 @@ namespace AIWolf
 
     class AssemblyLoader : AssemblyLoadContext
     {
+        string folderPath;
+
+        public AssemblyLoader(string folderPath)
+        {
+            this.folderPath = folderPath;
+        }
+
         protected override Assembly Load(AssemblyName assemblyName)
         {
-            string name = DependencyContext.Default.CompileLibraries.Where(d => d.Name.Contains(assemblyName.Name)).First().Name;
-            return Assembly.Load(new AssemblyName(name));
+            var cl = DependencyContext.Default.CompileLibraries.Where(d => d.Name.Contains(assemblyName.Name));
+            if (cl.Count() > 0)
+            {
+                return Assembly.Load(new AssemblyName(cl.First().Name));
+            }
+            else
+            {
+                var fileInfo = new FileInfo($"{folderPath}{Path.DirectorySeparatorChar}{assemblyName.Name}.dll");
+                if (File.Exists(fileInfo.FullName))
+                {
+                    var asl = new AssemblyLoader(fileInfo.DirectoryName);
+                    return asl.LoadFromAssemblyPath(fileInfo.FullName);
+                }
+            }
+            return Assembly.Load(assemblyName);
         }
     }
 }
