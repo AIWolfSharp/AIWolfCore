@@ -2,7 +2,7 @@
   "title": "ClientStarter",
   "copyright": "Copyright © 2016 Takashi OTSUKI",
   "description": "The starter for AIWolf client.",
-  "version": "0.3.0-*",
+  "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
