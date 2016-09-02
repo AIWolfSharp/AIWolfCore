@@ -1,26 +1,14 @@
 [View in Japanese](http://aiwolfsharp.github.io/AIWolf_NET)
 # AIWolf.NET
-## .NET version of AIWolf Library
+## .NET Core version of AIWolf Library
 
-AIWolf.NET is a AIWolf (artificial intelligence based werewolf) library for .NET Framework 4.5.
-This library is written in C#, and current version number is 0.2.2.
+AIWolf.NET is a AIWolf (artificial intelligence based werewolf) library for .NET Core.
+This library is written in C#, and current version number is 1.0.0.
 
 1. QUICK START
 
-    1. Download AIWolf_NET-0.2.2.zip.
-
-        [AIWolf_NET-0.2.2.zip](https://github.com/AIWolfSharp/AIWolf_NET/releases/download/v0.2.2/AIWolf_NET-0.2.2.zip)
-        includes two dlls (AIWolfLibCommon.dll, AIWolfLibClient.dll),
-        starter executable (ClientStarter.exe)
-        and API reference manual in html folder.
-        The redistribution of Json.NET 9.0 Release 1 (Json90r1.zip) is also included.
-        This is enough to make an AIWolf agent
-        if you don't need source code of the library.
-        In case the downloaded files do not work properly becase Windows blocks them,
-        unblock them using "Properties" in context menu.
-
-    1. Extract AIWolf_NET-0.2.2.zip
-    and put Newtonsoft.Json.dll into the same folder of the extracted files. 
+    1. AIWolf.NET is now NuGet package, so you do not have to install it to your solution
+        because NuGet package manager automatically do it.
 
     1. Try sample agent.
 
@@ -63,6 +51,12 @@ This library is written in C#, and current version number is 0.2.2.
         - Make exception handling smarter.
 
         - Make ClientStarter.exe show more information in case of exception.
+        
+    * 1.0.0
+        
+        - Built on .NET Core 1.0.
+        
+        - The sample agent has gone away. You can obtain it as another library.
 
 ---
 This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
