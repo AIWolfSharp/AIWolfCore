@@ -46,23 +46,51 @@ namespace AIWolf
                     if (args[i].Equals("-p"))
                     {
                         i++;
-                        if (!int.TryParse(args[i], out port))
+                        if (i < args.Length)
                         {
-                            Console.Error.WriteLine("ClientStarter: Invalid port {0}.", args[i]);
-                            return;
+                            if (!int.TryParse(args[i], out port))
+                            {
+                                Console.Error.WriteLine("ClientStarter: Invalid port {0}.", args[i]);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Usage();
                         }
                     }
                     else if (args[i].Equals("-h"))
                     {
                         i++;
-                        host = args[i];
+                        if (i < args.Length)
+                        {
+                            host = args[i];
+                        }
+                        else
+                        {
+                            Usage();
+                        }
                     }
                     else if (args[i].Equals("-c"))
                     {
                         i++;
-                        clsName = args[i];
+                        if (i < args.Length)
+                        {
+                            clsName = args[i];
+                        }
+                        else
+                        {
+                            Usage();
+                        }
                         i++;
-                        dllName = args[i];
+                        if (i < args.Length)
+                        {
+                            dllName = args[i];
+                        }
+                        else
+                        {
+                            Usage();
+                        }
                         i++;
                         if (i > args.Length - 1 || args[i].StartsWith("-")) // Role is not requested.
                         {
@@ -80,23 +108,36 @@ namespace AIWolf
                     else if (args[i].Equals("-n"))
                     {
                         i++;
-                        playerName = args[i];
+                        if (i < args.Length)
+                        {
+                            playerName = args[i];
+                        }
+                        else
+                        {
+                            Usage();
+                        }
                     }
                     else if (args[i].Equals("-t"))
                     {
                         i++;
-                        if (!int.TryParse(args[i], out timeout))
+                        if (i < args.Length)
                         {
-                            Console.Error.WriteLine("ClientStarter: Invalid timeout {0}.", args[i]);
-                            return;
+                            if (!int.TryParse(args[i], out timeout))
+                            {
+                                Console.Error.WriteLine("ClientStarter: Invalid timeout {0}.", args[i]);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            Usage();
                         }
                     }
                 }
             }
             if (port < 0 || clsName == null)
             {
-                Console.Error.WriteLine("Usage: ClientStarter [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
-                return;
+                Usage();
             }
 
             Assembly assembly;
@@ -146,6 +187,12 @@ namespace AIWolf
                 }
                 return;
             }
+        }
+
+        static void Usage()
+        {
+            Console.Error.WriteLine("Usage: ClientStarter [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
+            Environment.Exit(0);
         }
     }
 
