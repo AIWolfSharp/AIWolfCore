@@ -135,33 +135,40 @@ namespace AIWolf
                     }
                 }
             }
-            if (port < 0 || clsName == null)
+            if (port < 0)
             {
                 Usage();
             }
 
-            Assembly assembly;
-            try
-            {
-                assembly = new AssemblyLoader(Path.GetDirectoryName(dllName)).LoadFromAssemblyPath(Path.GetFullPath(dllName));
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine("ClientStarter: Error in loading {0}.", dllName);
-                Console.Error.WriteLine(e);
-                return;
-            }
-
             IPlayer player;
-            try
+            if (clsName == null)
             {
-                player = (IPlayer)Activator.CreateInstance(assembly.GetType(clsName));
+                player = new DefaultPlayer();
             }
-            catch (Exception e)
+            else
             {
-                Console.Error.WriteLine("ClientStarter: Error in creating instance of {0}.", clsName);
-                Console.Error.WriteLine(e);
-                return;
+                Assembly assembly;
+                try
+                {
+                    assembly = new AssemblyLoader(Path.GetDirectoryName(dllName)).LoadFromAssemblyPath(Path.GetFullPath(dllName));
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine("ClientStarter: Error in loading {0}.", dllName);
+                    Console.Error.WriteLine(e);
+                    return;
+                }
+
+                try
+                {
+                    player = (IPlayer)Activator.CreateInstance(assembly.GetType(clsName));
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine("ClientStarter: Error in creating instance of {0}.", clsName);
+                    Console.Error.WriteLine(e);
+                    return;
+                }
             }
 
             TcpipClient client = new TcpipClient(host, port, roleRequest);
@@ -222,6 +229,67 @@ namespace AIWolf
                 }
             }
             return Assembly.Load(assemblyName);
+        }
+    }
+
+    class DefaultPlayer : IPlayer
+    {
+        public string Name
+        {
+            get
+            {
+                return GetType().ToString();
+            }
+        }
+
+        public Agent Attack()
+        {
+            return null;
+        }
+
+        public void DayStart()
+        {
+            return;
+        }
+
+        public Agent Divine()
+        {
+            return null;
+        }
+
+        public void Finish()
+        {
+            return;
+        }
+
+        public Agent Guard()
+        {
+            return null;
+        }
+
+        public void Initialize(GameInfo gameInfo, GameSetting gameSetting)
+        {
+            return;
+        }
+
+        public string Talk()
+        {
+            return Lib.Talk.OVER;
+        }
+
+        public void Update(GameInfo gameInfo)
+        {
+            return;
+        }
+
+        public Agent Vote()
+        {
+            return null;
+        }
+
+        public string Whisper()
+        {
+            return Lib.Talk.OVER;
         }
     }
 }
