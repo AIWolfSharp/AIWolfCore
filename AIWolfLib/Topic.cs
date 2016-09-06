@@ -62,11 +62,11 @@ namespace AIWolf.Lib
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
-        OVER,
+        Over,
 
         /// <summary>
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
-        SKIP
+        Skip
     }
 }
