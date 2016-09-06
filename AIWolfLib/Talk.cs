@@ -91,30 +91,29 @@ namespace AIWolf.Lib
         /// <param name="content">The contents of this talk/whisper.</param>
         public Talk(int idx, int day, Agent agent, string content)
         {
+            Idx = idx;
             if (idx < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid idx " + idx + ".");
+                Error.RuntimeError(GetType() + "(): Invalid idx " + idx + ".", "Force it to be 0.");
+                Idx = 0;
             }
-            else if (day < 0)
+
+            Day = day;
+            if (day < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".");
+                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
+                day = 0;
             }
-            else if (agent == null)
+
+            Agent = agent;
+            if (agent == null)
             {
-                Error.RuntimeError(GetType() + "(): Agent is null.");
+                Error.RuntimeError(GetType() + "(): Agent is null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
             }
-            else if (agent.AgentIdx == 0)
-            {
-                Error.RuntimeError(GetType() + "(): Invalid Agent " + agent + ".");
-            }
-            else
-            {
-                Idx = idx;
-                Day = day;
-                Agent = agent;
-                _Agent = Agent.AgentIdx;
-                Content = content;
-            }
+            _Agent = Agent.AgentIdx;
+
+            Content = content;
         }
 
         /// <summary>
