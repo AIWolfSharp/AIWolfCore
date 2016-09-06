@@ -21,34 +21,28 @@ namespace AIWolf.Lib
         /// <summary>
         /// The day of this vote.
         /// </summary>
-        /// <value>The day of this vote.</value>
         [DataMember(Name = "day")]
         public int Day { get; }
 
         /// <summary>
         /// The agent who voted.
         /// </summary>
-        /// <value>The agent who voted.</value>
         public Agent Agent { get; }
 
         /// <summary>
         /// The index number of the agent who voted.
         /// </summary>
-        /// <value>The index number of the agent who voted.</value>
         [DataMember(Name = "agent")]
         public int _Agent { get; }
 
         /// <summary>
         /// The voted agent.
         /// </summary>
-        /// <value>The voted agent.</value>
-        /// <remarks></remarks>
         public Agent Target { get; }
 
         /// <summary>
         /// The index number of the voted agent.
         /// </summary>
-        /// <value>The index number of the voted agent.</value>
         [DataMember(Name = "target")]
         public int _Target { get; }
 
@@ -60,22 +54,27 @@ namespace AIWolf.Lib
         /// <param name="target">The voted agent.</param>
         public Vote(int day, Agent agent, Agent target)
         {
+            Day = day;
             if (day < 0)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
+                Day = 0;
             }
+
+            Agent = agent;
             if (agent == null)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Agent is null.");
+                Error.RuntimeError(GetType() + "(): Agent is null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
             }
+            _Agent = Agent.AgentIdx;
+
+            Target = target;
             if (target == null)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Target is null.");
+                Error.RuntimeError(GetType() + "(): Target is null.", "Force it to be Agent[00].");
+                Target = Agent.GetAgent(0);
             }
-            Day = day;
-            Agent = agent;
-            _Agent = Agent.AgentIdx;
-            Target = target;
             _Target = Target.AgentIdx;
         }
 
@@ -86,25 +85,8 @@ namespace AIWolf.Lib
         /// <param name="agent">The index of agent who voted.</param>
         /// <param name="target">The index of voted agent.</param>
         [JsonConstructor]
-        public Vote(int day, int agent, int target)
+        public Vote(int day, int agent, int target) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target))
         {
-            if (day < 0)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
-            }
-            if (agent < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + agent + ".");
-            }
-            if (target < 1)
-            {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid target index " + target + ".");
-            }
-            Day = day;
-            _Agent = agent;
-            Agent = Agent.GetAgent(_Agent);
-            _Target = target;
-            Target = Agent.GetAgent(_Target);
         }
 
         /// <summary>
