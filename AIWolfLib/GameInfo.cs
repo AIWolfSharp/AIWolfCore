@@ -39,9 +39,13 @@ namespace AIWolf.Lib
             {
                 if (value < 0)
                 {
-                    throw new AIWolfRuntimeException(GetType() + ": Invalid day " + value + ".");
+                    Error.RuntimeError(GetType() + ".Day: Invalid day " + value + ".", "Force it to be 0.");
+                    day = 0;
                 }
-                day = value;
+                else
+                {
+                    day = value;
+                }
             }
             get
             {
@@ -223,7 +227,7 @@ namespace AIWolf.Lib
             set
             {
                 roleMap = value;
-                _RoleMap = roleMap == null ? null : roleMap.ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
+                _RoleMap = roleMap == null ? null : roleMap.Where(m => m.Value != Role.UNC).ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
             }
             get
             {
@@ -248,7 +252,7 @@ namespace AIWolf.Lib
         {
             get
             {
-                return new List<Agent>(StatusMap.Keys);
+                return StatusMap.Keys.ToList();
             }
         }
 
