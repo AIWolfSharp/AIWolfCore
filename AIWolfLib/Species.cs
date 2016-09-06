@@ -17,7 +17,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// Uncertain.
         /// </summary>
-        UNC = 0,
+        UNC,
 
         /// <summary>
         /// Human.
