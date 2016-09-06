@@ -21,10 +21,18 @@ namespace AIWolf.Lib
         /// Writes an error message, then throws exception on debug.
         /// </summary>
         /// <param name="message">Error message.</param>
-        public static void RuntimeError(string message)
+        public static void RuntimeError(params string[] messages)
         {
-            Console.Error.WriteLine(message);
+            string message = "";
+            if (messages.Length > 0)
+            {
+                message = messages[0];
+            }
             ThrowException(message);
+            foreach (var m in messages)
+            {
+                Console.Error.WriteLine(m);
+            }
         }
 
         [Conditional("DEBUG")]
