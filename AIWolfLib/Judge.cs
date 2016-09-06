@@ -22,33 +22,28 @@ namespace AIWolf.Lib
         /// <summary>
         /// The day of this judge.
         /// </summary>
-        /// <value>The day of this judge.</value>
         [DataMember(Name = "day")]
         public int Day { get; }
 
         /// <summary>
         /// The agent who judged.
         /// </summary>
-        /// <value>The agent who judged.</value>
         public Agent Agent { get; }
 
         /// <summary>
         /// The index number of the agent who judged.
         /// </summary>
-        /// <value>The index number of the agent who judged.</value>
         [DataMember(Name = "agent")]
         public int _Agent { get; }
 
         /// <summary>
         /// The judged agent.
         /// </summary>
-        /// <value>The judged agent.</value>
         public Agent Target { get; }
 
         /// <summary>
         /// The index nunmber of the judged agent.
         /// </summary>
-        /// <value>The index number of the judged agent.</value>
         [DataMember(Name = "target")]
         public int _Target { get; }
 
@@ -56,13 +51,11 @@ namespace AIWolf.Lib
         /// <summary>
         /// The result of this judge.
         /// </summary>
-        /// <value>Whether the judged agent is human or werewolf.</value>
         public Species Result { get; }
 
         /// <summary>
         /// The result of this judge in string.
         /// </summary>
-        /// <value>"HUMAN" or "WEREWOLF".</value>
         [DataMember(Name = "result")]
         public string _Result { get; }
 
@@ -75,24 +68,35 @@ namespace AIWolf.Lib
         /// <param name="result">The result of this judge.</param>
         public Judge(int day, Agent agent, Agent target, Species result)
         {
+            Day = day;
             if (day < 0)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
+                Day = 0;
             }
+
+            Agent = agent;
             if (agent == null)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Agent is null.");
+                Error.RuntimeError(GetType() + "(): Agent is null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
             }
+            _Agent = Agent.AgentIdx;
+
+            Target = target;
             if (target == null)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Target is null.");
+                Error.RuntimeError(GetType() + "(): Target is null.", "Force it to be Agent[00].");
+                Target = Agent.GetAgent(0);
             }
-            Day = day;
-            Agent = agent;
-            _Agent = Agent.AgentIdx;
-            Target = target;
             _Target = Target.AgentIdx;
+
             Result = result;
+            if (result == Species.UNC)
+            {
+                Error.RuntimeError(GetType() + "(): Species.UNC is not allowed as result.", "Force it to be Species.HUMAN.");
+                Result = Species.HUMAN;
+            }
             _Result = Result.ToString();
         }
 
@@ -106,25 +110,38 @@ namespace AIWolf.Lib
         [JsonConstructor]
         public Judge(int day, int agent, int target, string result)
         {
+            Day = day;
             if (day < 0)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid day " + day + ".");
+                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
+                Day = 0;
             }
+
+            _Agent = agent;
             if (agent < 1)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid agent index " + agent + ".");
+                Error.RuntimeError(GetType() + "(): Invalid agent index " + agent + ".", "Force it to be 0.");
+                _Agent = 0;
             }
+            Agent = Agent.GetAgent(_Agent);
+
+            _Target = target;
             if (target < 1)
             {
-                throw new AIWolfRuntimeException(GetType() + ": Invalid target index " + target + ".");
+                Error.RuntimeError(GetType() + "(): Invalid target index " + target + ".", "Force it to be 0.");
+                _Target = 0;
             }
-            Day = day;
-            _Agent = agent;
-            Agent = Agent.GetAgent(_Agent);
-            _Target = target;
             Target = Agent.GetAgent(_Target);
+
             _Result = result;
-            Result = (Species)Enum.Parse(typeof(Species), _Result);
+            Species r;
+            if (!Enum.TryParse(result, out r) || r == Species.UNC)
+            {
+                Error.RuntimeError(GetType() + "(): Invalid result string " + result + ".", "Force it to be HUMAN.");
+                _Result = "HUMAN";
+                r = Species.HUMAN;
+            }
+            Result = r;
         }
 
         /// <summary>
