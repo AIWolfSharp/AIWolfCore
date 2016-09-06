@@ -15,11 +15,6 @@ namespace AIWolf.Lib
     public enum Status
     {
         /// <summary>
-        /// Uncertain.
-        /// </summary>
-        UNC,
-
-        /// <summary>
         /// Alive.
         /// </summary>
         ALIVE,
