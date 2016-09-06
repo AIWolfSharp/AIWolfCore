@@ -93,19 +93,19 @@ namespace AIWolf.Lib
         {
             if (idx < 0)
             {
-                Error(GetType() + "(): Invalid idx " + idx + ".");
+                Error.RuntimeError(GetType() + "(): Invalid idx " + idx + ".");
             }
             else if (day < 0)
             {
-                Error(GetType() + "(): Invalid day " + day + ".");
+                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".");
             }
             else if (agent == null)
             {
-                Error(GetType() + "(): Agent is null.");
+                Error.RuntimeError(GetType() + "(): Agent is null.");
             }
             else if (agent.AgentIdx == 0)
             {
-                Error(GetType() + "(): Invalid Agent " + agent + ".");
+                Error.RuntimeError(GetType() + "(): Invalid Agent " + agent + ".");
             }
             else
             {
@@ -138,14 +138,14 @@ namespace AIWolf.Lib
         {
             if (content == null || content.Length == 0)
             {
-                Error(GetType() + ".ParseContent(): Content is empty or null.");
+                Error.RuntimeError(GetType() + ".ParseContent(): Content is empty or null.");
                 return null;
             }
 
             sentence = content.Split();
             if (!Enum.TryParse(sentence[0], out topic))
             {
-                Error(GetType() + ".ParseContent(): Can not find any topic in content " + content + ".");
+                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + content + ".");
                 return null;
             }
 
@@ -156,7 +156,7 @@ namespace AIWolf.Lib
                     {
                         return content;
                     }
-                    Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                     return null;
                 case 2:
                     int targetId = GetInt(sentence[1]);
@@ -172,13 +172,13 @@ namespace AIWolf.Lib
                     {
                         return new Vote(Agent.GetAgent(targetId));
                     }
-                    Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                     return null;
                 case 3:
                     targetId = GetInt(sentence[1]);
                     if (targetId < 1)
                     {
-                        Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                         return null;
                     }
                     if (topic == Topic.ESTIMATE)
@@ -186,7 +186,7 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         return new Estimate(Agent.GetAgent(targetId), role);
@@ -196,7 +196,7 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         return new Comingout(Agent.GetAgent(targetId), role);
@@ -206,7 +206,7 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         return new Divined(Agent.GetAgent(targetId), species);
@@ -216,12 +216,12 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         return new Inquested(Agent.GetAgent(targetId), species);
                     }
-                    Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                     return null;
                 case 4:
                     if (topic == Topic.AGREE || topic == Topic.DISAGREE)
@@ -237,14 +237,14 @@ namespace AIWolf.Lib
                         }
                         else
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         int day = GetInt(sentence[2]);
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
                         {
-                            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                             return null;
                         }
                         if (topic == Topic.AGREE)
@@ -256,26 +256,13 @@ namespace AIWolf.Lib
                             return new Disagree(isWhisper, day, id);
                         }
                     }
-                    Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
                     return null;
                 default:
                     break;
             }
-            Error(GetType() + ".ParseContent(): Illegal content " + content + ".");
+            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
             return null;
-        }
-
-        /// <summary>
-        /// Throws an exception on debug, otherwise writes an error message.
-        /// </summary>
-        /// <param name="errorMessage">Error message.</param>
-        void Error(string errorMessage)
-        {
-#if DEBUG
-            throw new AIWolfRuntimeException(errorMessage);
-#else
-            Console.Error.WriteLine(errorMessage);
-#endif
         }
 
         /// <summary>
