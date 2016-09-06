@@ -7,76 +7,90 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-using System.Collections.Generic;
-
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for requests.
+    /// Enumeration type for requests.
     /// </summary>
     public enum Request
     {
         /// <summary>
-        /// Request for agent's name.
+        /// Dummy request.
+        /// Its integer value is 0.
         /// </summary>
-        NAME,
-
-        /// <summary>
-        /// Request for agent's role.
-        /// </summary>
-        ROLE,
-
-        /// <summary>
-        /// Request for agent's talk.
-        /// </summary>
-        TALK,
-
-        /// <summary>
-        /// Request for agent's whisper.
-        /// </summary>
-        WHISPER,
-
-        /// <summary>
-        /// Request for agent's vote.
-        /// </summary>
-        VOTE,
-
-        /// <summary>
-        /// Request for agent's divination.
-        /// </summary>
-        DIVINE,
-
-        /// <summary>
-        /// Request for agent's guard.
-        /// </summary>
-        GUARD,
-
-        /// <summary>
-        /// Request for agent's attack.
-        /// </summary>
-        ATTACK,
+        DUMMY,
 
         /// <summary>
         /// Request for agent's initialization.
+        /// Its integer value is 1.
         /// </summary>
         INITIALIZE,
 
         /// <summary>
         /// Request for agent's daily initialization.
+        /// Its integer value is 2.
         /// </summary>
         DAILY_INITIALIZE,
 
         /// <summary>
         /// Request for agent's daily finish.
+        /// Its integer value is 3.
         /// </summary>
         DAILY_FINISH,
 
-        //	UPDATE;
-
         /// <summary>
         /// Request for agent's finish.
+        /// Its integer value is 4.
         /// </summary>
-        FINISH
+        FINISH,
+
+        /// <summary>
+        /// Request for agent's name.
+        /// Its integer value is 11.
+        /// </summary>
+        NAME = 11,
+
+        /// <summary>
+        /// Request for agent's role.
+        /// Its integer value is 12.
+        /// </summary>
+        ROLE,
+
+        /// <summary>
+        /// Request for agent's talk.
+        /// Its integer value is 13.
+        /// </summary>
+        TALK,
+
+        /// <summary>
+        /// Request for agent's whisper.
+        /// Its integer value is 14.
+        /// </summary>
+        WHISPER,
+
+        /// <summary>
+        /// Request for agent's vote.
+        /// Its integer value is 15.
+        /// </summary>
+        VOTE,
+
+        /// <summary>
+        /// Request for agent's divination.
+        /// Its integer value is 16.
+        /// </summary>
+        DIVINE,
+
+        /// <summary>
+        /// Request for agent's guard.
+        /// Its integer value is 17.
+        /// </summary>
+        GUARD,
+
+        /// <summary>
+        /// Request for agent's attack.
+        /// Its integer value is 18.
+        /// </summary>
+        ATTACK
     }
 
     /// <summary>
@@ -84,24 +98,6 @@ namespace AIWolf.Lib
     /// </summary>
     public static class RequestExtensions
     {
-        static Dictionary<Request, bool> hasReturnMap = new Dictionary<Request, bool>();
-
-        static RequestExtensions()
-        {
-            hasReturnMap[Request.NAME] = true;
-            hasReturnMap[Request.ROLE] = true;
-            hasReturnMap[Request.TALK] = true;
-            hasReturnMap[Request.WHISPER] = true;
-            hasReturnMap[Request.VOTE] = true;
-            hasReturnMap[Request.DIVINE] = true;
-            hasReturnMap[Request.GUARD] = true;
-            hasReturnMap[Request.ATTACK] = true;
-            hasReturnMap[Request.INITIALIZE] = false;
-            hasReturnMap[Request.DAILY_INITIALIZE] = false;
-            hasReturnMap[Request.DAILY_FINISH] = false;
-            hasReturnMap[Request.FINISH] = false;
-        }
-
         /// <summary>
         /// Returns whethere or not the request waits for return value.
         /// </summary>
@@ -109,7 +105,7 @@ namespace AIWolf.Lib
         /// <returns>True if the request waits for return value, otherwise, false.</returns>
         public static bool HasReturn(this Request request)
         {
-            return hasReturnMap[request];
+            return ((int)request > 10);
         }
     }
 }
