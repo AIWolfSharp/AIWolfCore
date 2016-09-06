@@ -32,6 +32,10 @@ namespace AIWolf.Lib
             {
                 return null;
             }
+            if (idx == 0)
+            {
+                Error.RuntimeError("Caution: Agent.GetAgent(): Agent index is 0.");
+            }
             if (!agentMap.ContainsKey(idx))
             {
                 agentMap[idx] = new Agent(idx);
@@ -42,7 +46,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The index number of this agent.
         /// </summary>
-        /// <value>The index number of this agent.</value>
         [DataMember(Name = "agentIdx")]
         public int AgentIdx { get; }
 
