@@ -15,6 +15,11 @@ namespace AIWolf.Lib
     public enum Team
     {
         /// <summary>
+        /// Uncertain.
+        /// </summary>
+        UNC = 0,
+
+        /// <summary>
         /// Team villager.
         /// </summary>
         VILLAGER,

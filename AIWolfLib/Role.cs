@@ -67,6 +67,9 @@ namespace AIWolf.Lib
 
         static RoleExtensions()
         {
+            roleTeamMap[Role.UNC] = Team.UNC;
+            roleSpeciesMap[Role.UNC] = Species.UNC;
+
             roleTeamMap[Role.BODYGUARD] = Team.VILLAGER;
             roleSpeciesMap[Role.BODYGUARD] = Species.HUMAN;
 
