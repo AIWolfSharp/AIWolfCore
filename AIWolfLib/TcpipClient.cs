@@ -33,25 +33,21 @@ namespace AIWolf.Lib
         /// <summary>
         /// The requested role.
         /// </summary>
-        /// <value>The requested role.</value>
         public Role? RequestRole { get; }
 
         /// <summary>
         /// Whether or not this client is running.
         /// </summary>
-        /// <value>True if this client is running, otherwise, false.</value>
         public bool Running { get; private set; }
 
         /// <summary>
         /// The name of player this client manages.
         /// </summary>
-        /// <value>The name of player this client manages.</value>
         public string PlayerName { get; set; }
 
         /// <summary>
         /// The number of milliseconds to wait for the request call.
         /// </summary>
-        /// <value>The number of milliseconds.</value>
         public int Timeout { get; set; } = -1; // Do not limit by default.
 
         /// <summary>
@@ -214,7 +210,7 @@ namespace AIWolf.Lib
                         returnObject = player.Talk();
                         if (returnObject == null)
                         {
-                            returnObject = Talk.SKIP;
+                            returnObject = Talk.Skip;
                         }
                         break;
                     case Request.WHISPER:
@@ -222,7 +218,7 @@ namespace AIWolf.Lib
                         returnObject = player.Whisper();
                         if (returnObject == null)
                         {
-                            returnObject = Talk.SKIP;
+                            returnObject = Talk.Skip;
                         }
                         break;
                     case Request.DIVINE:

@@ -22,12 +22,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
-        public static string OVER { get; } = "Over";
+        public static string Over { get; } = "Over";
 
         /// <summary>
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
-        public static string SKIP { get; } = "Skip";
+        public static string Skip { get; } = "Skip";
 
         /// <summary>
         /// The index number of this talk/whisper.
