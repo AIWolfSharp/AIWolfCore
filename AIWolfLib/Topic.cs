@@ -10,7 +10,7 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for topic of talk/whisper.
+    /// Enumeration type for topic of talk/whisper.
     /// </summary>
     public enum Topic
     {

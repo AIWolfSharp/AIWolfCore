@@ -10,7 +10,7 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for species.
+    /// Enumeration type for species.
     /// </summary>
     public enum Species
     {

@@ -10,7 +10,7 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for team.
+    /// Enumeration type for team.
     /// </summary>
     public enum Team
     {

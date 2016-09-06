@@ -10,7 +10,7 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for whether the player is alive or dead.
+    /// Enumeration type for player's status (alive/dead).
     /// </summary>
     public enum Status
     {
