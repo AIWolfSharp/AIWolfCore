@@ -17,7 +17,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// This player's name.
         /// </summary>
-        /// <value>This player's name.</value>
         string Name { get; }
 
         /// <summary>
