@@ -310,7 +310,8 @@ namespace AIWolf.Lib
                 Status status;
                 if (!Enum.TryParse(p.Value, out status))
                 {
-                    throw new AIWolfRuntimeException(GetType() + ": Invalid status string " + p.Value + ".");
+                    Error.RuntimeError(GetType() + "(): Invalid status string " + p.Value + ".", "Force it to be Status.ALIVE.");
+                    status = Status.ALIVE;
                 }
                 StatusMap[Agent.GetAgent(p.Key)] = status;
             }
@@ -320,11 +321,14 @@ namespace AIWolf.Lib
             foreach (var p in _RoleMap)
             {
                 Role role;
-                if (!Enum.TryParse(p.Value, out role))
+                if (!Enum.TryParse(p.Value, out role) || role == Role.UNC)
                 {
-                    throw new AIWolfRuntimeException(GetType() + ": Invalid role string " + p.Value + ".");
+                    Error.RuntimeError(GetType() + "(): Invalid role string " + p.Value + ".", "It is removed from role map.");
                 }
-                RoleMap[Agent.GetAgent(p.Key)] = role;
+                else
+                {
+                    RoleMap[Agent.GetAgent(p.Key)] = role;
+                }
             }
         }
     }
