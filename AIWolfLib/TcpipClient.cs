@@ -33,7 +33,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// The requested role.
         /// </summary>
-        public Role? RequestRole { get; }
+        public Role RequestRole { get; }
 
         /// <summary>
         /// Whether or not this client is running.
@@ -68,7 +68,7 @@ namespace AIWolf.Lib
         /// <param name="host">Hostname this client connects.</param>
         /// <param name="port">Port number this client connects.</param>
         /// <param name="requestRole">Role this client requests.</param>
-        public TcpipClient(string host, int port, Role? requestRole) : this(host, port)
+        public TcpipClient(string host, int port, Role requestRole) : this(host, port)
         {
             RequestRole = requestRole;
         }
@@ -192,7 +192,7 @@ namespace AIWolf.Lib
                         }
                         break;
                     case Request.ROLE:
-                        if (RequestRole != null)
+                        if (RequestRole != Role.UNC)
                         {
                             returnObject = RequestRole.ToString();
                         }

@@ -32,7 +32,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// Current day.
         /// </summary>
-        /// <value>Current day.</value>
         [DataMember(Name = "day")]
         public int Day
         {
@@ -53,7 +52,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The agent who receives this GameInfo.
         /// </summary>
-        /// <value>The agent who receives this GameInfo.</value>
         public Agent Agent
         {
             set
@@ -70,26 +68,23 @@ namespace AIWolf.Lib
         /// <summary>
         /// The index number of agent who receives this game information.
         /// </summary>
-        /// <value>The index number of agent who receives this game information.</value>
         [DataMember(Name = "agent")]
         public int _Agent { get; private set; } = -1;
 
         /// <summary>
         /// The role of player who receives this GameInfo.
         /// </summary>
-        /// <value>The role of player who receives this GameInfo.</value>
-        public Role? Role
+        public Role Role
         {
             get
             {
-                return Agent != null && RoleMap.ContainsKey(Agent) ? (Role?)RoleMap[Agent] : null;
+                return Agent != null && RoleMap.ContainsKey(Agent) ? RoleMap[Agent] : Role.UNC;
             }
         }
 
         /// <summary>
         /// The result of the inquest.
         /// </summary>
-        /// <value>The result of the inquest.</value>
         /// <remarks>Medium only.</remarks>
         [DataMember(Name = "mediumResult")]
         public Judge MediumResult { get; set; }
@@ -97,7 +92,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The result of the dvination.
         /// </summary>
-        /// <value>The result of the dvination.</value>
         /// <remarks>Seer only.</remarks>
         [DataMember(Name = "divineResult")]
         public Judge DivineResult { get; set; }
@@ -105,7 +99,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The agent executed last night.
         /// </summary>
-        /// <value>The agent executed last night.</value>
         public Agent ExecutedAgent
         {
             set
@@ -122,14 +115,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// The index number of the agent executed last night.
         /// </summary>
-        /// <value>The index number of the agent executed last night.</value>
         [DataMember(Name = "executedAgent")]
         public int _ExecutedAgent { get; private set; } = -1;
 
         /// <summary>
         /// The agent attacked last night.
         /// </summary>
-        /// <value>The agent attacked last night.</value>
         public Agent AttackedAgent
         {
             set
@@ -146,14 +137,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// The index number of the agent attacked last night.
         /// </summary>
-        /// <value>The index number of the agent attacked last night.</value>
         [DataMember(Name = "attackedAgent")]
         public int _AttackedAgent { get; private set; } = -1;
 
         /// <summary>
         /// The agent guarded last night.
         /// </summary>
-        /// <value>The agent guarded last night.</value>
         public Agent GuardedAgent
         {
             set
@@ -170,14 +159,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// The index number of the agent guarded last night.
         /// </summary>
-        /// <value>The index number of the agent guarded last night.</value>
         [DataMember(Name = "guardedAgent")]
         public int _GuardedAgent { get; private set; } = -1;
 
         /// <summary>
         /// The list of votes for execution.
         /// </summary>
-        /// <value>The list of votes for execution.</value>
         /// <remarks>You can see who votes to who.</remarks>
         [DataMember(Name = "voteList")]
         public List<Vote> VoteList { get; set; } = new List<Vote>();
@@ -185,7 +172,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The list of votes for attack.
         /// </summary>
-        /// <value>The list of votes for attack.</value>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "attackVoteList")]
         public List<Vote> AttackVoteList { get; set; } = new List<Vote>();
@@ -193,14 +179,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// The list of today's talks.
         /// </summary>
-        /// <value>The list of today's talks.</value>
         [DataMember(Name = "talkList")]
         public List<Talk> TalkList { get; set; } = new List<Talk>();
 
         /// <summary>
         /// The list of today's whispers.
         /// </summary>
-        /// <value>The list of today's whispers.</value>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "whisperList")]
         public List<Talk> WhisperList { get; set; } = new List<Talk>();
@@ -208,7 +192,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The statuses of all agents.
         /// </summary>
-        /// <value>The dictionary storing the statuses of all agents.</value>
         public Dictionary<Agent, Status> StatusMap
         {
             set
@@ -225,14 +208,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// The statuses of all agents.
         /// </summary>
-        /// <value>Dictionary storing the statuses of all agents.</value>
         [DataMember(Name = "statusMap")]
         public Dictionary<int, string> _StatusMap { get; private set; } = new Dictionary<int, string>();
 
         /// <summary>
         /// The known roles of agents.
         /// </summary>
-        /// <value>The dictionary storing the known roles of agents.</value>
         /// <remarks>
         /// If you are human, you know only yourself.
         /// If you are werewolf, you know other werewolves.
@@ -253,7 +234,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The known roles of agents.
         /// </summary>
-        /// <value>Dictionary storing the known roles of agents.</value>
         /// <remarks>
         /// If you are human, you know only yourself.
         /// If you are werewolf, you know other werewolves.
@@ -264,7 +244,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The list of agents.
         /// </summary>
-        /// <value>The list of agents.</value>
         public List<Agent> AgentList
         {
             get
@@ -276,7 +255,6 @@ namespace AIWolf.Lib
         /// <summary>
         /// The list of alive agents.
         /// </summary>
-        /// <value>The list of alive agents.</value>
         /// <remarks>If all agents are dead, this returns an empty list, not null.</remarks>
         public List<Agent> AliveAgentList
         {

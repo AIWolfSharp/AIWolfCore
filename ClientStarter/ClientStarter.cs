@@ -35,7 +35,7 @@ namespace AIWolf
             int port = 10000;
             string clsName = null;
             string dllName = null;
-            Role? roleRequest = null;
+            Role roleRequest = Role.UNC;
             string playerName = null;
             int timeout = -1; // Do not limit by default.
 
@@ -95,7 +95,7 @@ namespace AIWolf
                         if (i > args.Length - 1 || args[i].StartsWith("-")) // Role is not requested.
                         {
                             i--;
-                            roleRequest = null;
+                            roleRequest = Role.UNC;
                             continue;
                         }
                         Role role;

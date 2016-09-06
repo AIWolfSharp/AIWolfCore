@@ -12,10 +12,15 @@ using System.Collections.Generic;
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Enum class for roles of player.
+    /// Enumeration type for role.
     /// </summary>
     public enum Role
     {
+        /// <summary>
+        /// Uncertain.
+        /// </summary>
+        UNC = 0,
+
         /// <summary>
         /// Bodyguard.
         /// </summary>
