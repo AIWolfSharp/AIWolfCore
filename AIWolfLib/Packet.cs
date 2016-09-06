@@ -21,35 +21,30 @@ namespace AIWolf.Lib
         /// <summary>
         /// The request from the server.
         /// </summary>
-        /// <value>Request.</value>
         [DataMember(Name = "request")]
         public Request Request { get; }
 
         /// <summary>
         /// The game information.
         /// </summary>
-        /// <value>The instance of GameInfoToSend class representating the game information.</value>
         [DataMember(Name = "gameInfo")]
         public GameInfo GameInfo { get; }
 
         /// <summary>
         /// The setting of game.
         /// </summary>
-        /// <value>The instance of GameSetting class representating the game setting.</value>
         [DataMember(Name = "gameSetting")]
         public GameSetting GameSetting { get; }
 
         /// <summary>
         /// The history of talks.
         /// </summary>
-        /// <value>The list of TalkToSend representating the history of talks.</value>
         [DataMember(Name = "talkHistory")]
         public List<Talk> TalkHistory { get; }
 
         /// <summary>
         /// The history of whispers.
         /// </summary>
-        /// <value>The list of TalkToSend representating the history of whispers.</value>
         [DataMember(Name = "whisperHistory")]
         public List<Talk> WhisperHistory { get; }
 
@@ -67,9 +62,8 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="request">Request given.</param>
         /// <param name="gameInfo">GemeInfoToSend representation of game information given.</param>
-        public Packet(Request request, GameInfo gameInfo)
+        public Packet(Request request, GameInfo gameInfo) : this(request)
         {
-            Request = request;
             GameInfo = gameInfo;
         }
 
@@ -79,10 +73,8 @@ namespace AIWolf.Lib
         /// <param name="request">Request given.</param>
         /// <param name="gameInfo">GemeInfoToSend representation of game information given.</param>
         /// <param name="gameSetting">GameSetting representation of setting of game given.</param>
-        public Packet(Request request, GameInfo gameInfo, GameSetting gameSetting)
+        public Packet(Request request, GameInfo gameInfo, GameSetting gameSetting) : this(request, gameInfo)
         {
-            Request = request;
-            GameInfo = gameInfo;
             GameSetting = gameSetting;
         }
 
@@ -92,9 +84,8 @@ namespace AIWolf.Lib
         /// <param name="request">Request given.</param>
         /// <param name="talkHistoryList">History of talk given.</param>
         /// <param name="whisperHistoryList">History of whisper given.</param>
-        public Packet(Request request, List<Talk> talkHistoryList, List<Talk> whisperHistoryList)
+        public Packet(Request request, List<Talk> talkHistoryList, List<Talk> whisperHistoryList) : this(request)
         {
-            Request = request;
             TalkHistory = talkHistoryList;
             WhisperHistory = whisperHistoryList;
         }
