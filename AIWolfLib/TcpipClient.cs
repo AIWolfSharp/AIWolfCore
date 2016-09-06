@@ -166,6 +166,8 @@ namespace AIWolf.Lib
                 object returnObject = null;
                 switch (packet.Request)
                 {
+                    case Request.DUMMY:
+                        break;
                     case Request.INITIALIZE:
                         Running = true;
                         player.Initialize(gameInfo, gameSetting);
@@ -249,16 +251,18 @@ namespace AIWolf.Lib
             }
             else
             {
-                throw new TimeoutException(string.Format("{0}@{1} aborts because of timeout({2}ms).", packet.Request, player.Name, Timeout));
+                Error.TimeoutError(string.Format("{0}@{1} exceeds the time limit({2}ms).", packet.Request, player.Name, Timeout));
+                task.Wait(-1);
+                return task.Result;
             }
         }
 
         /// <summary>
         /// Whether or not the given talk is after lastTalk.
         /// </summary>
-        /// <param name="talk"></param>
-        /// <param name="lastTalk"></param>
-        /// <returns></returns>
+        /// <param name="talk">The talk to be checked.</param>
+        /// <param name="lastTalk">The last talk.</param>
+        /// <returns>True if the given talk is after the last talk.</returns>
         /// <remarks>If it is same, return false.</remarks>
         bool IsAfter(Talk talk, Talk lastTalk)
         {
@@ -287,12 +291,15 @@ namespace AIWolf.Lib
 
             if (map["request"] == null)
             {
-                throw new AIWolfRuntimeException(GetType() + ".ToPacket: There is no request in " + line + ".");
+                Error.RuntimeError(GetType() + ".ToPacket(): There is no request in " + line + ".", "Force it to be Request.DUMMY.");
+                return new Packet(Request.DUMMY);
             }
+
             Request request;
             if (!Enum.TryParse((string)map["request"], out request))
             {
-                throw new AIWolfRuntimeException(GetType() + ".ToPacket: Invalid request in " + line + ".");
+                Error.RuntimeError(GetType() + ".ToPacket(): Invalid request in " + line + ".", "Force it to be Request.DUMMY.");
+                return new Packet(Request.DUMMY);
             }
 
             if (map["gameInfo"] != null)
