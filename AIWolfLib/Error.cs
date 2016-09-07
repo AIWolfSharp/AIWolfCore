@@ -18,6 +18,15 @@ namespace AIWolf.Lib
     public static class Error
     {
         /// <summary>
+        /// Writes an error message.
+        /// </summary>
+        /// <param name="message">Error message.</param>
+        public static void Warning(string message)
+        {
+            Console.Error.WriteLine("(WARNING) " + message);
+        }
+
+        /// <summary>
         /// Writes an error message, then throws AIWolfRuntimeException on debug.
         /// </summary>
         /// <param name="message">Error message.</param>
@@ -31,14 +40,14 @@ namespace AIWolf.Lib
             ThrowRuntimeException(message);
             foreach (var m in messages)
             {
-                Console.Error.WriteLine(m);
+                Console.Error.WriteLine("(ERROR) " + m);
             }
         }
 
         [Conditional("DEBUG")]
         static void ThrowRuntimeException(string message)
         {
-            throw new AIWolfRuntimeException(message);
+            throw new AIWolfException(message);
         }
 
         /// <summary>
@@ -55,7 +64,7 @@ namespace AIWolf.Lib
             ThrowTimeoutException(message);
             foreach (var m in messages)
             {
-                Console.Error.WriteLine(m);
+                Console.Error.WriteLine("(TIMEOUT) " + m);
             }
         }
 
