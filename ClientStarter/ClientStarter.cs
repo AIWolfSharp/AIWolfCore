@@ -27,7 +27,7 @@ namespace AIWolf
         /// </summary>
         /// <param name="args">Arguments.</param>
         /// <remarks>
-        /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name]
+        /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name] [-d]
         /// </remarks>
         public static void Main(string[] args)
         {
@@ -38,12 +38,17 @@ namespace AIWolf
             Role roleRequest = Role.UNC;
             string playerName = null;
             int timeout = -1; // Do not limit by default.
+            bool useDefaultPlayer = false;
 
             for (int i = 0; i < args.Length; i++)
             {
                 if (args[i].StartsWith("-"))
                 {
-                    if (args[i].Equals("-p"))
+                    if (args[i].Equals("-d"))
+                    {
+                        useDefaultPlayer = true;
+                    }
+                    else if (args[i].Equals("-p"))
                     {
                         i++;
                         if (i < args.Length)
@@ -135,13 +140,13 @@ namespace AIWolf
                     }
                 }
             }
-            if (port < 0)
+            if (port < 0 || (!useDefaultPlayer && clsName == null))
             {
                 Usage();
             }
 
             IPlayer player;
-            if (clsName == null)
+            if (useDefaultPlayer)
             {
                 player = new DefaultPlayer();
             }
@@ -198,7 +203,7 @@ namespace AIWolf
 
         static void Usage()
         {
-            Console.Error.WriteLine("Usage: ClientStarter [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout]");
+            Console.Error.WriteLine("Usage: ClientStarter [-h host] [-p port] -c clientClass dllName [roleRequest] [-n name] [-t timeout] [-d]");
             Environment.Exit(0);
         }
     }
