@@ -63,47 +63,6 @@ namespace AIWolf.Lib
         /// Initializes a new instance of Judge class.
         /// </summary>
         /// <param name="day">The day of this judge.</param>
-        /// <param name="agent">The agent who judged.</param>
-        /// <param name="target">The judged agent.</param>
-        /// <param name="result">The result of this judge.</param>
-        public Judge(int day, Agent agent, Agent target, Species result)
-        {
-            Day = day;
-            if (day < 0)
-            {
-                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
-                Day = 0;
-            }
-
-            Agent = agent;
-            if (agent == null)
-            {
-                Error.RuntimeError(GetType() + "(): Agent is null.", "Force it to be Agent[00].");
-                Agent = Agent.GetAgent(0);
-            }
-            _Agent = Agent.AgentIdx;
-
-            Target = target;
-            if (target == null)
-            {
-                Error.RuntimeError(GetType() + "(): Target is null.", "Force it to be Agent[00].");
-                Target = Agent.GetAgent(0);
-            }
-            _Target = Target.AgentIdx;
-
-            Result = result;
-            if (result == Species.UNC)
-            {
-                Error.RuntimeError(GetType() + "(): Species.UNC is not allowed as result.", "Force it to be Species.HUMAN.");
-                Result = Species.HUMAN;
-            }
-            _Result = Result.ToString();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of Judge class.
-        /// </summary>
-        /// <param name="day">The day of this judge.</param>
         /// <param name="agent">The index of agent who judged.</param>
         /// <param name="target">The index of judged agent.</param>
         /// <param name="result">The result of this judge.</param>
@@ -111,37 +70,36 @@ namespace AIWolf.Lib
         public Judge(int day, int agent, int target, string result)
         {
             Day = day;
-            if (day < 0)
+            if (Day < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
+                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
                 Day = 0;
             }
 
-            _Agent = agent;
-            if (agent < 1)
+            Agent = Agent.GetAgent(agent);
+            if (Agent == null)
             {
-                Error.RuntimeError(GetType() + "(): Invalid agent index " + agent + ".", "Force it to be 0.");
-                _Agent = 0;
+                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
             }
-            Agent = Agent.GetAgent(_Agent);
+            _Agent = Agent.AgentIdx;
 
-            _Target = target;
-            if (target < 1)
+            Target = Agent.GetAgent(target);
+            if (Target == null)
             {
-                Error.RuntimeError(GetType() + "(): Invalid target index " + target + ".", "Force it to be 0.");
-                _Target = 0;
+                Error.RuntimeError(GetType() + "(): Target must not be null.", "Force it to be Agent[00].");
+                Target = Agent.GetAgent(0);
             }
-            Target = Agent.GetAgent(_Target);
+            _Target = Target.AgentIdx;
 
-            _Result = result;
             Species r;
             if (!Enum.TryParse(result, out r) || r == Species.UNC)
             {
                 Error.RuntimeError(GetType() + "(): Invalid result string " + result + ".", "Force it to be HUMAN.");
-                _Result = "HUMAN";
                 r = Species.HUMAN;
             }
             Result = r;
+            _Result = r.ToString();
         }
 
         /// <summary>

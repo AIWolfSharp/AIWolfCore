@@ -20,10 +20,6 @@ namespace AIWolf.Lib
     [DataContract]
     public class Talk
     {
-        string content;
-        string[] sentence;
-        Topic topic;
-
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
@@ -61,18 +57,7 @@ namespace AIWolf.Lib
         /// The contents of this talk/whisper.
         /// </summary>
         [DataMember(Name = "content")]
-        public string Content
-        {
-            set
-            {
-                content = value;
-                Meaning = ParseContent();
-            }
-            get
-            {
-                return content;
-            }
-        }
+        public string Content { get; }
 
         /// <summary>
         /// The meaning of this talk/whisper.
@@ -80,41 +65,7 @@ namespace AIWolf.Lib
         /// <remarks>
         /// Null means invalid talk.
         /// </remarks>
-        public object Meaning { get; private set; }
-
-        /// <summary>
-        /// Initializes a new instance of this class.
-        /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The agent who talked/whispered.</param>
-        /// <param name="content">The contents of this talk/whisper.</param>
-        public Talk(int idx, int day, Agent agent, string content)
-        {
-            Idx = idx;
-            if (idx < 0)
-            {
-                Error.RuntimeError(GetType() + "(): Invalid idx " + idx + ".", "Force it to be 0.");
-                Idx = 0;
-            }
-
-            Day = day;
-            if (day < 0)
-            {
-                Error.RuntimeError(GetType() + "(): Invalid day " + day + ".", "Force it to be 0.");
-                day = 0;
-            }
-
-            Agent = agent;
-            if (agent == null)
-            {
-                Error.RuntimeError(GetType() + "(): Agent is null.", "Force it to be Agent[00].");
-                Agent = Agent.GetAgent(0);
-            }
-            _Agent = Agent.AgentIdx;
-
-            Content = content;
-        }
+        public object Meaning { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
@@ -124,8 +75,32 @@ namespace AIWolf.Lib
         /// <param name="agent">The agent who talked/whispered.</param>
         /// <param name="content">The contents of this talk/whisper.</param>
         [JsonConstructor]
-        public Talk(int idx, int day, int agent, string content) : this(idx, day, Agent.GetAgent(agent), content)
+        public Talk(int idx, int day, int agent, string content)
         {
+            Idx = idx;
+            if (Idx < 0)
+            {
+                Error.RuntimeError(GetType() + "(): Invalid idx " + Idx + ".", "Force it to be 0.");
+                Idx = 0;
+            }
+
+            Day = day;
+            if (Day < 0)
+            {
+                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
+                Day = 0;
+            }
+
+            Agent = Agent.GetAgent(agent);
+            if (Agent == null)
+            {
+                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
+            }
+            _Agent = Agent.AgentIdx;
+
+            Content = content;
+            Meaning = ParseContent();
         }
 
         /// <summary>
@@ -135,16 +110,19 @@ namespace AIWolf.Lib
         /// <remarks>Returns null if the content is invalid.</remarks>
         object ParseContent()
         {
-            if (content == null || content.Length == 0)
+            Topic topic;
+            string[] sentence;
+
+            if (Content == null || Content.Length == 0)
             {
-                Error.RuntimeError(GetType() + ".ParseContent(): Content is empty or null.");
+                Error.RuntimeError(GetType() + ".ParseContent(): Content is empty or null.", "Force the meaning to be null.");
                 return null;
             }
 
-            sentence = content.Split();
+            sentence = Content.Split();
             if (!Enum.TryParse(sentence[0], out topic))
             {
-                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + content + ".");
+                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + Content + ".", "Force the meaning to be null.");
                 return null;
             }
 
@@ -153,97 +131,99 @@ namespace AIWolf.Lib
                 case 1:
                     if (topic == Topic.Skip || topic == Topic.Over)
                     {
-                        return content;
+                        return Content;
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                     return null;
                 case 2:
                     int targetId = GetInt(sentence[1]);
+                    Agent target = Agent.GetAgent(targetId);
                     if (topic == Topic.ATTACK)
                     {
-                        return new Attack(Agent.GetAgent(targetId));
+                        return new Attack(target);
                     }
                     if (topic == Topic.GUARDED)
                     {
-                        return new Guarded(Agent.GetAgent(targetId));
+                        return new Guarded(target);
                     }
                     if (topic == Topic.VOTE)
                     {
-                        return new Vote(Agent.GetAgent(targetId));
+                        return new Vote(target);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                     return null;
                 case 3:
                     targetId = GetInt(sentence[1]);
                     if (targetId < 1)
                     {
-                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                         return null;
                     }
+                    target = Agent.GetAgent(targetId);
                     if (topic == Topic.ESTIMATE)
                     {
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Estimate(Agent.GetAgent(targetId), role);
+                        return new Estimate(target, role);
                     }
                     if (topic == Topic.COMINGOUT)
                     {
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Comingout(Agent.GetAgent(targetId), role);
+                        return new Comingout(target, role);
                     }
                     if (topic == Topic.DIVINED)
                     {
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Divined(Agent.GetAgent(targetId), species);
+                        return new Divined(target, species);
                     }
                     if (topic == Topic.INQUESTED)
                     {
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Inquested(Agent.GetAgent(targetId), species);
+                        return new Inquested(target, species);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                     return null;
                 case 4:
                     if (topic == Topic.AGREE || topic == Topic.DISAGREE)
                     {
                         bool isWhisper;
-                        if (sentence[1] == "TALK")
+                        if (sentence[1].Equals("TALK"))
                         {
                             isWhisper = false;
                         }
-                        else if (sentence[1] == "WHISPER")
+                        else if (sentence[1].Equals("WHISPER"))
                         {
                             isWhisper = true;
                         }
                         else
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
                         int day = GetInt(sentence[2]);
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                             return null;
                         }
                         if (topic == Topic.AGREE)
@@ -255,12 +235,12 @@ namespace AIWolf.Lib
                             return new Disagree(isWhisper, day, id);
                         }
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
                     return null;
                 default:
                     break;
             }
-            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + content + ".");
+            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
             return null;
         }
 
