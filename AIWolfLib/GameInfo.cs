@@ -21,59 +21,22 @@ namespace AIWolf.Lib
     [DataContract]
     public class GameInfo
     {
-        int day;
-        Agent agent;
-        Agent executedAgent;
-        Agent attackedAgent;
-        Agent guardedAgent;
-        Dictionary<Agent, Status> statusMap = new Dictionary<Agent, Status>();
-        Dictionary<Agent, Role> roleMap = new Dictionary<Agent, Role>();
-
         /// <summary>
         /// Current day.
         /// </summary>
         [DataMember(Name = "day")]
-        public int Day
-        {
-            set
-            {
-                if (value < 0)
-                {
-                    Error.RuntimeError(GetType() + ".Day: Invalid day " + value + ".", "Force it to be 0.");
-                    day = 0;
-                }
-                else
-                {
-                    day = value;
-                }
-            }
-            get
-            {
-                return day;
-            }
-        }
+        public int Day { get; }
 
         /// <summary>
         /// The agent who receives this GameInfo.
         /// </summary>
-        public Agent Agent
-        {
-            set
-            {
-                agent = value;
-                _Agent = agent == null ? -1 : agent.AgentIdx;
-            }
-            get
-            {
-                return agent;
-            }
-        }
+        public Agent Agent { get; }
 
         /// <summary>
         /// The index number of agent who receives this game information.
         /// </summary>
         [DataMember(Name = "agent")]
-        public int _Agent { get; private set; } = -1;
+        public int _Agent { get; }
 
         /// <summary>
         /// The role of player who receives this GameInfo.
@@ -82,7 +45,7 @@ namespace AIWolf.Lib
         {
             get
             {
-                return Agent != null && RoleMap.ContainsKey(Agent) ? RoleMap[Agent] : Role.UNC;
+                return _Agent != 0 && RoleMap.ContainsKey(Agent) ? RoleMap[Agent] : Role.UNC;
             }
         }
 
@@ -91,129 +54,85 @@ namespace AIWolf.Lib
         /// </summary>
         /// <remarks>Medium only.</remarks>
         [DataMember(Name = "mediumResult")]
-        public Judge MediumResult { get; set; }
+        public Judge MediumResult { get; }
 
         /// <summary>
         /// The result of the dvination.
         /// </summary>
         /// <remarks>Seer only.</remarks>
         [DataMember(Name = "divineResult")]
-        public Judge DivineResult { get; set; }
+        public Judge DivineResult { get; }
 
         /// <summary>
         /// The agent executed last night.
         /// </summary>
-        public Agent ExecutedAgent
-        {
-            set
-            {
-                executedAgent = value;
-                _ExecutedAgent = executedAgent == null ? -1 : executedAgent.AgentIdx;
-            }
-            get
-            {
-                return executedAgent;
-            }
-        }
+        public Agent ExecutedAgent { get; }
 
         /// <summary>
         /// The index number of the agent executed last night.
         /// </summary>
         [DataMember(Name = "executedAgent")]
-        public int _ExecutedAgent { get; private set; } = -1;
+        public int _ExecutedAgent { get; }
 
         /// <summary>
         /// The agent attacked last night.
         /// </summary>
-        public Agent AttackedAgent
-        {
-            set
-            {
-                attackedAgent = value;
-                _AttackedAgent = attackedAgent == null ? -1 : attackedAgent.AgentIdx;
-            }
-            get
-            {
-                return attackedAgent;
-            }
-        }
+        public Agent AttackedAgent { get; }
 
         /// <summary>
         /// The index number of the agent attacked last night.
         /// </summary>
         [DataMember(Name = "attackedAgent")]
-        public int _AttackedAgent { get; private set; } = -1;
+        public int _AttackedAgent { get; }
 
         /// <summary>
         /// The agent guarded last night.
         /// </summary>
-        public Agent GuardedAgent
-        {
-            set
-            {
-                guardedAgent = value;
-                _GuardedAgent = guardedAgent == null ? -1 : guardedAgent.AgentIdx;
-            }
-            get
-            {
-                return guardedAgent;
-            }
-        }
+        public Agent GuardedAgent { get; }
 
         /// <summary>
         /// The index number of the agent guarded last night.
         /// </summary>
         [DataMember(Name = "guardedAgent")]
-        public int _GuardedAgent { get; private set; } = -1;
+        public int _GuardedAgent { get; }
 
         /// <summary>
         /// The list of votes for execution.
         /// </summary>
         /// <remarks>You can see who votes to who.</remarks>
         [DataMember(Name = "voteList")]
-        public List<Vote> VoteList { get; set; } = new List<Vote>();
+        public List<Vote> VoteList { get; }
 
         /// <summary>
         /// The list of votes for attack.
         /// </summary>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "attackVoteList")]
-        public List<Vote> AttackVoteList { get; set; } = new List<Vote>();
+        public List<Vote> AttackVoteList { get; }
 
         /// <summary>
         /// The list of today's talks.
         /// </summary>
         [DataMember(Name = "talkList")]
-        public List<Talk> TalkList { get; set; } = new List<Talk>();
+        public List<Talk> TalkList { get; }
 
         /// <summary>
         /// The list of today's whispers.
         /// </summary>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "whisperList")]
-        public List<Talk> WhisperList { get; set; } = new List<Talk>();
+        public List<Talk> WhisperList { get; }
 
         /// <summary>
         /// The statuses of all agents.
         /// </summary>
-        public Dictionary<Agent, Status> StatusMap
-        {
-            set
-            {
-                statusMap = value;
-                _StatusMap = statusMap == null ? null : statusMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value.ToString());
-            }
-            get
-            {
-                return statusMap;
-            }
-        }
+        public Dictionary<Agent, Status> StatusMap { get; }
 
         /// <summary>
         /// The statuses of all agents.
         /// </summary>
         [DataMember(Name = "statusMap")]
-        public Dictionary<int, string> _StatusMap { get; private set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> _StatusMap { get; }
 
         /// <summary>
         /// The known roles of agents.
@@ -222,18 +141,7 @@ namespace AIWolf.Lib
         /// If you are human, you know only yourself.
         /// If you are werewolf, you know other werewolves.
         /// </remarks>
-        public Dictionary<Agent, Role> RoleMap
-        {
-            set
-            {
-                roleMap = value;
-                _RoleMap = roleMap == null ? null : roleMap.Where(m => m.Value != Role.UNC).ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
-            }
-            get
-            {
-                return roleMap;
-            }
-        }
+        public Dictionary<Agent, Role> RoleMap { get; }
 
         /// <summary>
         /// The known roles of agents.
@@ -243,7 +151,7 @@ namespace AIWolf.Lib
         /// If you are werewolf, you know other werewolves.
         /// </remarks>
         [DataMember(Name = "roleMap")]
-        public Dictionary<int, string> _RoleMap { get; private set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> _RoleMap { get; }
 
         /// <summary>
         /// The list of agents.
@@ -271,65 +179,76 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        public GameInfo() { }
-
-        /// <summary>
-        /// Initializes a new instance of this class.
-        /// </summary>
         [JsonConstructor]
         public GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
             List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Talk> whisperList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
         {
             Day = day;
+            if (Day < 0)
+            {
+                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
+                Day = 0;
+            }
 
-            _Agent = agent;
-            Agent = Agent.GetAgent(_Agent);
+            Agent = Agent.GetAgent(agent);
+            if (Agent == null)
+            {
+                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Agent = Agent.GetAgent(0);
+            }
+            _Agent = Agent.AgentIdx;
 
             MediumResult = mediumResult;
             DivineResult = divineResult;
 
-            _ExecutedAgent = executedAgent;
-            ExecutedAgent = Agent.GetAgent(_ExecutedAgent);
+            ExecutedAgent = Agent.GetAgent(executedAgent);
+            _ExecutedAgent = ExecutedAgent == null ? -1 : ExecutedAgent.AgentIdx;
 
-            _AttackedAgent = attackedAgent;
-            AttackedAgent = Agent.GetAgent(_AttackedAgent);
+            AttackedAgent = Agent.GetAgent(attackedAgent);
+            _AttackedAgent = AttackedAgent == null ? -1 : AttackedAgent.AgentIdx;
 
-            _GuardedAgent = guardedAgent;
-            GuardedAgent = Agent.GetAgent(_GuardedAgent);
+            GuardedAgent = Agent.GetAgent(guardedAgent);
+            _GuardedAgent = GuardedAgent == null ? -1 : GuardedAgent.AgentIdx;
 
-            VoteList = voteList;
-            AttackVoteList = attackVoteList;
-            TalkList = talkList;
-            WhisperList = whisperList;
+            VoteList = voteList == null ? new List<Vote>() : voteList;
+            AttackVoteList = attackVoteList == null ? new List<Vote>() : attackVoteList;
+            TalkList = talkList == null ? new List<Talk>() : talkList;
+            WhisperList = whisperList == null ? new List<Talk>() : whisperList;
 
-            StatusMap.Clear();
-            _StatusMap = statusMap;
-            foreach (var p in _StatusMap)
+            StatusMap = new Dictionary<Agent, Status>();
+            if (statusMap != null)
             {
-                Status status;
-                if (!Enum.TryParse(p.Value, out status))
+                foreach (var p in statusMap)
                 {
-                    Error.RuntimeError(GetType() + "(): Invalid status string " + p.Value + ".", "Force it to be Status.ALIVE.");
-                    status = Status.ALIVE;
-                }
-                StatusMap[Agent.GetAgent(p.Key)] = status;
-            }
-
-            RoleMap.Clear();
-            _RoleMap = roleMap;
-            foreach (var p in _RoleMap)
-            {
-                Role role;
-                if (!Enum.TryParse(p.Value, out role) || role == Role.UNC)
-                {
-                    Error.RuntimeError(GetType() + "(): Invalid role string " + p.Value + ".", "It is removed from role map.");
-                }
-                else
-                {
-                    RoleMap[Agent.GetAgent(p.Key)] = role;
+                    Status status;
+                    if (!Enum.TryParse(p.Value, out status))
+                    {
+                        Error.RuntimeError(GetType() + "(): Invalid status string " + p.Value + ".", "Force it to be Status.ALIVE.");
+                        status = Status.ALIVE;
+                    }
+                    StatusMap[Agent.GetAgent(p.Key)] = status;
                 }
             }
+            _StatusMap = StatusMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value.ToString());
+
+            RoleMap = new Dictionary<Agent, Role>();
+            if (roleMap != null)
+            {
+                foreach (var p in roleMap)
+                {
+                    Role role;
+                    if (!Enum.TryParse(p.Value, out role) || role == Role.UNC)
+                    {
+                        Error.RuntimeError(GetType() + "(): Invalid role string " + p.Value + ".", "It is removed from role map.");
+                    }
+                    else
+                    {
+                        RoleMap[Agent.GetAgent(p.Key)] = role;
+                    }
+                }
+            }
+            _RoleMap = RoleMap.Where(m => m.Value != Role.UNC).ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
         }
     }
 }
