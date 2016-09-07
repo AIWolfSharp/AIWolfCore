@@ -34,7 +34,7 @@ namespace AIWolf.Lib
             }
             if (idx == 0)
             {
-                Error.RuntimeError("Caution: Agent.GetAgent(): Agent index is 0.");
+                Error.Warning("Agent.GetAgent(): Agent index is 0.");
             }
             if (!agentMap.ContainsKey(idx))
             {
@@ -65,29 +65,6 @@ namespace AIWolf.Lib
         public override string ToString()
         {
             return string.Format("Agent[{0:00}]", AgentIdx);
-        }
-
-        /// <summary>
-        /// Serves as the default hash function.
-        /// </summary>
-        /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
-        {
-            return AgentIdx;
-        }
-
-        /// <summary>
-        /// Determines whether the specified object is equal to the current object.
-        /// </summary>
-        /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is Agent) // This is ok because Agent is sealed class.
-            {
-                return AgentIdx == ((Agent)obj).AgentIdx;
-            }
-            return false;
         }
     }
 }
