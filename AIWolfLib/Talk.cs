@@ -20,6 +20,8 @@ namespace AIWolf.Lib
     [DataContract]
     public class Talk
     {
+        Topic topic;
+
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
@@ -58,6 +60,17 @@ namespace AIWolf.Lib
         /// </summary>
         [DataMember(Name = "content")]
         public string Content { get; }
+
+        /// <summary>
+        /// The topic of this talk/whisper.
+        /// </summary>
+        public Topic Topic
+        {
+            get
+            {
+                return topic;
+            }
+        }
 
         /// <summary>
         /// The meaning of this talk/whisper.
@@ -110,7 +123,6 @@ namespace AIWolf.Lib
         /// <remarks>Returns null if the content is invalid.</remarks>
         object ParseContent()
         {
-            Topic topic;
             string[] sentence;
 
             if (Content == null || Content.Length == 0)
