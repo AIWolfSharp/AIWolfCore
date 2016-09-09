@@ -73,12 +73,12 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// The meaning of this talk/whisper.
+        /// The contents of this talk/whisper.
         /// </summary>
         /// <remarks>
-        /// Null means invalid talk.
+        /// If talk/whisper is invalid, Contents.Topic is set to DUMMY.
         /// </remarks>
-        public object Contents { get; }
+        public Contents Contents { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
@@ -136,11 +136,11 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// Parses content of this talk/whisper.
+        /// Parses the text of this talk/whisper.
         /// </summary>
-        /// <returns>An object representing the meaning of this talk/whisper.</returns>
+        /// <returns>Contents of this talk/whisper.</returns>
         /// <remarks>Returns null if the content is invalid.</remarks>
-        object ParseText()
+        Contents ParseText()
         {
             string[] sentence;
 
@@ -162,24 +162,16 @@ namespace AIWolf.Lib
                 case 1:
                     if (topic == Topic.Skip || topic == Topic.Over)
                     {
-                        return Text;
+                        return new Contents(topic);
                     }
                     Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 case 2:
                     int targetId = GetInt(sentence[1]);
                     Agent target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ATTACK)
+                    if (topic == Topic.ATTACK || topic == Topic.GUARDED || topic == Topic.VOTE)
                     {
-                        return new Attack(target);
-                    }
-                    if (topic == Topic.GUARDED)
-                    {
-                        return new Guarded(target);
-                    }
-                    if (topic == Topic.VOTE)
-                    {
-                        return new Vote(target);
+                        return new Contents(topic, target);
                     }
                     Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
@@ -191,7 +183,7 @@ namespace AIWolf.Lib
                         return null;
                     }
                     target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ESTIMATE)
+                    if (topic == Topic.ESTIMATE || topic == Topic.COMINGOUT)
                     {
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
@@ -199,19 +191,9 @@ namespace AIWolf.Lib
                             Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Estimate(target, role);
+                        return new Contents(topic, target, role);
                     }
-                    if (topic == Topic.COMINGOUT)
-                    {
-                        Role role;
-                        if (!Enum.TryParse(sentence[2], out role))
-                        {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
-                            return null;
-                        }
-                        return new Comingout(target, role);
-                    }
-                    if (topic == Topic.DIVINED)
+                    if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
                     {
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
@@ -219,37 +201,13 @@ namespace AIWolf.Lib
                             Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        return new Divined(target, species);
-                    }
-                    if (topic == Topic.INQUESTED)
-                    {
-                        Species species;
-                        if (!Enum.TryParse(sentence[2], out species))
-                        {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
-                            return null;
-                        }
-                        return new Inquested(target, species);
+                        return new Contents(topic, target, species);
                     }
                     Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 case 4:
                     if (topic == Topic.AGREE || topic == Topic.DISAGREE)
                     {
-                        bool isWhisper;
-                        if (sentence[1].Equals("TALK"))
-                        {
-                            isWhisper = false;
-                        }
-                        else if (sentence[1].Equals("WHISPER"))
-                        {
-                            isWhisper = true;
-                        }
-                        else
-                        {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
-                            return null;
-                        }
                         int day = GetInt(sentence[2]);
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
@@ -257,13 +215,18 @@ namespace AIWolf.Lib
                             Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
-                        if (topic == Topic.AGREE)
+                        if (sentence[1].Equals("TALK"))
                         {
-                            return new Agree(isWhisper, day, id);
+                            return new Contents(topic, new Talk(id, day));
                         }
-                        else // DISAGREE
+                        else if (sentence[1].Equals("WHISPER"))
                         {
-                            return new Disagree(isWhisper, day, id);
+                            return new Contents(topic, new Whisper(id, day));
+                        }
+                        else
+                        {
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                            return null;
                         }
                     }
                     Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
@@ -297,139 +260,6 @@ namespace AIWolf.Lib
         public override string ToString()
         {
             return String.Format("Day{0:D2}[{1:D3}]\t{2}\t{3}", Day, Idx, Agent, Text);
-        }
-
-        /// <summary>
-        /// Talk/whisper about estimation.
-        /// </summary>
-        public struct Estimate
-        {
-            public Agent Target { get; }
-            public Role Role { get; }
-
-            public Estimate(Agent target, Role role)
-            {
-                Target = target;
-                Role = role;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about comingout.
-        /// </summary>
-        public struct Comingout
-        {
-            public Agent Target { get; }
-            public Role Role { get; }
-
-            public Comingout(Agent target, Role role)
-            {
-                Target = target;
-                Role = role;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about divination.
-        /// </summary>
-        public struct Divined
-        {
-            public Agent Target { get; }
-            public Species Species { get; }
-
-            public Divined(Agent target, Species species)
-            {
-                Target = target;
-                Species = species;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about inquest. 
-        /// </summary>
-        public struct Inquested
-        {
-            public Agent Target { get; }
-            public Species Species { get; }
-
-            public Inquested(Agent target, Species species)
-            {
-                Target = target;
-                Species = species;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about guard.
-        /// </summary>
-        public struct Guarded
-        {
-            public Agent Target { get; }
-
-            public Guarded(Agent target)
-            {
-                Target = target;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about attack.
-        /// </summary>
-        public struct Attack
-        {
-            public Agent Target { get; }
-
-            public Attack(Agent target)
-            {
-                Target = target;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about vote.
-        /// </summary>
-        public struct Vote
-        {
-            public Agent Target { get; }
-
-            public Vote(Agent target)
-            {
-                Target = target;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about agreement.
-        /// </summary>
-        public struct Agree
-        {
-            public bool IsWhisper { get; }
-            public int Day { get; }
-            public int Id { get; }
-
-            public Agree(bool isWhisper, int day, int id)
-            {
-                IsWhisper = isWhisper;
-                Day = day;
-                Id = id;
-            }
-        }
-
-        /// <summary>
-        /// Talk/whisper about disagreement.
-        /// </summary>
-        public struct Disagree
-        {
-            public bool IsWhisper { get; }
-            public int Day { get; }
-            public int Id { get; }
-
-            public Disagree(bool isWhisper, int day, int id)
-            {
-                IsWhisper = isWhisper;
-                Day = day;
-                Id = id;
-            }
         }
     }
 }
