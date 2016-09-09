@@ -153,7 +153,7 @@ namespace AIWolf.Lib
 
             if (packet.WhisperHistory != null)
             {
-                Talk lastWhisper = null;
+                Whisper lastWhisper = null;
                 if (gameInfo.WhisperList != null && gameInfo.WhisperList.Count != 0)
                 {
                     lastWhisper = gameInfo.WhisperList.Last();
@@ -319,8 +319,8 @@ namespace AIWolf.Lib
             {
                 List<Talk> talkHistoryList = DataConverter.Deserialize<List<Dictionary<string, string>>>(DataConverter.Serialize(map["talkHistory"]))
                     .Select(m => DataConverter.Deserialize<Talk>(DataConverter.Serialize(m))).ToList();
-                List<Talk> whisperHistoryList = DataConverter.Deserialize<List<Dictionary<string, string>>>(DataConverter.Serialize(map["whisperHistory"]))
-                    .Select(m => DataConverter.Deserialize<Talk>(DataConverter.Serialize(m))).ToList();
+                List<Whisper> whisperHistoryList = DataConverter.Deserialize<List<Dictionary<string, string>>>(DataConverter.Serialize(map["whisperHistory"]))
+                    .Select(m => DataConverter.Deserialize<Whisper>(DataConverter.Serialize(m))).ToList();
                 return new Packet(request, talkHistoryList, whisperHistoryList);
             }
             else
