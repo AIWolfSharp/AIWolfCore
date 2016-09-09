@@ -46,7 +46,7 @@ namespace AIWolf.Lib
         /// The history of whispers.
         /// </summary>
         [DataMember(Name = "whisperHistory")]
-        public List<Talk> WhisperHistory { get; }
+        public List<Whisper> WhisperHistory { get; }
 
         /// <summary>
         /// Initializes a new instance of this class with given request.
@@ -84,7 +84,7 @@ namespace AIWolf.Lib
         /// <param name="request">Request given.</param>
         /// <param name="talkHistoryList">History of talk given.</param>
         /// <param name="whisperHistoryList">History of whisper given.</param>
-        public Packet(Request request, List<Talk> talkHistoryList, List<Talk> whisperHistoryList) : this(request)
+        public Packet(Request request, List<Talk> talkHistoryList, List<Whisper> whisperHistoryList) : this(request)
         {
             TalkHistory = talkHistoryList;
             WhisperHistory = whisperHistoryList;
