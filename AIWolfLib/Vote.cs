@@ -50,10 +50,9 @@ namespace AIWolf.Lib
         /// Initializes a new instance of this class.
         /// </summary>
         /// <param name="day">The day of this vote.</param>
-        /// <param name="agent">The index of agent who voted.</param>
-        /// <param name="target">The index of voted agent.</param>
-        [JsonConstructor]
-        public Vote(int day, int agent, int target)
+        /// <param name="agent">The agent who voted.</param>
+        /// <param name="target">The voted agent.</param>
+        public Vote(int day, Agent agent, Agent target)
         {
             Day = day;
             if (Day < 0)
@@ -62,7 +61,7 @@ namespace AIWolf.Lib
                 Day = 0;
             }
 
-            Agent = Agent.GetAgent(agent);
+            Agent = agent;
             if (Agent == null)
             {
                 Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
@@ -70,13 +69,24 @@ namespace AIWolf.Lib
             }
             _Agent = Agent.AgentIdx;
 
-            Target = Agent.GetAgent(target);
+            Target = target;
             if (Target == null)
             {
                 Error.RuntimeError(GetType() + "(): Target must not be null.", "Force it to be Agent[00].");
                 Target = Agent.GetAgent(0);
             }
             _Target = Target.AgentIdx;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="day">The day of this vote.</param>
+        /// <param name="agent">The index of agent who voted.</param>
+        /// <param name="target">The index of voted agent.</param>
+        [JsonConstructor]
+        public Vote(int day, int agent, int target) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target))
+        {
         }
 
         /// <summary>

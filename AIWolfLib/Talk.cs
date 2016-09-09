@@ -87,8 +87,7 @@ namespace AIWolf.Lib
         /// <param name="day">The day of this talk/whisper.</param>
         /// <param name="agent">The agent who talked/whispered.</param>
         /// <param name="content">The contents of this talk/whisper.</param>
-        [JsonConstructor]
-        public Talk(int idx, int day, int agent, string content)
+        public Talk(int idx, int day, Agent agent, string content)
         {
             Idx = idx;
             if (Idx < 0)
@@ -104,7 +103,7 @@ namespace AIWolf.Lib
                 Day = 0;
             }
 
-            Agent = Agent.GetAgent(agent);
+            Agent = agent;
             if (Agent == null)
             {
                 Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
@@ -114,6 +113,18 @@ namespace AIWolf.Lib
 
             Content = content;
             Meaning = ParseContent();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this talk/whisper.</param>
+        /// <param name="day">The day of this talk/whisper.</param>
+        /// <param name="agent">The index of agent who talked/whispered.</param>
+        /// <param name="content">The contents of this talk/whisper.</param>
+        [JsonConstructor]
+        public Talk(int idx, int day, int agent, string content) : this(idx, day, Agent.GetAgent(agent), content)
+        {
         }
 
         /// <summary>

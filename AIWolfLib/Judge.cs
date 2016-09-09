@@ -63,11 +63,10 @@ namespace AIWolf.Lib
         /// Initializes a new instance of Judge class.
         /// </summary>
         /// <param name="day">The day of this judge.</param>
-        /// <param name="agent">The index of agent who judged.</param>
-        /// <param name="target">The index of judged agent.</param>
+        /// <param name="agent">The agent who judged.</param>
+        /// <param name="target">The judged agent.</param>
         /// <param name="result">The result of this judge.</param>
-        [JsonConstructor]
-        public Judge(int day, int agent, int target, string result)
+        public Judge(int day, Agent agent, Agent target, Species result)
         {
             Day = day;
             if (Day < 0)
@@ -76,7 +75,7 @@ namespace AIWolf.Lib
                 Day = 0;
             }
 
-            Agent = Agent.GetAgent(agent);
+            Agent = agent;
             if (Agent == null)
             {
                 Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
@@ -84,7 +83,7 @@ namespace AIWolf.Lib
             }
             _Agent = Agent.AgentIdx;
 
-            Target = Agent.GetAgent(target);
+            Target = target;
             if (Target == null)
             {
                 Error.RuntimeError(GetType() + "(): Target must not be null.", "Force it to be Agent[00].");
@@ -92,6 +91,25 @@ namespace AIWolf.Lib
             }
             _Target = Target.AgentIdx;
 
+            Result = result;
+            if (Result == Species.UNC)
+            {
+                Error.RuntimeError(GetType() + "(): Invalid result " + result + ".", "Force it to be HUMAN.");
+                Result = Species.HUMAN;
+            }
+            _Result = Result.ToString();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of Judge class.
+        /// </summary>
+        /// <param name="day">The day of this judge.</param>
+        /// <param name="agent">The index of agent who judged.</param>
+        /// <param name="target">The index of judged agent.</param>
+        /// <param name="result">The result of this judge.</param>
+        [JsonConstructor]
+        public Judge(int day, int agent, int target, string result) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target), Species.HUMAN)
+        {
             Species r;
             if (!Enum.TryParse(result, out r) || r == Species.UNC)
             {
