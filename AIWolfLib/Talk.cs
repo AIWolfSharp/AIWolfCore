@@ -59,7 +59,7 @@ namespace AIWolf.Lib
         /// The contents of this talk/whisper.
         /// </summary>
         [DataMember(Name = "content")]
-        public string Content { get; }
+        public string Text { get; }
 
         /// <summary>
         /// The topic of this talk/whisper.
@@ -78,7 +78,7 @@ namespace AIWolf.Lib
         /// <remarks>
         /// Null means invalid talk.
         /// </remarks>
-        public object Meaning { get; }
+        public object Contents { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
@@ -111,8 +111,8 @@ namespace AIWolf.Lib
             }
             _Agent = Agent.AgentIdx;
 
-            Content = content;
-            Meaning = ParseContent();
+            Text = content;
+            Contents = ParseContent();
         }
 
         /// <summary>
@@ -136,16 +136,16 @@ namespace AIWolf.Lib
         {
             string[] sentence;
 
-            if (Content == null || Content.Length == 0)
+            if (Text == null || Text.Length == 0)
             {
                 Error.RuntimeError(GetType() + ".ParseContent(): Content is empty or null.", "Force the meaning to be null.");
                 return null;
             }
 
-            sentence = Content.Split();
+            sentence = Text.Split();
             if (!Enum.TryParse(sentence[0], out topic))
             {
-                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + Content + ".", "Force the meaning to be null.");
+                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + Text + ".", "Force the meaning to be null.");
                 return null;
             }
 
@@ -154,9 +154,9 @@ namespace AIWolf.Lib
                 case 1:
                     if (topic == Topic.Skip || topic == Topic.Over)
                     {
-                        return Content;
+                        return Text;
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 case 2:
                     int targetId = GetInt(sentence[1]);
@@ -173,13 +173,13 @@ namespace AIWolf.Lib
                     {
                         return new Vote(target);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 case 3:
                     targetId = GetInt(sentence[1]);
                     if (targetId < 1)
                     {
-                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                         return null;
                     }
                     target = Agent.GetAgent(targetId);
@@ -188,7 +188,7 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         return new Estimate(target, role);
@@ -198,7 +198,7 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         return new Comingout(target, role);
@@ -208,7 +208,7 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         return new Divined(target, species);
@@ -218,12 +218,12 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         return new Inquested(target, species);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 case 4:
                     if (topic == Topic.AGREE || topic == Topic.DISAGREE)
@@ -239,14 +239,14 @@ namespace AIWolf.Lib
                         }
                         else
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         int day = GetInt(sentence[2]);
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                             return null;
                         }
                         if (topic == Topic.AGREE)
@@ -258,12 +258,12 @@ namespace AIWolf.Lib
                             return new Disagree(isWhisper, day, id);
                         }
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
                     return null;
                 default:
                     break;
             }
-            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Content + ".", "Force the meaning to be null.");
+            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
             return null;
         }
 
@@ -288,7 +288,7 @@ namespace AIWolf.Lib
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return String.Format("Day{0:D2}[{1:D3}]\t{2}\t{3}", Day, Idx, Agent, Content);
+            return String.Format("Day{0:D2}[{1:D3}]\t{2}\t{3}", Day, Idx, Agent, Text);
         }
 
         /// <summary>
