@@ -25,12 +25,12 @@ namespace AIWolf.Lib
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
-        public static string Over { get; } = "Over";
+        public const string Over = "Over";
 
         /// <summary>
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
-        public static string Skip { get; } = "Skip";
+        public const string Skip = "Skip";
 
         /// <summary>
         /// The index number of this talk/whisper.
