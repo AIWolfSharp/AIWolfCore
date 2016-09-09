@@ -1,5 +1,5 @@
 ﻿//
-// AIWolfRuntimeException.cs
+// AIWolfException.cs
 //
 // Copyright (c) 2016 Takashi OTSUKI
 //
@@ -17,14 +17,14 @@ namespace AIWolf.Lib
     public class AIWolfException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the AIWolfRuntimeException class.
+        /// Initializes a new instance of this class.
         /// </summary>
         public AIWolfException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the AIWolfRuntimeException class with a specified error message.
+        /// Initializes a new instance of this class with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         public AIWolfException(string message) : base(message)
@@ -32,7 +32,7 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// Initializes a new instance of the AIWolfRuntimeException class with a specified error message
+        /// Initializes a new instance of this class with a specified error message
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
