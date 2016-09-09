@@ -27,7 +27,7 @@ namespace AIWolf
         /// </summary>
         /// <param name="args">Arguments.</param>
         /// <remarks>
-        /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [roleRequest] [-n name] [-d]
+        /// Usage: [-h host] [-p port] [-t timeout] -c clientClass dllName [-r role] [-n name] [-d]
         /// </remarks>
         public static void Main(string[] args)
         {
@@ -42,101 +42,101 @@ namespace AIWolf
 
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i].StartsWith("-"))
+                if (args[i].Equals("-d"))
                 {
-                    if (args[i].Equals("-d"))
+                    useDefaultPlayer = true;
+                }
+                else if (args[i].Equals("-p"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
                     {
-                        useDefaultPlayer = true;
-                    }
-                    else if (args[i].Equals("-p"))
-                    {
-                        i++;
-                        if (i < args.Length)
+                        if (!int.TryParse(args[i], out port))
                         {
-                            if (!int.TryParse(args[i], out port))
-                            {
-                                Console.Error.WriteLine("ClientStarter: Invalid port {0}.", args[i]);
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            Usage();
+                            Console.Error.WriteLine("ClientStarter: Invalid port {0}.", args[i]);
+                            return;
                         }
                     }
-                    else if (args[i].Equals("-h"))
+                    else
                     {
-                        i++;
-                        if (i < args.Length)
-                        {
-                            host = args[i];
-                        }
-                        else
-                        {
-                            Usage();
-                        }
+                        Usage();
                     }
-                    else if (args[i].Equals("-c"))
+                }
+                else if (args[i].Equals("-h"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
                     {
-                        i++;
-                        if (i < args.Length)
-                        {
-                            clsName = args[i];
-                        }
-                        else
-                        {
-                            Usage();
-                        }
-                        i++;
-                        if (i < args.Length)
-                        {
-                            dllName = args[i];
-                        }
-                        else
-                        {
-                            Usage();
-                        }
-                        i++;
-                        if (i > args.Length - 1 || args[i].StartsWith("-")) // Role is not requested.
-                        {
-                            i--;
-                            roleRequest = Role.UNC;
-                            continue;
-                        }
-                        Role role;
-                        if (!Enum.TryParse(args[i], out role))
+                        host = args[i];
+                    }
+                    else
+                    {
+                        Usage();
+                    }
+                }
+                else if (args[i].Equals("-c"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
+                    {
+                        clsName = args[i];
+                    }
+                    else
+                    {
+                        Usage();
+                    }
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
+                    {
+                        dllName = args[i];
+                    }
+                    else
+                    {
+                        Usage();
+                    }
+                }
+                else if (args[i].Equals("-r"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
+                    {
+                        if (!Enum.TryParse(args[i], out roleRequest))
                         {
                             Console.Error.WriteLine("ClientStarter: Invalid role {0}.", args[i]);
                             return;
                         }
                     }
-                    else if (args[i].Equals("-n"))
+                    else
                     {
-                        i++;
-                        if (i < args.Length)
+                        Usage();
+                    }
+                }
+                else if (args[i].Equals("-n"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
+                    {
+                        playerName = args[i];
+                    }
+                    else
+                    {
+                        Usage();
+                    }
+                }
+                else if (args[i].Equals("-t"))
+                {
+                    i++;
+                    if (i < args.Length || !args[i].StartsWith("-"))
+                    {
+                        if (!int.TryParse(args[i], out timeout))
                         {
-                            playerName = args[i];
-                        }
-                        else
-                        {
-                            Usage();
+                            Console.Error.WriteLine("ClientStarter: Invalid timeout {0}.", args[i]);
+                            return;
                         }
                     }
-                    else if (args[i].Equals("-t"))
+                    else
                     {
-                        i++;
-                        if (i < args.Length)
-                        {
-                            if (!int.TryParse(args[i], out timeout))
-                            {
-                                Console.Error.WriteLine("ClientStarter: Invalid timeout {0}.", args[i]);
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            Usage();
-                        }
+                        Usage();
                     }
                 }
             }
