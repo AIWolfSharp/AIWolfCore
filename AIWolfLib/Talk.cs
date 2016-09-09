@@ -85,9 +85,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this talk/whisper.</param>
         /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The agent who talked/whispered.</param>
-        /// <param name="content">The contents of this talk/whisper.</param>
-        public Talk(int idx, int day, Agent agent, string content)
+        public Talk(int idx, int day)
         {
             Idx = idx;
             if (Idx < 0)
@@ -102,7 +100,17 @@ namespace AIWolf.Lib
                 Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
                 Day = 0;
             }
+        }
 
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this talk/whisper.</param>
+        /// <param name="day">The day of this talk/whisper.</param>
+        /// <param name="agent">The agent who talked/whispered.</param>
+        /// <param name="text">The text of this talk/whisper.</param>
+        public Talk(int idx, int day, Agent agent, string text) : this(idx, day)
+        {
             Agent = agent;
             if (Agent == null)
             {
@@ -111,8 +119,8 @@ namespace AIWolf.Lib
             }
             _Agent = Agent.AgentIdx;
 
-            Text = content;
-            Contents = ParseContent();
+            Text = text;
+            Contents = ParseText();
         }
 
         /// <summary>
@@ -121,9 +129,9 @@ namespace AIWolf.Lib
         /// <param name="idx">The index of this talk/whisper.</param>
         /// <param name="day">The day of this talk/whisper.</param>
         /// <param name="agent">The index of agent who talked/whispered.</param>
-        /// <param name="content">The contents of this talk/whisper.</param>
+        /// <param name="text">The text of this talk/whisper.</param>
         [JsonConstructor]
-        public Talk(int idx, int day, int agent, string content) : this(idx, day, Agent.GetAgent(agent), content)
+        public Talk(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
         {
         }
 
@@ -132,7 +140,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <returns>An object representing the meaning of this talk/whisper.</returns>
         /// <remarks>Returns null if the content is invalid.</remarks>
-        object ParseContent()
+        object ParseText()
         {
             string[] sentence;
 
