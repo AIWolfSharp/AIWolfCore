@@ -15,6 +15,11 @@ namespace AIWolf.Lib
     public enum Topic
     {
         /// <summary>
+        /// Dummy topic.
+        /// </summary>
+        DUMMY,
+
+        /// <summary>
         /// Estimation.
         /// </summary>
         ESTIMATE,
