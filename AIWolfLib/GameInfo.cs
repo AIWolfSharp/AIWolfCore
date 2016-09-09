@@ -121,7 +121,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <remarks>Werewolf only.</remarks>
         [DataMember(Name = "whisperList")]
-        public List<Talk> WhisperList { get; }
+        public List<Whisper> WhisperList { get; }
 
         /// <summary>
         /// The statuses of all agents.
@@ -181,7 +181,7 @@ namespace AIWolf.Lib
         /// </summary>
         [JsonConstructor]
         public GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
-            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Talk> whisperList,
+            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
         {
             Day = day;
@@ -214,7 +214,7 @@ namespace AIWolf.Lib
             VoteList = voteList == null ? new List<Vote>() : voteList;
             AttackVoteList = attackVoteList == null ? new List<Vote>() : attackVoteList;
             TalkList = talkList == null ? new List<Talk>() : talkList;
-            WhisperList = whisperList == null ? new List<Talk>() : whisperList;
+            WhisperList = whisperList == null ? new List<Whisper>() : whisperList;
 
             StatusMap = new Dictionary<Agent, Status>();
             if (statusMap != null)
