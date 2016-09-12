@@ -141,5 +141,31 @@ namespace AIWolf.Lib
                 Error.Warning("Force topic to be DUMMY.");
             }
         }
+
+        public override string ToString()
+        {
+            switch (Topic)
+            {
+                case Topic.DUMMY:
+                case Topic.Skip:
+                case Topic.Over:
+                    return Topic.ToString();
+                case Topic.ESTIMATE:
+                case Topic.COMINGOUT:
+                    return Topic + " : target=" + Target + " role=" + Role;
+                case Topic.DIVINED:
+                case Topic.INQUESTED:
+                    return Topic + " : target=" + Target + " species=" + Species;
+                case Topic.GUARDED:
+                case Topic.VOTE:
+                case Topic.ATTACK:
+                    return Topic + " : target=" + Target;
+                case Topic.AGREE:
+                case Topic.DISAGREE:
+                    return Topic + " : talk/whisper=" + Talk;
+                default:
+                    return "";
+            }
+        }
     }
 }
