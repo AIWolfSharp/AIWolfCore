@@ -112,11 +112,11 @@ namespace AIWolf.Lib
                     }
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 if (Running)
                 {
-                    throw e;
+                    throw;
                 }
             }
             finally
