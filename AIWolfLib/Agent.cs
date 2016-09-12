@@ -34,7 +34,7 @@ namespace AIWolf.Lib
             }
             if (idx == 0)
             {
-                Error.Warning("Agent.GetAgent(): Agent index is 0.");
+                Error.Warning("Agent index is 0.");
             }
             if (!agentMap.ContainsKey(idx))
             {

@@ -90,14 +90,16 @@ namespace AIWolf.Lib
             Idx = idx;
             if (Idx < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid idx " + Idx + ".", "Force it to be 0.");
+                Error.RuntimeError("Invalid idx " + Idx + ".");
+                Error.Warning("Force it to be 0.");
                 Idx = 0;
             }
 
             Day = day;
             if (Day < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
+                Error.RuntimeError("Invalid day " + Day + ".");
+                Error.Warning("Force it to be 0.");
                 Day = 0;
             }
         }
@@ -114,7 +116,8 @@ namespace AIWolf.Lib
             Agent = agent;
             if (Agent == null)
             {
-                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Error.RuntimeError("Agent must not be null.");
+                Error.Warning("Force it to be Agent[00].");
                 Agent = Agent.GetAgent(0);
             }
             _Agent = Agent.AgentIdx;
@@ -146,14 +149,16 @@ namespace AIWolf.Lib
 
             if (Text == null || Text.Length == 0)
             {
-                Error.RuntimeError(GetType() + ".ParseContent(): Content is empty or null.", "Force the meaning to be null.");
+                Error.RuntimeError("Text is empty or null.");
+                Error.Warning("Force the contents to be null.");
                 return null;
             }
 
             sentence = Text.Split();
             if (!Enum.TryParse(sentence[0], out topic))
             {
-                Error.RuntimeError(GetType() + ".ParseContent(): Can not find any topic in content " + Text + ".", "Force the meaning to be null.");
+                Error.RuntimeError("Can not find any topic in text " + Text + ".");
+                Error.Warning("Force the contents to be null.");
                 return null;
             }
 
@@ -164,7 +169,8 @@ namespace AIWolf.Lib
                     {
                         return new Contents(topic);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.Warning("Force the contents to be null.");
                     return null;
                 case 2:
                     int targetId = GetInt(sentence[1]);
@@ -173,13 +179,15 @@ namespace AIWolf.Lib
                     {
                         return new Contents(topic, target);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.Warning("Force the contents to be null.");
                     return null;
                 case 3:
                     targetId = GetInt(sentence[1]);
                     if (targetId < 1)
                     {
-                        Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                        Error.RuntimeError("Illegal text " + Text + ".");
+                        Error.Warning("Force the contents to be null.");
                         return null;
                     }
                     target = Agent.GetAgent(targetId);
@@ -188,7 +196,8 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.Warning("Force the contents to be null.");
                             return null;
                         }
                         return new Contents(topic, target, role);
@@ -198,12 +207,14 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.Warning("Force the contents to be null.");
                             return null;
                         }
                         return new Contents(topic, target, species);
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.Warning("Force the contents to be null.");
                     return null;
                 case 4:
                     if (topic == Topic.AGREE || topic == Topic.DISAGREE)
@@ -212,7 +223,8 @@ namespace AIWolf.Lib
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.Warning("Force the contents to be null.");
                             return null;
                         }
                         if (sentence[1].Equals("TALK"))
@@ -225,16 +237,19 @@ namespace AIWolf.Lib
                         }
                         else
                         {
-                            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.Warning("Force the contents to be null.");
                             return null;
                         }
                     }
-                    Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+                    Error.RuntimeError(GetType() + "Illegal text " + Text + ".");
+                    Error.Warning("Force the contents to be null.");
                     return null;
                 default:
                     break;
             }
-            Error.RuntimeError(GetType() + ".ParseContent(): Illegal content " + Text + ".", "Force the meaning to be null.");
+            Error.RuntimeError(GetType() + "Illegal text " + Text + ".");
+            Error.Warning("Force the contents to be null.");
             return null;
         }
 

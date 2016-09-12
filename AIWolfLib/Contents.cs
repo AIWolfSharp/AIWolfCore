@@ -57,7 +57,8 @@ namespace AIWolf.Lib
             }
             else
             {
-                Error.RuntimeError(GetType() + "(Topic): Can not initialize by this constructor in case of " + topic + ".", "Force topic to be DUMMY.");
+                Error.RuntimeError("Can not initialize by this constructor in case of " + topic + ".");
+                Error.Warning("Force topic to be DUMMY.");
             }
         }
 
@@ -77,7 +78,8 @@ namespace AIWolf.Lib
             }
             else
             {
-                Error.RuntimeError(GetType() + "(Topic, Agent, Role): Can not initialize by this constructor in case of " + topic + ".", "Force topic to be DUMMY.");
+                Error.RuntimeError("Can not initialize by this constructor in case of " + topic + ".");
+                Error.Warning("Force topic to be DUMMY.");
             }
         }
 
@@ -97,7 +99,8 @@ namespace AIWolf.Lib
             }
             else
             {
-                Error.RuntimeError(GetType() + "(Topic, Agent, Species): Can not initialize by this constructor in case of " + topic + ".", "Force topic to be DUMMY.");
+                Error.RuntimeError("Can not initialize by this constructor in case of " + topic + ".");
+                Error.Warning("Force topic to be DUMMY.");
             }
         }
 
@@ -115,7 +118,8 @@ namespace AIWolf.Lib
             }
             else
             {
-                Error.RuntimeError(GetType() + "(Topic, Agent): Can not initialize by this constructor in case of " + topic + ".", "Force topic to be DUMMY.");
+                Error.RuntimeError("Can not initialize by this constructor in case of " + topic + ".");
+                Error.Warning("Force topic to be DUMMY.");
             }
         }
 
@@ -133,7 +137,8 @@ namespace AIWolf.Lib
             }
             else
             {
-                Error.RuntimeError(GetType() + "(Topic, Talk): Can not initialize by this constructor in case of " + topic + ".", "Force topic to be DUMMY.");
+                Error.RuntimeError("Can not initialize by this constructor in case of " + topic + ".");
+                Error.Warning("Force topic to be DUMMY.");
             }
         }
     }

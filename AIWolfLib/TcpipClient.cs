@@ -291,14 +291,16 @@ namespace AIWolf.Lib
 
             if (map["request"] == null)
             {
-                Error.RuntimeError(GetType() + ".ToPacket(): There is no request in " + line + ".", "Force it to be Request.DUMMY.");
+                Error.RuntimeError("There is no request in " + line + ".");
+                Error.Warning("Force it to be Request.DUMMY.");
                 return new Packet(Request.DUMMY);
             }
 
             Request request;
             if (!Enum.TryParse((string)map["request"], out request))
             {
-                Error.RuntimeError(GetType() + ".ToPacket(): Invalid request in " + line + ".", "Force it to be Request.DUMMY.");
+                Error.RuntimeError("Invalid request in " + line + ".");
+                Error.Warning("Force it to be Request.DUMMY.");
                 return new Packet(Request.DUMMY);
             }
 

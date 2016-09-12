@@ -187,14 +187,16 @@ namespace AIWolf.Lib
             Day = day;
             if (Day < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
+                Error.RuntimeError("Invalid day " + Day + ".");
+                Error.Warning("Force it to be 0.");
                 Day = 0;
             }
 
             Agent = Agent.GetAgent(agent);
             if (Agent == null)
             {
-                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Error.RuntimeError("Agent must not be null.");
+                Error.Warning("Force it to be Agent[00].");
                 Agent = Agent.GetAgent(0);
             }
             _Agent = Agent.AgentIdx;
@@ -224,7 +226,8 @@ namespace AIWolf.Lib
                     Status status;
                     if (!Enum.TryParse(p.Value, out status))
                     {
-                        Error.RuntimeError(GetType() + "(): Invalid status string " + p.Value + ".", "Force it to be Status.ALIVE.");
+                        Error.RuntimeError("Invalid status string " + p.Value + ".");
+                        Error.Warning("Force it to be Status.ALIVE.");
                         status = Status.ALIVE;
                     }
                     StatusMap[Agent.GetAgent(p.Key)] = status;
@@ -240,7 +243,8 @@ namespace AIWolf.Lib
                     Role role;
                     if (!Enum.TryParse(p.Value, out role) || role == Role.UNC)
                     {
-                        Error.RuntimeError(GetType() + "(): Invalid role string " + p.Value + ".", "It is removed from role map.");
+                        Error.RuntimeError("Invalid role string " + p.Value + ".");
+                        Error.Warning("It is removed from role map.");
                     }
                     else
                     {

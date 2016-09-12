@@ -9,6 +9,8 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace AIWolf.Lib
 {
@@ -18,30 +20,21 @@ namespace AIWolf.Lib
     public static class Error
     {
         /// <summary>
-        /// Writes an error message.
+        /// Writes a warning message.
         /// </summary>
-        /// <param name="message">Error message.</param>
-        public static void Warning(string message)
+        /// <param name="message">Warning message.</param>
+        public static void Warning(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Console.Error.WriteLine("(WARNING) " + message);
+            Console.Error.WriteLine(memberName + " : " + message + " at line " + lineNumber + " in " + Path.GetFileName(filePath));
         }
 
         /// <summary>
         /// Writes an error message, then throws AIWolfRuntimeException on debug.
         /// </summary>
         /// <param name="message">Error message.</param>
-        public static void RuntimeError(params string[] messages)
+        public static void RuntimeError(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            string message = "";
-            if (messages.Length > 0)
-            {
-                message = messages[0];
-            }
             ThrowRuntimeException(message);
-            foreach (var m in messages)
-            {
-                Console.Error.WriteLine("(ERROR) " + m);
-            }
         }
 
         [Conditional("DEBUG")]
@@ -54,18 +47,9 @@ namespace AIWolf.Lib
         /// Writes an error message, then throws TimeoutException on debug.
         /// </summary>
         /// <param name="message">Error message.</param>
-        public static void TimeoutError(params string[] messages)
+        public static void TimeoutError(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            string message = "";
-            if (messages.Length > 0)
-            {
-                message = messages[0];
-            }
             ThrowTimeoutException(message);
-            foreach (var m in messages)
-            {
-                Console.Error.WriteLine("(TIMEOUT) " + m);
-            }
         }
 
         [Conditional("DEBUG")]

@@ -57,14 +57,16 @@ namespace AIWolf.Lib
             Day = day;
             if (Day < 0)
             {
-                Error.RuntimeError(GetType() + "(): Invalid day " + Day + ".", "Force it to be 0.");
+                Error.RuntimeError("Invalid day " + Day + ".");
+                Error.Warning("Force it to be 0.");
                 Day = 0;
             }
 
             Agent = agent;
             if (Agent == null)
             {
-                Error.RuntimeError(GetType() + "(): Agent must not be null.", "Force it to be Agent[00].");
+                Error.RuntimeError("Agent must not be null.");
+                Error.Warning("Force it to be Agent[00].");
                 Agent = Agent.GetAgent(0);
             }
             _Agent = Agent.AgentIdx;
@@ -72,7 +74,8 @@ namespace AIWolf.Lib
             Target = target;
             if (Target == null)
             {
-                Error.RuntimeError(GetType() + "(): Target must not be null.", "Force it to be Agent[00].");
+                Error.RuntimeError("Target must not be null.");
+                Error.Warning("Force it to be Agent[00].");
                 Target = Agent.GetAgent(0);
             }
             _Target = Target.AgentIdx;
