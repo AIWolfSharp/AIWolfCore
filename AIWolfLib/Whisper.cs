@@ -44,5 +44,14 @@ namespace AIWolf.Lib
         public Whisper(int idx, int day, int agent, string text) : base(idx, day, agent, text)
         {
         }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString()
+        {
+            return string.Format("Whisper: Day{0:D2}[{1:D3}]\t{2}\t{3}\t{4}", Day, Idx, Agent, Text, Contents);
+        }
     }
 }

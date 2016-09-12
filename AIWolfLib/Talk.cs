@@ -274,7 +274,7 @@ namespace AIWolf.Lib
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return String.Format("Day{0:D2}[{1:D3}]\t{2}\t{3}", Day, Idx, Agent, Text);
+            return string.Format("Talk: Day{0:D2}[{1:D3}]\t{2}\t{3}\t{4}", Day, Idx, Agent, Text, Contents);
         }
     }
 }
