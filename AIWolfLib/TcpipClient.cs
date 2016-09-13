@@ -30,6 +30,11 @@ namespace AIWolf.Lib
 
         GameInfo lastGameInfo;
 
+        int day = -1;
+
+        Dictionary<int, List<Talk>> dayTalkMap = new Dictionary<int, List<Talk>>();
+        Dictionary<int, List<Whisper>> dayWhisperMap = new Dictionary<int, List<Whisper>>();
+
         /// <summary>
         /// The requested role.
         /// </summary>
@@ -138,6 +143,16 @@ namespace AIWolf.Lib
             if (packet.GameInfo != null)
             {
                 gameInfo = packet.GameInfo;
+                if (gameInfo.Day == day + 1) // New day.
+                {
+                    if (gameInfo.Day > 0)
+                    {
+                        // Save yesterday's talks/whispers.
+                        dayTalkMap[day] = lastGameInfo.TalkList;
+                        dayWhisperMap[day] = lastGameInfo.WhisperList;
+                    }
+                    day = gameInfo.Day;
+                }
                 lastGameInfo = gameInfo;
             }
 
@@ -148,7 +163,7 @@ namespace AIWolf.Lib
                 {
                     lastTalk = gameInfo.TalkList.Last();
                 }
-                gameInfo.TalkList.AddRange(packet.TalkHistory.Where(t => IsAfter(t, lastTalk)));
+                gameInfo.TalkList.AddRange(packet.TalkHistory.Where(t => (IsAfter(t, lastTalk) && Valid(t))));
             }
 
             if (packet.WhisperHistory != null)
@@ -158,7 +173,7 @@ namespace AIWolf.Lib
                 {
                     lastWhisper = gameInfo.WhisperList.Last();
                 }
-                gameInfo.WhisperList.AddRange(packet.WhisperHistory.Where(w => IsAfter(w, lastWhisper)));
+                gameInfo.WhisperList.AddRange(packet.WhisperHistory.Where(w => (IsAfter(w, lastWhisper) && Valid(w))));
             }
 
             Task<object> task = Task.Run(() =>
@@ -239,6 +254,9 @@ namespace AIWolf.Lib
                         player.Update(gameInfo);
                         player.Finish();
                         Running = false;
+                        day = -1;
+                        dayTalkMap.Clear();
+                        dayWhisperMap.Clear();
                         break;
                     default:
                         break;
@@ -254,6 +272,87 @@ namespace AIWolf.Lib
                 Error.TimeoutError(string.Format("{0}@{1} exceeds the time limit({2}ms).", packet.Request, player.Name, Timeout));
                 task.Wait(-1);
                 return task.Result;
+            }
+        }
+
+        bool Valid(Talk talk)
+        {
+            if (talk.Contents.Topic == Topic.AGREE || talk.Contents.Topic == Topic.DISAGREE)
+            {
+                Talk target = talk.Contents.Talk;
+                int dayOfTarget = target.Day;
+                int idxOfTarget = target.Idx;
+                if (dayOfTarget == lastGameInfo.Day) // Today's talk/whisper.
+                {
+                    if (target is Whisper) // Whisper
+                    {
+                        if (lastGameInfo.WhisperList.Select(w => w.Idx).Contains(idxOfTarget)) // Known whisper.
+                        {
+                            return true;
+                        }
+                        else // Unknown whisper.
+                        {
+                            Error.RuntimeError("Invalid " + target + ".");
+                            Error.Warning("Delete this from the list.");
+                            return false;
+                        }
+                    }
+                    else // Talk
+                    {
+                        if (lastGameInfo.TalkList.Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
+                        {
+                            return true;
+                        }
+                        else // Unknown talk.
+                        {
+                            Error.RuntimeError("Invalid " + target + ".");
+                            Error.Warning("Delete this from the list.");
+                            return false;
+                        }
+                    }
+                }
+                else // Past talk/whisper.
+                {
+                    if (dayTalkMap.ContainsKey(dayOfTarget)) // Known day.
+                    {
+                        if (target is Whisper) // Whisper
+                        {
+                            if (dayWhisperMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known whisper.
+                            {
+                                return true;
+                            }
+                            else // Unknown talk.
+                            {
+                                Error.RuntimeError("Invalid " + target + ".");
+                                Error.Warning("Delete this from the list.");
+                                return false;
+                            }
+                        }
+                        else // Talk
+                        {
+                            if (dayTalkMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
+                            {
+                                return true;
+                            }
+                            else // Unknown talk.
+                            {
+                                Error.RuntimeError("Invalid " + target + ".");
+                                Error.Warning("Delete this from the list.");
+                                return false;
+                            }
+                        }
+                    }
+                    else // Unknown day.
+                    {
+                        Error.RuntimeError("Invalid day " + dayOfTarget + " of talk/whisper.");
+                        Error.Warning("Delete this from the list.");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return true;
             }
         }
 
