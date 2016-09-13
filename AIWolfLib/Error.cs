@@ -25,7 +25,7 @@ namespace AIWolf.Lib
         /// <param name="message">Warning message.</param>
         public static void Warning(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            Console.Error.WriteLine(memberName + " : " + message + " at line " + lineNumber + " in " + Path.GetFileName(filePath));
+            Console.Error.WriteLine(memberName + ": " + message + " at line " + lineNumber + " in " + Path.GetFileName(filePath));
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace AIWolf.Lib
         /// <param name="message">Error message.</param>
         public static void RuntimeError(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            ThrowRuntimeException(message);
+            ThrowRuntimeException(memberName + ": " + message + " at line " + lineNumber + " in " + Path.GetFileName(filePath));
         }
 
         [Conditional("DEBUG")]
@@ -49,7 +49,7 @@ namespace AIWolf.Lib
         /// <param name="message">Error message.</param>
         public static void TimeoutError(string message, [CallerMemberName] string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
         {
-            ThrowTimeoutException(message);
+            ThrowTimeoutException(memberName + ": " + message + " at line " + lineNumber + " in " + Path.GetFileName(filePath));
         }
 
         [Conditional("DEBUG")]
