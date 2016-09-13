@@ -23,59 +23,35 @@ namespace AIWolf.Lib
     {
         string host;
         int port;
+        int timeout;
+        Role requestRole;
+        string playerName;
 
+        bool running = false;
         TcpClient tcpClient;
-
         IPlayer player;
-
+        GameInfo gameInfo;
         GameInfo lastGameInfo;
-
         int day = -1;
-
         Dictionary<int, List<Talk>> dayTalkMap = new Dictionary<int, List<Talk>>();
         Dictionary<int, List<Whisper>> dayWhisperMap = new Dictionary<int, List<Whisper>>();
 
         /// <summary>
-        /// The requested role.
-        /// </summary>
-        public Role RequestRole { get; }
-
-        /// <summary>
-        /// Whether or not this client is running.
-        /// </summary>
-        public bool Running { get; private set; }
-
-        /// <summary>
-        /// The name of player this client manages.
-        /// </summary>
-        public string PlayerName { get; set; }
-
-        /// <summary>
-        /// The number of milliseconds to wait for the request call.
-        /// </summary>
-        public int Timeout { get; set; } = -1; // Do not limit by default.
-
-        /// <summary>
-        /// Initializes a new instance of this class which connects given port of given host.
+        /// Initializes a new instance of this class.
         /// </summary>
         /// <param name="host">Hostname this client connects.</param>
         /// <param name="port">Port number this client connects.</param>
-        public TcpipClient(string host, int port)
+        /// <param name="playerName">The name of player this client manages.</param>
+        /// <param name="requestRole">Role this client requests.</param>
+        /// <param name="timeout">The number of milliseconds to wait for the request call.</param>
+        public TcpipClient(string host, int port, string playerName, Role requestRole, int timeout)
         {
             this.host = host;
             this.port = port;
-            Running = false;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of this class which connects given port of given host, and requests given role.
-        /// </summary>
-        /// <param name="host">Hostname this client connects.</param>
-        /// <param name="port">Port number this client connects.</param>
-        /// <param name="requestRole">Role this client requests.</param>
-        public TcpipClient(string host, int port, Role requestRole) : this(host, port)
-        {
-            RequestRole = requestRole;
+            this.playerName = playerName;
+            this.requestRole = requestRole;
+            this.timeout = timeout;
+            running = false;
         }
 
         /// <summary>
@@ -119,14 +95,14 @@ namespace AIWolf.Lib
             }
             catch (IOException)
             {
-                if (Running)
+                if (running)
                 {
                     throw;
                 }
             }
             finally
             {
-                Running = false;
+                running = false;
             }
         }
 
@@ -137,7 +113,6 @@ namespace AIWolf.Lib
         /// <returns>The object returned from the player.</returns>
         public object Recieve(Packet packet)
         {
-            GameInfo gameInfo = lastGameInfo;
             GameSetting gameSetting = packet.GameSetting;
 
             if (packet.GameInfo != null)
@@ -155,25 +130,31 @@ namespace AIWolf.Lib
                 }
                 lastGameInfo = gameInfo;
             }
+            else
+            {
+                gameInfo = lastGameInfo;
+            }
 
             if (packet.TalkHistory != null)
             {
-                Talk lastTalk = null;
-                if (gameInfo.TalkList != null && gameInfo.TalkList.Count != 0)
+                foreach (var t in packet.TalkHistory)
                 {
-                    lastTalk = gameInfo.TalkList.Last();
+                    if (IsNew(t) && Valid(t))
+                    {
+                        gameInfo.TalkList.Add(t);
+                    }
                 }
-                gameInfo.TalkList.AddRange(packet.TalkHistory.Where(t => (IsAfter(t, lastTalk) && Valid(t))));
             }
 
             if (packet.WhisperHistory != null)
             {
-                Whisper lastWhisper = null;
-                if (gameInfo.WhisperList != null && gameInfo.WhisperList.Count != 0)
+                foreach (var w in packet.WhisperHistory)
                 {
-                    lastWhisper = gameInfo.WhisperList.Last();
+                    if (IsNew(w) && Valid(w))
+                    {
+                        gameInfo.WhisperList.Add(w);
+                    }
                 }
-                gameInfo.WhisperList.AddRange(packet.WhisperHistory.Where(w => (IsAfter(w, lastWhisper) && Valid(w))));
             }
 
             Task<object> task = Task.Run(() =>
@@ -184,7 +165,7 @@ namespace AIWolf.Lib
                     case Request.DUMMY:
                         break;
                     case Request.INITIALIZE:
-                        Running = true;
+                        running = true;
                         player.Initialize(gameInfo, gameSetting);
                         break;
                     case Request.DAILY_INITIALIZE:
@@ -195,23 +176,24 @@ namespace AIWolf.Lib
                         player.Update(gameInfo);
                         break;
                     case Request.NAME:
-                        if (PlayerName == null)
+                        if (playerName == null || playerName.Length == 0)
                         {
-                            returnObject = player.Name;
-                            if (returnObject == null)
+                            string name = player.Name;
+                            if (name == null || name.Length == 0)
                             {
                                 returnObject = player.GetType().Name;
                             }
+                            returnObject = name;
                         }
                         else
                         {
-                            returnObject = PlayerName;
+                            returnObject = playerName;
                         }
                         break;
                     case Request.ROLE:
-                        if (RequestRole != Role.UNC)
+                        if (requestRole != Role.UNC)
                         {
-                            returnObject = RequestRole.ToString();
+                            returnObject = requestRole.ToString();
                         }
                         else
                         {
@@ -224,7 +206,7 @@ namespace AIWolf.Lib
                         break;
                     case Request.TALK:
                         player.Update(gameInfo);
-                        returnObject = player.Talk();
+                        returnObject = player.Talk(); // TODO check
                         if (returnObject == null)
                         {
                             returnObject = Talk.Skip;
@@ -232,7 +214,7 @@ namespace AIWolf.Lib
                         break;
                     case Request.WHISPER:
                         player.Update(gameInfo);
-                        returnObject = player.Whisper();
+                        returnObject = player.Whisper(); // TODO check
                         if (returnObject == null)
                         {
                             returnObject = Talk.Skip;
@@ -253,7 +235,7 @@ namespace AIWolf.Lib
                     case Request.FINISH:
                         player.Update(gameInfo);
                         player.Finish();
-                        Running = false;
+                        running = false;
                         day = -1;
                         dayTalkMap.Clear();
                         dayWhisperMap.Clear();
@@ -263,18 +245,23 @@ namespace AIWolf.Lib
                 }
                 return returnObject;
             });
-            if (task.Wait(Timeout))
+            if (task.Wait(timeout))
             {
                 return task.Result;
             }
             else
             {
-                Error.TimeoutError(string.Format("{0}@{1} exceeds the time limit({2}ms).", packet.Request, player.Name, Timeout));
+                Error.TimeoutError(string.Format("{0}@{1} exceeds the time limit({2}ms).", packet.Request, player.Name, timeout));
                 task.Wait(-1);
                 return task.Result;
             }
         }
 
+        /// <summary>
+        /// Validate the contents of talk/whisper.
+        /// </summary>
+        /// <param name="talk">Talk/whisper to be validated.</param>
+        /// <returns>True if the talk/whisper is valid.</returns>
         bool Valid(Talk talk)
         {
             if (talk.Contents.Topic == Topic.AGREE || talk.Contents.Topic == Topic.DISAGREE)
@@ -282,11 +269,11 @@ namespace AIWolf.Lib
                 Talk target = talk.Contents.Talk;
                 int dayOfTarget = target.Day;
                 int idxOfTarget = target.Idx;
-                if (dayOfTarget == lastGameInfo.Day) // Today's talk/whisper.
+                if (dayOfTarget == gameInfo.Day) // Today's talk/whisper.
                 {
                     if (target is Whisper) // Whisper
                     {
-                        if (lastGameInfo.WhisperList.Select(w => w.Idx).Contains(idxOfTarget)) // Known whisper.
+                        if (gameInfo.WhisperList.Select(w => w.Idx).Contains(idxOfTarget)) // Known whisper.
                         {
                             return true;
                         }
@@ -299,7 +286,7 @@ namespace AIWolf.Lib
                     }
                     else // Talk
                     {
-                        if (lastGameInfo.TalkList.Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
+                        if (gameInfo.TalkList.Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
                         {
                             return true;
                         }
@@ -357,26 +344,52 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// Whether or not the given talk is after lastTalk.
+        /// Whether or not the given talk/whisper is newer than ones already received.
         /// </summary>
-        /// <param name="talk">The talk to be checked.</param>
-        /// <param name="lastTalk">The last talk.</param>
-        /// <returns>True if the given talk is after the last talk.</returns>
-        /// <remarks>If it is same, return false.</remarks>
-        bool IsAfter(Talk talk, Talk lastTalk)
+        /// <param name="talk">The talk/whisper to be checked.</param>
+        /// <returns>True if it is new.</returns>
+        bool IsNew(Talk talk)
         {
-            if (lastTalk != null)
+            if (talk is Whisper)
             {
-                if (talk.Day < lastTalk.Day)
+                Whisper lastWhisper = null;
+                if (gameInfo.WhisperList != null && gameInfo.WhisperList.Count != 0)
                 {
-                    return false;
+                    lastWhisper = gameInfo.WhisperList.Last();
                 }
-                if (talk.Day == lastTalk.Day && talk.Idx <= lastTalk.Idx)
+                if (lastWhisper != null)
                 {
-                    return false;
+                    if (talk.Day < lastWhisper.Day)
+                    {
+                        return false;
+                    }
+                    if (talk.Day == lastWhisper.Day && talk.Idx <= lastWhisper.Idx)
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            else
+            {
+                Talk lastTalk = null;
+                if (gameInfo.TalkList != null && gameInfo.TalkList.Count != 0)
+                {
+                    lastTalk = gameInfo.TalkList.Last();
+                }
+                if (lastTalk != null)
+                {
+                    if (talk.Day < lastTalk.Day)
+                    {
+                        return false;
+                    }
+                    if (talk.Day == lastTalk.Day && talk.Idx <= lastTalk.Idx)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         /// <summary>

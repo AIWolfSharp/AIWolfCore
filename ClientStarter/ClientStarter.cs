@@ -35,9 +35,9 @@ namespace AIWolf
             int port = 10000;
             string clsName = null;
             string dllName = null;
-            Role roleRequest = Role.UNC;
-            string playerName = null;
-            int timeout = -1; // Do not limit by default.
+            Role roleRequest = Role.UNC; // No request by default.
+            string playerName = null; // Obtained from the player by default.
+            int timeout = -1; // No limit by default.
             bool useDefaultPlayer = false;
 
             for (int i = 0; i < args.Length; i++)
@@ -176,12 +176,7 @@ namespace AIWolf
                 }
             }
 
-            TcpipClient client = new TcpipClient(host, port, roleRequest);
-            client.Timeout = timeout;
-            if (playerName != null)
-            {
-                client.PlayerName = playerName;
-            }
+            TcpipClient client = new TcpipClient(host, port, playerName, roleRequest, timeout);
             try
             {
                 client.Connect(player);
