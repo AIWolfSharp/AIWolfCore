@@ -11,7 +11,7 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Contents of talk/whisper class.
+    /// Contents of talk/whisper.
     /// </summary>
     public class Contents
     {
@@ -19,31 +19,31 @@ namespace AIWolf.Lib
         /// The topic of this talk/whisper.
         /// </summary>
         /// <remarks>DUMMY means invalid talk/whisper.</remarks>
-        public Topic Topic { get; private set; } = Topic.DUMMY;
+        public Topic Topic { get; } = Topic.DUMMY;
 
         /// <summary>
         /// The target agent mentioned in this talk/whisper.
         /// </summary>
         /// <remarks>Required except AGREE and DISAGREE.</remarks>
-        public Agent Target { get; private set; }
+        public Agent Target { get; }
 
         /// <summary>
         /// The role mentioned in this talk/whisper.
         /// </summary>
         /// <remarks>Required on ESTIMATE and COMINGOUT.</remarks>
-        public Role Role { get; private set; } = Role.UNC;
+        public Role Role { get; } = Role.UNC;
 
         /// <summary>
         /// The species mentioned in this talk/whisper.
         /// </summary>
         /// <remarks>Required on DIVINED and INQUESTED.</remarks>
-        public Species Species { get; private set; } = Species.UNC;
+        public Species Species { get; } = Species.UNC;
 
         /// <summary>
         /// The talk/whisper mentioned in this talk/whisper.
         /// </summary>
         /// <remarks>Required on AGREE and DISAGREE.</remarks>
-        public Talk Talk;
+        public Talk Talk { get; }
 
         /// <summary>
         /// Initializes a new instance of contents having topic of skip and over.
@@ -152,17 +152,17 @@ namespace AIWolf.Lib
                     return Topic.ToString();
                 case Topic.ESTIMATE:
                 case Topic.COMINGOUT:
-                    return Topic + " : target=" + Target + " role=" + Role;
+                    return Topic + ": target=" + Target + " role=" + Role;
                 case Topic.DIVINED:
                 case Topic.INQUESTED:
-                    return Topic + " : target=" + Target + " species=" + Species;
+                    return Topic + ": target=" + Target + " species=" + Species;
                 case Topic.GUARDED:
                 case Topic.VOTE:
                 case Topic.ATTACK:
-                    return Topic + " : target=" + Target;
+                    return Topic + ": target=" + Target;
                 case Topic.AGREE:
                 case Topic.DISAGREE:
-                    return Topic + " : talk/whisper=" + Talk;
+                    return Topic + ": talk/whisper=" + Talk;
                 default:
                     return "";
             }
