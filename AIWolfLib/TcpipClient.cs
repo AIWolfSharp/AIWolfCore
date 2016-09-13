@@ -206,18 +206,42 @@ namespace AIWolf.Lib
                         break;
                     case Request.TALK:
                         player.Update(gameInfo);
-                        returnObject = player.Talk(); // TODO check
-                        if (returnObject == null)
+                        string talkText = player.Talk();
+                        if (talkText == null)
                         {
                             returnObject = Talk.Skip;
+                        }
+                        else
+                        {
+                            Talk t = new Talk(0, day, gameInfo.Agent, talkText); // For purpose of checking.
+                            if (t.Contents == null) // Invalid talk.
+                            {
+                                returnObject = Talk.Skip;
+                            }
+                            else
+                            {
+                                returnObject = talkText;
+                            }
                         }
                         break;
                     case Request.WHISPER:
                         player.Update(gameInfo);
-                        returnObject = player.Whisper(); // TODO check
-                        if (returnObject == null)
+                        string whisperText = player.Whisper();
+                        if (whisperText == null)
                         {
                             returnObject = Talk.Skip;
+                        }
+                        else
+                        {
+                            Whisper w = new Whisper(0, day, gameInfo.Agent, whisperText); // For purpose of checking.
+                            if (w.Contents == null) // Invalid talk.
+                            {
+                                returnObject = Talk.Skip;
+                            }
+                            else
+                            {
+                                returnObject = whisperText;
+                            }
                         }
                         break;
                     case Request.DIVINE:
