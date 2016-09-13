@@ -20,8 +20,6 @@ namespace AIWolf.Lib
     [DataContract]
     public class Talk
     {
-        Topic topic;
-
         /// <summary>
         /// There is nothing to talk/whisper.
         /// </summary>
@@ -64,13 +62,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// The topic of this talk/whisper.
         /// </summary>
-        public Topic Topic
-        {
-            get
-            {
-                return topic;
-            }
-        }
+        public Topic Topic { get; }
 
         /// <summary>
         /// The contents of this talk/whisper.
@@ -91,16 +83,16 @@ namespace AIWolf.Lib
             if (Idx < 0)
             {
                 Error.RuntimeError("Invalid idx " + Idx + ".");
-                Error.Warning("Force it to be 0.");
                 Idx = 0;
+                Error.Warning("Force it to be " + Idx + ".");
             }
 
             Day = day;
             if (Day < 0)
             {
                 Error.RuntimeError("Invalid day " + Day + ".");
-                Error.Warning("Force it to be 0.");
                 Day = 0;
+                Error.Warning("Force it to be " + Day + ".");
             }
         }
 
@@ -117,13 +109,14 @@ namespace AIWolf.Lib
             if (Agent == null)
             {
                 Error.RuntimeError("Agent must not be null.");
-                Error.Warning("Force it to be Agent[00].");
                 Agent = Agent.GetAgent(0);
+                Error.Warning("Force it to be " + Agent + ".");
             }
             _Agent = Agent.AgentIdx;
 
             Text = text;
-            Contents = ParseText();
+            Contents = ParseText(Text);
+            Topic = Contents.Topic;
         }
 
         /// <summary>
@@ -143,21 +136,20 @@ namespace AIWolf.Lib
         /// </summary>
         /// <returns>Contents of this talk/whisper.</returns>
         /// <remarks>Returns null if the content is invalid.</remarks>
-        Contents ParseText()
+        public static Contents ParseText(string text)
         {
-            string[] sentence;
-
-            if (Text == null || Text.Length == 0)
+            if (text == null || text.Length == 0)
             {
                 Error.RuntimeError("Text is empty or null.");
                 Error.Warning("Force the contents to be null.");
                 return null;
             }
 
-            sentence = Text.Split();
+            string[] sentence = text.Split();
+            Topic topic;
             if (!Enum.TryParse(sentence[0], out topic))
             {
-                Error.RuntimeError("Can not find any topic in text " + Text + ".");
+                Error.RuntimeError("Can not find any topic in text " + text + ".");
                 Error.Warning("Force the contents to be null.");
                 return null;
             }
@@ -169,7 +161,7 @@ namespace AIWolf.Lib
                     {
                         return new Contents(topic);
                     }
-                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.RuntimeError("Illegal text " + text + ".");
                     Error.Warning("Force the contents to be null.");
                     return null;
                 case 2:
@@ -179,14 +171,14 @@ namespace AIWolf.Lib
                     {
                         return new Contents(topic, target);
                     }
-                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.RuntimeError("Illegal text " + text + ".");
                     Error.Warning("Force the contents to be null.");
                     return null;
                 case 3:
                     targetId = GetInt(sentence[1]);
                     if (targetId < 1)
                     {
-                        Error.RuntimeError("Illegal text " + Text + ".");
+                        Error.RuntimeError("Illegal text " + text + ".");
                         Error.Warning("Force the contents to be null.");
                         return null;
                     }
@@ -196,7 +188,7 @@ namespace AIWolf.Lib
                         Role role;
                         if (!Enum.TryParse(sentence[2], out role))
                         {
-                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.RuntimeError("Illegal text " + text + ".");
                             Error.Warning("Force the contents to be null.");
                             return null;
                         }
@@ -207,13 +199,13 @@ namespace AIWolf.Lib
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))
                         {
-                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.RuntimeError("Illegal text " + text + ".");
                             Error.Warning("Force the contents to be null.");
                             return null;
                         }
                         return new Contents(topic, target, species);
                     }
-                    Error.RuntimeError("Illegal text " + Text + ".");
+                    Error.RuntimeError("Illegal text " + text + ".");
                     Error.Warning("Force the contents to be null.");
                     return null;
                 case 4:
@@ -223,7 +215,7 @@ namespace AIWolf.Lib
                         int id = GetInt(sentence[3]);
                         if (day < 0 || id < 0)
                         {
-                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.RuntimeError("Illegal text " + text + ".");
                             Error.Warning("Force the contents to be null.");
                             return null;
                         }
@@ -237,18 +229,18 @@ namespace AIWolf.Lib
                         }
                         else
                         {
-                            Error.RuntimeError("Illegal text " + Text + ".");
+                            Error.RuntimeError("Illegal text " + text + ".");
                             Error.Warning("Force the contents to be null.");
                             return null;
                         }
                     }
-                    Error.RuntimeError(GetType() + "Illegal text " + Text + ".");
+                    Error.RuntimeError("Illegal text " + text + ".");
                     Error.Warning("Force the contents to be null.");
                     return null;
                 default:
                     break;
             }
-            Error.RuntimeError(GetType() + "Illegal text " + Text + ".");
+            Error.RuntimeError("Illegal text " + text + ".");
             Error.Warning("Force the contents to be null.");
             return null;
         }
@@ -258,7 +250,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="text">Text.</param>
         /// <returns>Integer value if found, otherwise -1.</returns>
-        int GetInt(string text)
+        static int GetInt(string text)
         {
             var m = new Regex(@"-?[\d]+").Match(text);
             if (m.Success)
