@@ -183,7 +183,7 @@ namespace AIWolf
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine("ClientStarter: Error in runnning player.");
+                Console.Error.WriteLine("ClientStarter: Error in running player.");
                 Console.Error.WriteLine(ex);
                 if (ex is AggregateException)
                 {
