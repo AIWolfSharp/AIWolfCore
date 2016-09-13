@@ -72,16 +72,16 @@ namespace AIWolf.Lib
             if (Day < 0)
             {
                 Error.RuntimeError("Invalid day " + Day + ".");
-                Error.Warning("Force it to be 0.");
                 Day = 0;
+                Error.Warning("Force it to be " + Day + ".");
             }
 
             Agent = agent;
             if (Agent == null)
             {
                 Error.RuntimeError("Agent must not be null.");
-                Error.Warning("Force it to be Agent[00].");
                 Agent = Agent.GetAgent(0);
+                Error.Warning("Force it to be " + Agent + ".");
             }
             _Agent = Agent.AgentIdx;
 
@@ -89,17 +89,17 @@ namespace AIWolf.Lib
             if (Target == null)
             {
                 Error.RuntimeError("Target must not be null.");
-                Error.Warning("Force it to be Agent[00].");
                 Target = Agent.GetAgent(0);
+                Error.Warning("Force it to be " + Target + ".");
             }
             _Target = Target.AgentIdx;
 
             Result = result;
             if (Result == Species.UNC)
             {
-                Error.RuntimeError("Invalid result " + result + ".");
-                Error.Warning("Force it to be HUMAN.");
+                Error.RuntimeError("Invalid result " + Result + ".");
                 Result = Species.HUMAN;
+                Error.Warning("Force it to be " + Result + ".");
             }
             _Result = Result.ToString();
         }
@@ -118,8 +118,8 @@ namespace AIWolf.Lib
             if (!Enum.TryParse(result, out r) || r == Species.UNC)
             {
                 Error.RuntimeError("Invalid result string " + result + ".");
-                Error.Warning("Force it to be HUMAN.");
                 r = Species.HUMAN;
+                Error.Warning("Force it to be " + r + ".");
             }
             Result = r;
             _Result = r.ToString();
