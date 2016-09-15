@@ -48,7 +48,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of contents having topic of skip and over.
         /// </summary>
-        /// <param name="topic"></param>
+        /// <param name="topic">The topic of this contents.</param>
         public Contents(Topic topic)
         {
             if (topic == Topic.Skip || topic == Topic.Over)
@@ -65,9 +65,9 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of contents having topic of estimation and comingout.
         /// </summary>
-        /// <param name="topic"></param>
-        /// <param name="target"></param>
-        /// <param name="role"></param>
+        /// <param name="topic">The topic of this contents.</param>
+        /// <param name="target">The target agent mentioned in this contents.</param>
+        /// <param name="role">The role of the target.</param>
         public Contents(Topic topic, Agent target, Role role)
         {
             if (topic == Topic.ESTIMATE || topic == Topic.COMINGOUT)
@@ -86,9 +86,9 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of contents having topic of divination and inquest.
         /// </summary>
-        /// <param name="topic"></param>
-        /// <param name="target"></param>
-        /// <param name="species"></param>
+        /// <param name="topic">The topic of this contents.</param>
+        /// <param name="target">The target agent mentioned in this contents.</param>
+        /// <param name="species">The species of the target.</param>
         public Contents(Topic topic, Agent target, Species species)
         {
             if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
@@ -107,8 +107,8 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of contents having topic of attack, guard and vote.
         /// </summary>
-        /// <param name="topic"></param>
-        /// <param name="target"></param>
+        /// <param name="topic">The topic of this contents.</param>
+        /// <param name="target">The target agent mentioned in this contents.</param>
         public Contents(Topic topic, Agent target)
         {
             if (topic == Topic.ATTACK || topic == Topic.GUARDED || topic == Topic.VOTE)
@@ -126,8 +126,8 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of contents having topic of agreement and disagreement.
         /// </summary>
-        /// <param name="topic"></param>
-        /// <param name="talk"></param>
+        /// <param name="topic">The topic of this contents.</param>
+        /// <param name="talk">The talk which the talker agrees/disagrees with.</param>
         public Contents(Topic topic, Talk talk)
         {
             if (topic == Topic.AGREE || topic == Topic.DISAGREE)
@@ -142,6 +142,10 @@ namespace AIWolf.Lib
             }
         }
 
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
             switch (Topic)

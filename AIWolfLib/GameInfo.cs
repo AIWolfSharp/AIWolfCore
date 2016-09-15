@@ -179,6 +179,19 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
+        /// <param name="day">The current day.</param>
+        /// <param name="agent">The agent who receives this.</param>
+        /// <param name="mediumResult">The result of the inquest.</param>
+        /// <param name="divineResult">The result of the divination.</param>
+        /// <param name="executedAgent">The agent executed.</param>
+        /// <param name="attackedAgent">The agent attacked.</param>
+        /// <param name="guardedAgent">The agent guarded.</param>
+        /// <param name="voteList">The list of votes for execution.</param>
+        /// <param name="attackVoteList">The list of votes for attack.</param>
+        /// <param name="talkList">The list of talks.</param>
+        /// <param name="whisperList">The list of whispers.</param>
+        /// <param name="statusMap">The map between agent and its status.</param>
+        /// <param name="roleMap">The map between agent and its role.</param>
         [JsonConstructor]
         public GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
             List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,

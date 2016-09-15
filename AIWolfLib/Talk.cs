@@ -134,6 +134,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// Parses the text of this talk/whisper.
         /// </summary>
+        /// <param name="text">The text to be parsed.</param>
         /// <returns>Contents of this talk/whisper.</returns>
         /// <remarks>Returns null if the content is invalid.</remarks>
         public static Contents ParseText(string text)

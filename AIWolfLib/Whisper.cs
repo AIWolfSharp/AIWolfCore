@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 
 namespace AIWolf.Lib
 {
+    /// <summary>
+    /// Whisper class.
+    /// </summary>
     public class Whisper : Talk
     {
         /// <summary>
