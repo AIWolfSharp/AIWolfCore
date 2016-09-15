@@ -2,18 +2,15 @@
   "title": "ClientStarter",
   "copyright": "Copyright © 2016 Takashi OTSUKI",
   "description": "The starter for AIWolf client.",
-  "version": "0.9.4-*",
+  "version": "0.9.5-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
 
   "dependencies": {
-    "AIWolfLib": "0.9.2-*",
+    "AIWolfLib": "0.9.5-*",
     "Microsoft.Extensions.DependencyModel": "1.0.0",
-    "Microsoft.NETCore.App": {
-      "type": "platform",
-      "version": "1.0.0"
-    },
+    "Microsoft.NETCore.App": "1.0.1",
     "System.Runtime.Loader": "4.0.0"
   },
 
