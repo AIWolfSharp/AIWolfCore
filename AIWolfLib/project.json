@@ -2,7 +2,7 @@
   "title": "AIWolfLib",
   "copyright": "Copyright © 2016 Takashi OTSUKI",
   "description": "The AIWolf library.",
-  "version": "0.9.5-*",
+  "version": "0.9.6-*",
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "Newtonsoft.Json": "9.0.1"
