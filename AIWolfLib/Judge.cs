@@ -66,7 +66,7 @@ namespace AIWolf.Lib
         /// <param name="agent">The agent who judged.</param>
         /// <param name="target">The judged agent.</param>
         /// <param name="result">The result of this judge.</param>
-        Judge(int day, Agent agent, Agent target, Species result)
+        public Judge(int day, Agent agent, Agent target, Species result)
         {
             Day = day;
             if (Day < 0)
