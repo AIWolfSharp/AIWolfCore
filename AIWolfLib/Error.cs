@@ -46,7 +46,7 @@ namespace AIWolf.Lib
         [Conditional("DEBUG")]
         static void ThrowRuntimeException(string message)
         {
-            throw new AIWolfException(message);
+            throw new AIWolfLibException(message);
         }
 
         /// <summary>
