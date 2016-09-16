@@ -10,7 +10,10 @@
   "dependencies": {
     "AIWolfLib": "0.9.5-*",
     "Microsoft.Extensions.DependencyModel": "1.0.0",
-    "Microsoft.NETCore.App": "1.0.1",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform"
+    },
     "System.Runtime.Loader": "4.0.0"
   },
 
