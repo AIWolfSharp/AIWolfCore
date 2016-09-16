@@ -111,7 +111,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="packet">The packet from the server.</param>
         /// <returns>The object returned from the player.</returns>
-        public object Recieve(Packet packet)
+        object Recieve(Packet packet)
         {
             GameSetting gameSetting = packet.GameSetting;
 

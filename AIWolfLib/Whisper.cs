@@ -21,7 +21,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this talk/whisper.</param>
         /// <param name="day">The day of this talk/whisper.</param>
-        public Whisper(int idx, int day) : base(idx, day)
+        internal Whisper(int idx, int day) : base(idx, day)
         {
         }
 
@@ -32,7 +32,7 @@ namespace AIWolf.Lib
         /// <param name="day">The day of this talk/whisper.</param>
         /// <param name="agent">The agent who talked/whispered.</param>
         /// <param name="text">The text of this talk/whisper.</param>
-        public Whisper(int idx, int day, Agent agent, string text) : base(idx, day, agent, text)
+        Whisper(int idx, int day, Agent agent, string text) : base(idx, day, agent, text)
         {
         }
 
@@ -44,7 +44,7 @@ namespace AIWolf.Lib
         /// <param name="agent">The index of agent who talked/whispered.</param>
         /// <param name="text">The text of this talk/whisper.</param>
         [JsonConstructor]
-        public Whisper(int idx, int day, int agent, string text) : base(idx, day, agent, text)
+        Whisper(int idx, int day, int agent, string text) : base(idx, day, agent, text)
         {
         }
 

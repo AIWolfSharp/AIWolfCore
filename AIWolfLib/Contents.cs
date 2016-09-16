@@ -49,7 +49,7 @@ namespace AIWolf.Lib
         /// Initializes a new instance of contents having topic of skip and over.
         /// </summary>
         /// <param name="topic">The topic of this contents.</param>
-        public Contents(Topic topic)
+        internal Contents(Topic topic)
         {
             if (topic == Topic.Skip || topic == Topic.Over)
             {
@@ -68,7 +68,7 @@ namespace AIWolf.Lib
         /// <param name="topic">The topic of this contents.</param>
         /// <param name="target">The target agent mentioned in this contents.</param>
         /// <param name="role">The role of the target.</param>
-        public Contents(Topic topic, Agent target, Role role)
+        internal Contents(Topic topic, Agent target, Role role)
         {
             if (topic == Topic.ESTIMATE || topic == Topic.COMINGOUT)
             {
@@ -89,7 +89,7 @@ namespace AIWolf.Lib
         /// <param name="topic">The topic of this contents.</param>
         /// <param name="target">The target agent mentioned in this contents.</param>
         /// <param name="species">The species of the target.</param>
-        public Contents(Topic topic, Agent target, Species species)
+        internal Contents(Topic topic, Agent target, Species species)
         {
             if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
             {
@@ -109,7 +109,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="topic">The topic of this contents.</param>
         /// <param name="target">The target agent mentioned in this contents.</param>
-        public Contents(Topic topic, Agent target)
+        internal Contents(Topic topic, Agent target)
         {
             if (topic == Topic.ATTACK || topic == Topic.GUARDED || topic == Topic.VOTE)
             {
@@ -128,7 +128,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="topic">The topic of this contents.</param>
         /// <param name="talk">The talk which the talker agrees/disagrees with.</param>
-        public Contents(Topic topic, Talk talk)
+        internal Contents(Topic topic, Talk talk)
         {
             if (topic == Topic.AGREE || topic == Topic.DISAGREE)
             {

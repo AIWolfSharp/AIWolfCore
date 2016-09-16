@@ -51,7 +51,7 @@ namespace AIWolf.Lib
         /// The index number of the agent who talked/whispered.
         /// </summary>
         [DataMember(Name = "agent")]
-        public int _Agent { get; }
+        int _Agent { get; }
 
         /// <summary>
         /// The contents of this talk/whisper.
@@ -77,7 +77,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this talk/whisper.</param>
         /// <param name="day">The day of this talk/whisper.</param>
-        public Talk(int idx, int day)
+        protected Talk(int idx, int day)
         {
             Idx = idx;
             if (Idx < 0)
@@ -103,7 +103,7 @@ namespace AIWolf.Lib
         /// <param name="day">The day of this talk/whisper.</param>
         /// <param name="agent">The agent who talked/whispered.</param>
         /// <param name="text">The text of this talk/whisper.</param>
-        public Talk(int idx, int day, Agent agent, string text) : this(idx, day)
+        protected Talk(int idx, int day, Agent agent, string text) : this(idx, day)
         {
             Agent = agent;
             if (Agent == null)
@@ -127,7 +127,7 @@ namespace AIWolf.Lib
         /// <param name="agent">The index of agent who talked/whispered.</param>
         /// <param name="text">The text of this talk/whisper.</param>
         [JsonConstructor]
-        public Talk(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
+        protected Talk(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
         {
         }
 

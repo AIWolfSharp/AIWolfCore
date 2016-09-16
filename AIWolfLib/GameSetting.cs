@@ -66,5 +66,10 @@ namespace AIWolf.Lib
                 return RoleNumMap == null ? 0 : RoleNumMap.Values.Sum();
             }
         }
+
+        /// <summary>
+        /// Initializes a new instance.
+        /// </summary>
+        GameSetting() { }
     }
 }

@@ -33,7 +33,7 @@ namespace AIWolf.Lib
         /// The index number of the agent who voted.
         /// </summary>
         [DataMember(Name = "agent")]
-        public int _Agent { get; }
+        int _Agent { get; }
 
         /// <summary>
         /// The voted agent.
@@ -44,7 +44,7 @@ namespace AIWolf.Lib
         /// The index number of the voted agent.
         /// </summary>
         [DataMember(Name = "target")]
-        public int _Target { get; }
+        int _Target { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
@@ -52,7 +52,7 @@ namespace AIWolf.Lib
         /// <param name="day">The day of this vote.</param>
         /// <param name="agent">The agent who voted.</param>
         /// <param name="target">The voted agent.</param>
-        public Vote(int day, Agent agent, Agent target)
+        Vote(int day, Agent agent, Agent target)
         {
             Day = day;
             if (Day < 0)
@@ -88,7 +88,7 @@ namespace AIWolf.Lib
         /// <param name="agent">The index of agent who voted.</param>
         /// <param name="target">The index of voted agent.</param>
         [JsonConstructor]
-        public Vote(int day, int agent, int target) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target))
+        Vote(int day, int agent, int target) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target))
         {
         }
 

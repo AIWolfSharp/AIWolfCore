@@ -14,7 +14,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Exception that occurs in AIWolf library.
     /// </summary>
-    public class AIWolfLibException : Exception
+    class AIWolfLibException : Exception
     {
         /// <summary>
         /// Initializes a new instance of this class.

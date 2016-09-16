@@ -36,7 +36,7 @@ namespace AIWolf.Lib
         /// The index number of agent who receives this game information.
         /// </summary>
         [DataMember(Name = "agent")]
-        public int _Agent { get; }
+        int _Agent { get; }
 
         /// <summary>
         /// The role of player who receives this GameInfo.
@@ -72,7 +72,7 @@ namespace AIWolf.Lib
         /// The index number of the agent executed last night.
         /// </summary>
         [DataMember(Name = "executedAgent")]
-        public int _ExecutedAgent { get; }
+        int _ExecutedAgent { get; }
 
         /// <summary>
         /// The agent attacked last night.
@@ -83,7 +83,7 @@ namespace AIWolf.Lib
         /// The index number of the agent attacked last night.
         /// </summary>
         [DataMember(Name = "attackedAgent")]
-        public int _AttackedAgent { get; }
+        int _AttackedAgent { get; }
 
         /// <summary>
         /// The agent guarded last night.
@@ -94,7 +94,7 @@ namespace AIWolf.Lib
         /// The index number of the agent guarded last night.
         /// </summary>
         [DataMember(Name = "guardedAgent")]
-        public int _GuardedAgent { get; }
+        int _GuardedAgent { get; }
 
         /// <summary>
         /// The list of votes for execution.
@@ -132,7 +132,7 @@ namespace AIWolf.Lib
         /// The statuses of all agents.
         /// </summary>
         [DataMember(Name = "statusMap")]
-        public Dictionary<int, string> _StatusMap { get; }
+        Dictionary<int, string> _StatusMap { get; }
 
         /// <summary>
         /// The known roles of agents.
@@ -151,7 +151,7 @@ namespace AIWolf.Lib
         /// If you are werewolf, you know other werewolves.
         /// </remarks>
         [DataMember(Name = "roleMap")]
-        public Dictionary<int, string> _RoleMap { get; }
+        Dictionary<int, string> _RoleMap { get; }
 
         /// <summary>
         /// The list of agents.
@@ -193,7 +193,7 @@ namespace AIWolf.Lib
         /// <param name="statusMap">The map between agent and its status.</param>
         /// <param name="roleMap">The map between agent and its role.</param>
         [JsonConstructor]
-        public GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
+        GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
             List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
         {

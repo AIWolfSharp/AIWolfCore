@@ -17,7 +17,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Encodes object and decodes packet string.
     /// </summary>
-    public static class DataConverter
+    static class DataConverter
     {
         static JsonSerializerSettings serializerSetting;
 

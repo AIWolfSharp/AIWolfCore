@@ -12,7 +12,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Enumeration type for requests.
     /// </summary>
-    public enum Request
+    enum Request
     {
         /// <summary>
         /// Dummy request.
@@ -96,7 +96,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Defines extension method of enum Request.
     /// </summary>
-    public static class RequestExtensions
+    static class RequestExtensions
     {
         /// <summary>
         /// Returns whethere or not the request waits for return value.

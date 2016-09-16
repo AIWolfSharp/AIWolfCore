@@ -17,7 +17,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Error handling class.
     /// </summary>
-    public static class Error
+    static class Error
     {
         /// <summary>
         /// Writes a warning message.

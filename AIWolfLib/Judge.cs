@@ -34,7 +34,7 @@ namespace AIWolf.Lib
         /// The index number of the agent who judged.
         /// </summary>
         [DataMember(Name = "agent")]
-        public int _Agent { get; }
+        int _Agent { get; }
 
         /// <summary>
         /// The judged agent.
@@ -45,7 +45,7 @@ namespace AIWolf.Lib
         /// The index nunmber of the judged agent.
         /// </summary>
         [DataMember(Name = "target")]
-        public int _Target { get; }
+        int _Target { get; }
 
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace AIWolf.Lib
         /// The result of this judge in string.
         /// </summary>
         [DataMember(Name = "result")]
-        public string _Result { get; }
+        string _Result { get; }
 
         /// <summary>
         /// Initializes a new instance of Judge class.
@@ -66,7 +66,7 @@ namespace AIWolf.Lib
         /// <param name="agent">The agent who judged.</param>
         /// <param name="target">The judged agent.</param>
         /// <param name="result">The result of this judge.</param>
-        public Judge(int day, Agent agent, Agent target, Species result)
+        Judge(int day, Agent agent, Agent target, Species result)
         {
             Day = day;
             if (Day < 0)
@@ -112,7 +112,7 @@ namespace AIWolf.Lib
         /// <param name="target">The index of judged agent.</param>
         /// <param name="result">The result of this judge.</param>
         [JsonConstructor]
-        public Judge(int day, int agent, int target, string result) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target), Species.HUMAN)
+        Judge(int day, int agent, int target, string result) : this(day, Agent.GetAgent(agent), Agent.GetAgent(target), Species.HUMAN)
         {
             Species r;
             if (!Enum.TryParse(result, out r) || r == Species.UNC)
