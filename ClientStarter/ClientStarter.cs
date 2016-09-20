@@ -274,7 +274,7 @@ namespace AIWolf
 
         public string Talk()
         {
-            return Lib.Talk.Over;
+            return Utterance.Over;
         }
 
         public void Update(GameInfo gameInfo)
@@ -289,7 +289,7 @@ namespace AIWolf
 
         public string Whisper()
         {
-            return Lib.Talk.Over;
+            return Utterance.Over;
         }
     }
 }

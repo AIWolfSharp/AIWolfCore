@@ -43,7 +43,7 @@ namespace AIWolf.Lib
         /// The talk/whisper mentioned in this talk/whisper.
         /// </summary>
         /// <remarks>Required on AGREE and DISAGREE.</remarks>
-        public Talk Talk { get; }
+        public Utterance Utterance { get; }
 
         /// <summary>
         /// Initializes a new instance of contents having topic of skip and over.
@@ -127,13 +127,13 @@ namespace AIWolf.Lib
         /// Initializes a new instance of contents having topic of agreement and disagreement.
         /// </summary>
         /// <param name="topic">The topic of this contents.</param>
-        /// <param name="talk">The talk which the talker agrees/disagrees with.</param>
-        internal Contents(Topic topic, Talk talk)
+        /// <param name="utterance">The utterance which the talker agrees/disagrees with.</param>
+        internal Contents(Topic topic, Utterance utterance)
         {
             if (topic == Topic.AGREE || topic == Topic.DISAGREE)
             {
                 Topic = topic;
-                Talk = talk;
+                Utterance = utterance;
             }
             else
             {
@@ -166,7 +166,7 @@ namespace AIWolf.Lib
                     return Topic + ": target=" + Target;
                 case Topic.AGREE:
                 case Topic.DISAGREE:
-                    return Topic + ": talk/whisper=" + Talk;
+                    return Topic + ": utterance=" + Utterance;
                 default:
                     return "";
             }

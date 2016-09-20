@@ -14,7 +14,7 @@ namespace AIWolf.Lib
     /// <summary>
     /// Whisper class.
     /// </summary>
-    public class Whisper : Talk
+    public class Whisper : Utterance
     {
         /// <summary>
         /// Initializes a new instance of this class.

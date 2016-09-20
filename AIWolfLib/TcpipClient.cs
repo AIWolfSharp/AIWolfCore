@@ -207,9 +207,9 @@ namespace AIWolf.Lib
                     case Request.TALK:
                         player.Update(gameInfo);
                         string talkText = player.Talk();
-                        if (talkText == null || Talk.ParseText(talkText) == null)
+                        if (talkText == null || Utterance.ParseText(talkText) == null)
                         {
-                            returnObject = Talk.Skip;
+                            returnObject = Utterance.Skip;
                         }
                         else
                         {
@@ -219,9 +219,9 @@ namespace AIWolf.Lib
                     case Request.WHISPER:
                         player.Update(gameInfo);
                         string whisperText = player.Whisper();
-                        if (whisperText == null || Talk.ParseText(whisperText) == null)
+                        if (whisperText == null || Utterance.ParseText(whisperText) == null)
                         {
-                            returnObject = Talk.Skip;
+                            returnObject = Utterance.Skip;
                         }
                         else
                         {
@@ -268,13 +268,13 @@ namespace AIWolf.Lib
         /// <summary>
         /// Validate the contents of talk/whisper.
         /// </summary>
-        /// <param name="talk">Talk/whisper to be validated.</param>
+        /// <param name="utterance">Talk/whisper to be validated.</param>
         /// <returns>True if the talk/whisper is valid.</returns>
-        bool Valid(Talk talk)
+        bool Valid(Utterance utterance)
         {
-            if (talk.Contents.Topic == Topic.AGREE || talk.Contents.Topic == Topic.DISAGREE)
+            if (utterance.Contents.Topic == Topic.AGREE || utterance.Contents.Topic == Topic.DISAGREE)
             {
-                Talk target = talk.Contents.Talk;
+                Utterance target = utterance.Contents.Utterance;
                 int dayOfTarget = target.Day;
                 int idxOfTarget = target.Idx;
                 if (dayOfTarget == gameInfo.Day) // Today's talk/whisper.
@@ -354,11 +354,11 @@ namespace AIWolf.Lib
         /// <summary>
         /// Whether or not the given talk/whisper is newer than ones already received.
         /// </summary>
-        /// <param name="talk">The talk/whisper to be checked.</param>
+        /// <param name="utterance">The talk/whisper to be checked.</param>
         /// <returns>True if it is new.</returns>
-        bool IsNew(Talk talk)
+        bool IsNew(Utterance utterance)
         {
-            if (talk is Whisper)
+            if (utterance is Whisper)
             {
                 Whisper lastWhisper = null;
                 if (gameInfo.WhisperList != null && gameInfo.WhisperList.Count != 0)
@@ -367,11 +367,11 @@ namespace AIWolf.Lib
                 }
                 if (lastWhisper != null)
                 {
-                    if (talk.Day < lastWhisper.Day)
+                    if (utterance.Day < lastWhisper.Day)
                     {
                         return false;
                     }
-                    if (talk.Day == lastWhisper.Day && talk.Idx <= lastWhisper.Idx)
+                    if (utterance.Day == lastWhisper.Day && utterance.Idx <= lastWhisper.Idx)
                     {
                         return false;
                     }
@@ -387,11 +387,11 @@ namespace AIWolf.Lib
                 }
                 if (lastTalk != null)
                 {
-                    if (talk.Day < lastTalk.Day)
+                    if (utterance.Day < lastTalk.Day)
                     {
                         return false;
                     }
-                    if (talk.Day == lastTalk.Day && talk.Idx <= lastTalk.Idx)
+                    if (utterance.Day == lastTalk.Day && utterance.Idx <= lastTalk.Idx)
                     {
                         return false;
                     }
