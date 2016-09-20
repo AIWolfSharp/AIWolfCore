@@ -11,36 +11,36 @@
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Contents of talk/whisper.
+    /// Contents of utterance.
     /// </summary>
     public class Contents
     {
         /// <summary>
-        /// The topic of this talk/whisper.
+        /// The topic of this utterance.
         /// </summary>
-        /// <remarks>DUMMY means invalid talk/whisper.</remarks>
+        /// <remarks>DUMMY means invalid utterance.</remarks>
         public Topic Topic { get; } = Topic.DUMMY;
 
         /// <summary>
-        /// The target agent mentioned in this talk/whisper.
+        /// The target agent mentioned in this utterance.
         /// </summary>
         /// <remarks>Required except AGREE and DISAGREE.</remarks>
         public Agent Target { get; }
 
         /// <summary>
-        /// The role mentioned in this talk/whisper.
+        /// The role mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on ESTIMATE and COMINGOUT.</remarks>
         public Role Role { get; } = Role.UNC;
 
         /// <summary>
-        /// The species mentioned in this talk/whisper.
+        /// The species mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on DIVINED and INQUESTED.</remarks>
         public Species Species { get; } = Species.UNC;
 
         /// <summary>
-        /// The talk/whisper mentioned in this talk/whisper.
+        /// The utterance mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on AGREE and DISAGREE.</remarks>
         public Utterance Utterance { get; }
