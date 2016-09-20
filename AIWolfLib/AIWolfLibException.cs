@@ -12,7 +12,7 @@ using System;
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Exception that occurs in AIWolf library.
+    /// Exception that occurred in AIWolf library.
     /// </summary>
     class AIWolfLibException : Exception
     {
