@@ -266,10 +266,10 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// Validate the contents of talk/whisper.
+        /// Validate the contents of utterance.
         /// </summary>
-        /// <param name="utterance">Talk/whisper to be validated.</param>
-        /// <returns>True if the talk/whisper is valid.</returns>
+        /// <param name="utterance">Utterance to be validated.</param>
+        /// <returns>True if the utterance is valid.</returns>
         bool Valid(Utterance utterance)
         {
             if (utterance.Contents.Topic == Topic.AGREE || utterance.Contents.Topic == Topic.DISAGREE)
@@ -277,9 +277,9 @@ namespace AIWolf.Lib
                 Utterance target = utterance.Contents.Utterance;
                 int dayOfTarget = target.Day;
                 int idxOfTarget = target.Idx;
-                if (dayOfTarget == gameInfo.Day) // Today's talk/whisper.
+                if (dayOfTarget == gameInfo.Day) // Today's utterance.
                 {
-                    if (target is Whisper) // Whisper
+                    if (target is Whisper)
                     {
                         if (gameInfo.WhisperList.Select(w => w.Idx).Contains(idxOfTarget)) // Known whisper.
                         {
@@ -292,7 +292,7 @@ namespace AIWolf.Lib
                             return false;
                         }
                     }
-                    else // Talk
+                    else
                     {
                         if (gameInfo.TalkList.Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
                         {
@@ -306,24 +306,24 @@ namespace AIWolf.Lib
                         }
                     }
                 }
-                else // Past talk/whisper.
+                else // Past utterance.
                 {
                     if (dayTalkMap.ContainsKey(dayOfTarget)) // Known day.
                     {
-                        if (target is Whisper) // Whisper
+                        if (target is Whisper)
                         {
                             if (dayWhisperMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known whisper.
                             {
                                 return true;
                             }
-                            else // Unknown talk.
+                            else // Unknown whisper.
                             {
                                 Error.RuntimeError("Invalid " + target + ".");
                                 Error.Warning("Delete this from the list.");
                                 return false;
                             }
                         }
-                        else // Talk
+                        else
                         {
                             if (dayTalkMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
                             {
@@ -339,7 +339,7 @@ namespace AIWolf.Lib
                     }
                     else // Unknown day.
                     {
-                        Error.RuntimeError("Invalid day " + dayOfTarget + " of talk/whisper.");
+                        Error.RuntimeError("Invalid day " + dayOfTarget + " of utterance.");
                         Error.Warning("Delete this from the list.");
                         return false;
                     }
@@ -352,9 +352,9 @@ namespace AIWolf.Lib
         }
 
         /// <summary>
-        /// Whether or not the given talk/whisper is newer than ones already received.
+        /// Whether or not the given utterance is newer than ones already received.
         /// </summary>
-        /// <param name="utterance">The talk/whisper to be checked.</param>
+        /// <param name="utterance">The utterance to be checked.</param>
         /// <returns>True if it is new.</returns>
         bool IsNew(Utterance utterance)
         {
