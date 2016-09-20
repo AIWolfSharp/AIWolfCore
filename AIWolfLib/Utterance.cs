@@ -15,68 +15,68 @@ using System.Text.RegularExpressions;
 namespace AIWolf.Lib
 {
     /// <summary>
-    /// Abstract class for Talk/whisper.
+    /// Abstract utterance class.
     /// </summary>
     [DataContract]
     public abstract class Utterance
     {
         /// <summary>
-        /// There is nothing to talk/whisper.
+        /// There is nothing to utter.
         /// </summary>
         public const string Over = "Over";
 
         /// <summary>
-        /// Skip this turn though there is something to talk/whisper.
+        /// Skip this turn though there is something to utter.
         /// </summary>
         public const string Skip = "Skip";
 
         /// <summary>
-        /// The index number of this talk/whisper.
+        /// The index number of this utterance.
         /// </summary>
         [DataMember(Name = "idx")]
         public int Idx { get; }
 
         /// <summary>
-        /// The day of this talk/whisper.
+        /// The day of this utterance.
         /// </summary>
         [DataMember(Name = "day")]
         public int Day { get; }
 
         /// <summary>
-        /// The agent who talked/whispered.
+        /// The agent who uttered.
         /// </summary>
         public Agent Agent { get; }
 
         /// <summary>
-        /// The index number of the agent who talked/whispered.
+        /// The index number of the agent who uttered.
         /// </summary>
         [DataMember(Name = "agent")]
         int _Agent { get; }
 
         /// <summary>
-        /// The contents of this talk/whisper.
+        /// The contents of this utterance.
         /// </summary>
         [DataMember(Name = "content")]
         public string Text { get; }
 
         /// <summary>
-        /// The topic of this talk/whisper.
+        /// The topic of this utterance.
         /// </summary>
         public Topic Topic { get; }
 
         /// <summary>
-        /// The contents of this talk/whisper.
+        /// The contents of this utterance.
         /// </summary>
         /// <remarks>
-        /// If talk/whisper is invalid, Contents.Topic is set to DUMMY.
+        /// If this utterance is invalid, Contents.Topic is set to DUMMY.
         /// </remarks>
         public Contents Contents { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
+        /// <param name="idx">The index of this utterance.</param>
+        /// <param name="day">The day of this utterance.</param>
         protected Utterance(int idx, int day)
         {
             Idx = idx;
@@ -99,10 +99,10 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this utterance.</param>
+        /// <param name="day">The day of this utterance.</param>
+        /// <param name="agent">The agent who uttered.</param>
+        /// <param name="text">The text of this utterance.</param>
         protected Utterance(int idx, int day, Agent agent, string text) : this(idx, day)
         {
             Agent = agent;
@@ -122,21 +122,21 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The index of agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this utterance.</param>
+        /// <param name="day">The day of this utterance.</param>
+        /// <param name="agent">The index of agent who uttered.</param>
+        /// <param name="text">The text of this utterance.</param>
         [JsonConstructor]
         protected Utterance(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
         {
         }
 
         /// <summary>
-        /// Parses the text of this talk/whisper.
+        /// Parses the text of utterance.
         /// </summary>
-        /// <param name="text">The text to be parsed.</param>
-        /// <returns>Contents of this talk/whisper.</returns>
-        /// <remarks>Returns null if the content is invalid.</remarks>
+        /// <param name="text">The text of utterance to be parsed.</param>
+        /// <returns>Contents of this utterance.</returns>
+        /// <remarks>Returns null if the text is invalid.</remarks>
         public static Contents ParseText(string text)
         {
             if (text == null || text.Length == 0)
