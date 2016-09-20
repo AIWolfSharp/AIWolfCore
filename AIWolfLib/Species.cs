@@ -15,14 +15,14 @@ namespace AIWolf.Lib
     public enum Species
     {
         /// <summary>
+        /// Human.
+        /// </summary>
+        HUMAN = 1,
+
+        /// <summary>
         /// Uncertain.
         /// </summary>
         UNC,
-
-        /// <summary>
-        /// Human.
-        /// </summary>
-        HUMAN,
 
         /// <summary>
         /// Werewolf.
