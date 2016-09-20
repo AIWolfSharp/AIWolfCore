@@ -19,8 +19,8 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
         internal Talk(int idx, int day) : base(idx, day)
         {
         }
@@ -28,10 +28,10 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
+        /// <param name="agent">The agent who talked.</param>
+        /// <param name="text">The text of this talk.</param>
         Talk(int idx, int day, Agent agent, string text) : base(idx, day, agent, text)
         {
         }
@@ -39,10 +39,10 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The index of agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
+        /// <param name="agent">The index of agent who talked.</param>
+        /// <param name="text">The text of this talk.</param>
         [JsonConstructor]
         Talk(int idx, int day, int agent, string text) : base(idx, day, agent, text)
         {

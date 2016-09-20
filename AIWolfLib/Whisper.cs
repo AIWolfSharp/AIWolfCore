@@ -19,8 +19,8 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
         internal Whisper(int idx, int day) : base(idx, day)
         {
         }
@@ -28,10 +28,10 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
+        /// <param name="agent">The agent who whispered.</param>
+        /// <param name="text">The text of this whisper.</param>
         Whisper(int idx, int day, Agent agent, string text) : base(idx, day, agent, text)
         {
         }
@@ -39,10 +39,10 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
-        /// <param name="idx">The index of this talk/whisper.</param>
-        /// <param name="day">The day of this talk/whisper.</param>
-        /// <param name="agent">The index of agent who talked/whispered.</param>
-        /// <param name="text">The text of this talk/whisper.</param>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
+        /// <param name="agent">The index of agent who whispered.</param>
+        /// <param name="text">The text of this whisper.</param>
         [JsonConstructor]
         Whisper(int idx, int day, int agent, string text) : base(idx, day, agent, text)
         {
