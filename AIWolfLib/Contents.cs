@@ -10,39 +10,80 @@
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// 発話内容
+    /// </summary>
+#else
     /// <summary>
     /// Contents of utterance.
     /// </summary>
+#endif
     public class Contents
     {
+#if JHELP
+        /// <summary>
+        /// この発話のトピック
+        /// </summary>
+        /// <remarks>DUMMYは不正発話を意味する</remarks>
+#else
         /// <summary>
         /// The topic of this utterance.
         /// </summary>
         /// <remarks>DUMMY means invalid utterance.</remarks>
+#endif
         public Topic Topic { get; } = Topic.DUMMY;
 
+#if JHELP
+        /// <summary>
+        /// この発話で言及するAgent
+        /// </summary>
+        /// <remarks>AGREEとDISAGREEを除いたトピック限定</remarks>
+#else
         /// <summary>
         /// The target agent mentioned in this utterance.
         /// </summary>
         /// <remarks>Required except AGREE and DISAGREE.</remarks>
+#endif
         public Agent Target { get; }
 
+#if JHELP
+        /// <summary>
+        /// この発話で言及する役職
+        /// </summary>
+        /// <remarks>トピックがESTIMATEとCOMINGOUTの場合限定</remarks>
+#else
         /// <summary>
         /// The role mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on ESTIMATE and COMINGOUT.</remarks>
+#endif
         public Role Role { get; } = Role.UNC;
 
+#if JHELP
+        /// <summary>
+        /// この発話で言及する種族
+        /// </summary>
+        /// <remarks>トピックがDIVINEDとINQUESTEDの場合限定</remarks>
+#else
         /// <summary>
         /// The species mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on DIVINED and INQUESTED.</remarks>
+#endif
         public Species Species { get; } = Species.UNC;
 
+#if JHELP
+        /// <summary>
+        /// この発話で言及する発話
+        /// </summary>
+        /// <remarks>トピックがAGREEとDISAGREEの場合限定</remarks>
+#else
         /// <summary>
         /// The utterance mentioned in this utterance.
         /// </summary>
         /// <remarks>Required on AGREE and DISAGREE.</remarks>
+#endif
         public Utterance Utterance { get; }
 
         /// <summary>
@@ -142,10 +183,17 @@ namespace AIWolf.Lib
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+#endif
         public override string ToString()
         {
             switch (Topic)

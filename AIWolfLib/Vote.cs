@@ -12,21 +12,39 @@ using System.Runtime.Serialization;
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// 処刑投票情報
+    /// </summary>
+#else
     /// <summary>
     /// Information of vote for execution.
     /// </summary>
+#endif
     [DataContract]
     public class Vote
     {
+#if JHELP
+        /// <summary>
+        /// この投票の日
+        /// </summary>
+#else
         /// <summary>
         /// The day of this vote.
         /// </summary>
+#endif
         [DataMember(Name = "day")]
         public int Day { get; }
 
+#if JHELP
+        /// <summary>
+        /// 投票したエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent who voted.
         /// </summary>
+#endif
         public Agent Agent { get; }
 
         /// <summary>
@@ -35,9 +53,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "agent")]
         int _Agent { get; }
 
+#if JHELP
+        /// <summary>
+        /// 投票されたエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The voted agent.
         /// </summary>
+#endif
         public Agent Target { get; }
 
         /// <summary>
@@ -92,10 +116,17 @@ namespace AIWolf.Lib
         {
         }
 
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+#endif
         public override string ToString()
         {
             return Agent + "voted" + Target + "@" + Day;

@@ -11,9 +11,15 @@ using Newtonsoft.Json;
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// 囁きクラス
+    /// </summary>
+#else
     /// <summary>
     /// Whisper class.
     /// </summary>
+#endif
     public class Whisper : Utterance
     {
         /// <summary>
@@ -48,10 +54,17 @@ namespace AIWolf.Lib
         {
         }
 
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+#endif
         public override string ToString()
         {
             return string.Format("Whisper: Day{0:D2}[{1:D3}]\t{2}\t{3}\t{4}", Day, Idx, Agent, Text, Contents);

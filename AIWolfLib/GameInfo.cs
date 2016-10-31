@@ -15,21 +15,39 @@ using System.Runtime.Serialization;
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// ゲーム情報
+    /// </summary>
+#else
     /// <summary>
     /// Game information.
     /// </summary>
+#endif
     [DataContract]
     public class GameInfo
     {
+#if JHELP
+        /// <summary>
+        /// 本日
+        /// </summary>
+#else
         /// <summary>
         /// Current day.
         /// </summary>
+#endif
         [DataMember(Name = "day")]
         public int Day { get; }
 
+#if JHELP
+        /// <summary>
+        /// このゲーム情報を受け取るエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent who receives this GameInfo.
         /// </summary>
+#endif
         public Agent Agent { get; }
 
         /// <summary>
@@ -38,9 +56,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "agent")]
         int _Agent { get; }
 
+#if JHELP
+        /// <summary>
+        /// このゲーム情報を受け取るエージェントの役職
+        /// </summary>
+#else
         /// <summary>
         /// The role of player who receives this GameInfo.
         /// </summary>
+#endif
         public Role Role
         {
             get
@@ -49,23 +73,43 @@ namespace AIWolf.Lib
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 霊能結果
+        /// </summary>
+        /// <remarks>霊能力者限定</remarks>
+#else
         /// <summary>
         /// The result of the inquest.
         /// </summary>
         /// <remarks>Medium only.</remarks>
+#endif
         [DataMember(Name = "mediumResult")]
         public Judge MediumResult { get; }
 
+#if JHELP
+        /// <summary>
+        /// 占い結果
+        /// </summary>
+        /// <remarks>占い師限定</remarks>
+#else
         /// <summary>
         /// The result of the dvination.
         /// </summary>
         /// <remarks>Seer only.</remarks>
+#endif
         [DataMember(Name = "divineResult")]
         public Judge DivineResult { get; }
 
+#if JHELP
+        /// <summary>
+        /// 昨夜処刑されたエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent executed last night.
         /// </summary>
+#endif
         public Agent ExecutedAgent { get; }
 
         /// <summary>
@@ -74,9 +118,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "executedAgent")]
         int _ExecutedAgent { get; }
 
+#if JHELP
+        /// <summary>
+        /// 昨夜襲撃されたエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent attacked last night.
         /// </summary>
+#endif
         public Agent AttackedAgent { get; }
 
         /// <summary>
@@ -85,9 +135,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "attackedAgent")]
         int _AttackedAgent { get; }
 
+#if JHELP
+        /// <summary>
+        /// 昨夜護衛されたエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent guarded last night.
         /// </summary>
+#endif
         public Agent GuardedAgent { get; }
 
         /// <summary>
@@ -96,36 +152,69 @@ namespace AIWolf.Lib
         [DataMember(Name = "guardedAgent")]
         int _GuardedAgent { get; }
 
+#if JHELP
+        /// <summary>
+        /// 処刑投票のリスト
+        /// </summary>
+        /// <remarks>各プレイヤーの投票先がわかる</remarks>
+#else
         /// <summary>
         /// The list of votes for execution.
         /// </summary>
         /// <remarks>You can see who votes to who.</remarks>
+#endif
         [DataMember(Name = "voteList")]
         public List<Vote> VoteList { get; }
 
+#if JHELP
+        /// <summary>
+        /// 襲撃投票リスト
+        /// </summary>
+        /// <remarks>人狼限定</remarks>
+#else
         /// <summary>
         /// The list of votes for attack.
         /// </summary>
         /// <remarks>Werewolf only.</remarks>
+#endif
         [DataMember(Name = "attackVoteList")]
         public List<Vote> AttackVoteList { get; }
 
+#if JHELP
+        /// <summary>
+        /// 本日の会話リスト
+        /// </summary>
+#else
         /// <summary>
         /// The list of today's talks.
         /// </summary>
+#endif
         [DataMember(Name = "talkList")]
         public List<Talk> TalkList { get; }
 
+#if JHELP
+        /// <summary>
+        /// 本日の囁きリスト
+        /// </summary>
+        /// <remarks>人狼限定</remarks>
+#else
         /// <summary>
         /// The list of today's whispers.
         /// </summary>
         /// <remarks>Werewolf only.</remarks>
+#endif
         [DataMember(Name = "whisperList")]
         public List<Whisper> WhisperList { get; }
 
+#if JHELP
+        /// <summary>
+        /// 全エージェントの生死状況
+        /// </summary>
+#else
         /// <summary>
         /// The statuses of all agents.
         /// </summary>
+#endif
         public Dictionary<Agent, Status> StatusMap { get; }
 
         /// <summary>
@@ -134,6 +223,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "statusMap")]
         Dictionary<int, string> _StatusMap { get; }
 
+#if JHELP
+        /// <summary>
+        /// 役職既知のエージェント
+        /// </summary>
+        /// <remarks>
+        /// 人間の場合，自分自身しかわからない
+        /// 人狼の場合，誰が他の人狼かがわかる
+        /// </remarks>
+#else
         /// <summary>
         /// The known roles of agents.
         /// </summary>
@@ -141,6 +239,7 @@ namespace AIWolf.Lib
         /// If you are human, you know only yourself.
         /// If you are werewolf, you know other werewolves.
         /// </remarks>
+#endif
         public Dictionary<Agent, Role> RoleMap { get; }
 
         /// <summary>
@@ -153,9 +252,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "roleMap")]
         Dictionary<int, string> _RoleMap { get; }
 
+#if JHELP
+        /// <summary>
+        /// エージェントのリスト
+        /// </summary>
+#else
         /// <summary>
         /// The list of agents.
         /// </summary>
+#endif
         public List<Agent> AgentList
         {
             get
@@ -164,10 +269,17 @@ namespace AIWolf.Lib
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 生存しているエージェントのリスト
+        /// </summary>
+        /// <remarks>すべてのエージェントが死んだ場合，nullではなく空のリストを返す</remarks>
+#else
         /// <summary>
         /// The list of alive agents.
         /// </summary>
         /// <remarks>If all agents are dead, this returns an empty list, not null.</remarks>
+#endif
         public List<Agent> AliveAgentList
         {
             get

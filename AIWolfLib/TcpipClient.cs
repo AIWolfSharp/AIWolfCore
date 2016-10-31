@@ -16,9 +16,15 @@ using System.Threading.Tasks;
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// TCP/IP接続人狼知能クライアント
+    /// </summary>
+#else
     /// <summary>
     /// AIWolf client using TCP/IP connection.
     /// </summary>
+#endif
     public class TcpipClient
     {
         string host;
@@ -36,6 +42,16 @@ namespace AIWolf.Lib
         Dictionary<int, List<Talk>> dayTalkMap = new Dictionary<int, List<Talk>>();
         Dictionary<int, List<Whisper>> dayWhisperMap = new Dictionary<int, List<Whisper>>();
 
+#if JHELP
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="host">このクライアントの接続先のホスト名</param>
+        /// <param name="port">このクライアントの接続先のポート番号</param>
+        /// <param name="playerName">このクライアントが面倒を見るプレイヤーの名前</param>
+        /// <param name="requestRole">このクライアントが要求する役職</param>
+        /// <param name="timeout">リクエスト応答の制限時間</param>
+#else
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
@@ -44,6 +60,7 @@ namespace AIWolf.Lib
         /// <param name="playerName">The name of player this client manages.</param>
         /// <param name="requestRole">Role this client requests.</param>
         /// <param name="timeout">The number of milliseconds to wait for the request call.</param>
+#endif
         public TcpipClient(string host, int port, string playerName, Role requestRole, int timeout)
         {
             this.host = host;
@@ -54,10 +71,17 @@ namespace AIWolf.Lib
             running = false;
         }
 
+#if JHELP
+        /// <summary>
+        /// プレイヤーをサーバに接続する
+        /// </summary>
+        /// <param name="player">接続するプレイヤー</param>
+#else
         /// <summary>
         /// Connects the player to the server.
         /// </summary>
         /// <param name="player">The player to be connected.</param>
+#endif
         public void Connect(IPlayer player)
         {
             this.player = player;

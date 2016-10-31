@@ -13,21 +13,39 @@ using System.Runtime.Serialization;
 
 namespace AIWolf.Lib
 {
+#if JHELP
+    /// <summary>
+    /// プレイヤーが人間か人狼かの判定
+    /// </summary>
+#else
     /// <summary>
     /// The judge whether the player is human or werewolf.
     /// </summary>
+#endif
     [DataContract]
     public class Judge
     {
+#if JHELP
+        /// <summary>
+        /// 判定した日
+        /// </summary>
+#else
         /// <summary>
         /// The day of this judge.
         /// </summary>
+#endif
         [DataMember(Name = "day")]
         public int Day { get; }
 
+#if JHELP
+        /// <summary>
+        /// 判定を下したエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The agent who judged.
         /// </summary>
+#endif
         public Agent Agent { get; }
 
         /// <summary>
@@ -36,9 +54,15 @@ namespace AIWolf.Lib
         [DataMember(Name = "agent")]
         int _Agent { get; }
 
+#if JHELP
+        /// <summary>
+        /// 判定されたエージェント
+        /// </summary>
+#else
         /// <summary>
         /// The judged agent.
         /// </summary>
+#endif
         public Agent Target { get; }
 
         /// <summary>
@@ -48,9 +72,15 @@ namespace AIWolf.Lib
         int _Target { get; }
 
 
+#if JHELP
+        /// <summary>
+        /// 判定結果
+        /// </summary>
+#else
         /// <summary>
         /// The result of this judge.
         /// </summary>
+#endif
         public Species Result { get; }
 
         /// <summary>
@@ -125,10 +155,17 @@ namespace AIWolf.Lib
             _Result = r.ToString();
         }
 
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
+#endif
         public override string ToString()
         {
             return Agent + "->" + Target + "@" + Day + ":" + Result;
