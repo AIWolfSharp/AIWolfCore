@@ -69,7 +69,7 @@ namespace AIWolf.Lib
         {
             get
             {
-                return _Agent != 0 && RoleMap.ContainsKey(Agent) ? RoleMap[Agent] : Role.UNC;
+                return RoleMap.ContainsKey(Agent) ? RoleMap[Agent] : Role.UNC;
             }
         }
 
