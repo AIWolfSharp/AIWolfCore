@@ -273,6 +273,40 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
+        /// トークの残り回数
+        /// </summary>
+#else
+        /// <summary>
+        /// The number of opportunities to talk remaining.
+        /// </summary>
+#endif
+        public Dictionary<Agent, int> RemainTalkMap { get; }
+
+        /// <summary>
+        /// The number of opportunities to talk remaining.
+        /// </summary>
+        [DataMember(Name = "remainTalkMap")]
+        Dictionary<int, int> _RemainTalkMap { get; }
+
+#if JHELP
+        /// <summary>
+        /// 囁きの残り回数
+        /// </summary>
+#else
+        /// <summary>
+        /// The number of opportunities to whisper remaining.
+        /// </summary>
+#endif
+        public Dictionary<Agent, int> RemainWhisperMap { get; }
+
+        /// <summary>
+        /// The number of opportunities to whisper remaining.
+        /// </summary>
+        [DataMember(Name = "remainWhisperMap")]
+        Dictionary<int, int> _RemainWhisperMap { get; }
+
+#if JHELP
+        /// <summary>
         /// エージェントのリスト
         /// </summary>
 #else
@@ -324,10 +358,13 @@ namespace AIWolf.Lib
         /// <param name="lastDeadAgentList">The list of agents who died last night.</param>
         /// <param name="statusMap">The map between agent and its status.</param>
         /// <param name="roleMap">The map between agent and its role.</param>
+        /// <param name="remainTalkMap">The map between agent and its number of remaining talks.</param>
+        /// <param name="remainWhisperMap">The map between agent and its number of remaining whispers.</param>
         [JsonConstructor]
         GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
             List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList, List<int> lastDeadAgentList,
-            Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
+            Dictionary<int, string> statusMap, Dictionary<int, string> roleMap,
+            Dictionary<int, int> remainTalkMap, Dictionary<int, int> remainWhisperMap)
         {
             Day = day;
             if (Day < 0)
@@ -408,6 +445,26 @@ namespace AIWolf.Lib
                 }
             }
             _RoleMap = RoleMap.Where(m => m.Value != Role.UNC).ToDictionary(m => m.Key.AgentIdx, m => m.Value.ToString());
+
+            RemainTalkMap = new Dictionary<Agent, int>();
+            if (remainTalkMap != null)
+            {
+                foreach (var p in remainTalkMap)
+                {
+                    RemainTalkMap[Agent.GetAgent(p.Key)] = p.Value;
+                }
+            }
+            _RemainTalkMap = RemainTalkMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value);
+
+            RemainWhisperMap = new Dictionary<Agent, int>();
+            if (remainWhisperMap != null)
+            {
+                foreach (var p in remainWhisperMap)
+                {
+                    RemainWhisperMap[Agent.GetAgent(p.Key)] = p.Value;
+                }
+            }
+            _RemainWhisperMap = RemainWhisperMap.ToDictionary(p => p.Key.AgentIdx, p => p.Value);
         }
     }
 }
