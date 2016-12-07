@@ -120,17 +120,19 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 昨夜襲撃されたエージェント
+        /// 人狼による投票の結果襲撃先に決まったエージェント
         /// </summary>
+        /// <remarks>人狼限定</remarks>
 #else
         /// <summary>
-        /// The agent attacked last night.
+        /// The agent decided to be attacked as a result of werewolves' vote.
         /// </summary>
+        /// <remarks>Werewolf only.</remarks>
 #endif
         public Agent AttackedAgent { get; }
 
         /// <summary>
-        /// The index number of the agent attacked last night.
+        /// The index number of the agent decided to be attacked.
         /// </summary>
         [DataMember(Name = "attackedAgent")]
         int _AttackedAgent { get; }
@@ -205,6 +207,23 @@ namespace AIWolf.Lib
 #endif
         [DataMember(Name = "whisperList")]
         public List<Whisper> WhisperList { get; }
+
+#if JHELP
+        /// <summary>
+        /// 昨夜亡くなったエージェントのリスト
+        /// </summary>
+#else
+        /// <summary>
+        /// The list of agents who died last night.
+        /// </summary>
+#endif
+        public List<Agent> LastDeadAgentList { get; }
+
+        /// <summary>
+        /// The list of indexes of agents who died last night.
+        /// </summary>
+        [DataMember(Name = "lastDeadAgentList")]
+        List<int> _LastDeadAgentList { get; }
 
 #if JHELP
         /// <summary>
@@ -302,11 +321,12 @@ namespace AIWolf.Lib
         /// <param name="attackVoteList">The list of votes for attack.</param>
         /// <param name="talkList">The list of talks.</param>
         /// <param name="whisperList">The list of whispers.</param>
+        /// <param name="lastDeadAgentList">The list of agents who died last night.</param>
         /// <param name="statusMap">The map between agent and its status.</param>
         /// <param name="roleMap">The map between agent and its role.</param>
         [JsonConstructor]
         GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
-            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,
+            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList, List<int> lastDeadAgentList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap)
         {
             Day = day;
@@ -342,6 +362,16 @@ namespace AIWolf.Lib
             AttackVoteList = attackVoteList == null ? new List<Vote>() : attackVoteList;
             TalkList = talkList == null ? new List<Talk>() : talkList;
             WhisperList = whisperList == null ? new List<Whisper>() : whisperList;
+
+            LastDeadAgentList = new List<Agent>();
+            if (lastDeadAgentList != null)
+            {
+                foreach (var i in lastDeadAgentList)
+                {
+                    LastDeadAgentList.Add(Agent.GetAgent(i));
+                }
+            }
+            _LastDeadAgentList = LastDeadAgentList.Select(a => a.AgentIdx).ToList();
 
             StatusMap = new Dictionary<Agent, Status>();
             if (statusMap != null)
