@@ -227,6 +227,17 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
+        /// このゲームにおいて存在する役職のリスト
+        /// </summary>
+#else
+        /// <summary>
+        /// The list of existing roles in this game.
+        /// </summary>
+#endif
+        public List<Role> ExistingRoleList { get; }
+
+#if JHELP
+        /// <summary>
         /// 全エージェントの生死状況
         /// </summary>
 #else
@@ -356,13 +367,15 @@ namespace AIWolf.Lib
         /// <param name="talkList">The list of talks.</param>
         /// <param name="whisperList">The list of whispers.</param>
         /// <param name="lastDeadAgentList">The list of agents who died last night.</param>
+        /// <param name="existingRoleList">The list of existing roles in this game.</param>
         /// <param name="statusMap">The map between agent and its status.</param>
         /// <param name="roleMap">The map between agent and its role.</param>
         /// <param name="remainTalkMap">The map between agent and its number of remaining talks.</param>
         /// <param name="remainWhisperMap">The map between agent and its number of remaining whispers.</param>
         [JsonConstructor]
         GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
-            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList, List<int> lastDeadAgentList,
+            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,
+            List<int> lastDeadAgentList, List<Role> existingRoleList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap,
             Dictionary<int, int> remainTalkMap, Dictionary<int, int> remainWhisperMap)
         {
@@ -399,6 +412,7 @@ namespace AIWolf.Lib
             AttackVoteList = attackVoteList == null ? new List<Vote>() : attackVoteList;
             TalkList = talkList == null ? new List<Talk>() : talkList;
             WhisperList = whisperList == null ? new List<Whisper>() : whisperList;
+            ExistingRoleList = existingRoleList == null ? new List<Role>() : existingRoleList;
 
             LastDeadAgentList = new List<Agent>();
             if (lastDeadAgentList != null)
