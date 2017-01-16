@@ -261,7 +261,7 @@ namespace AIWolf.Lib
                         }
                         return new Contents(topic, target, role);
                     }
-                    if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
+                    if (topic == Topic.DIVINED || topic == Topic.IDENTIFIED)
                     {
                         Species species;
                         if (!Enum.TryParse(sentence[2], out species))

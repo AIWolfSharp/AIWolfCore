@@ -69,7 +69,7 @@ namespace AIWolf.Lib
         /// <summary>
         /// The species mentioned in this utterance.
         /// </summary>
-        /// <remarks>Required on DIVINED and INQUESTED.</remarks>
+        /// <remarks>Required on DIVINED and IDENTIFIED.</remarks>
 #endif
         public Species Species { get; } = Species.UNC;
 
@@ -132,7 +132,7 @@ namespace AIWolf.Lib
         /// <param name="species">The species of the target.</param>
         internal Contents(Topic topic, Agent target, Species species)
         {
-            if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
+            if (topic == Topic.DIVINED || topic == Topic.IDENTIFIED)
             {
                 Topic = topic;
                 Target = target;
@@ -206,7 +206,7 @@ namespace AIWolf.Lib
                 case Topic.COMINGOUT:
                     return Topic + ": target=" + Target + " role=" + Role;
                 case Topic.DIVINED:
-                case Topic.INQUESTED:
+                case Topic.IDENTIFIED:
                     return Topic + ": target=" + Target + " species=" + Species;
                 case Topic.GUARDED:
                 case Topic.VOTE:

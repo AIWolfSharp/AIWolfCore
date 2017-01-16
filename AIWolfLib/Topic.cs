@@ -55,11 +55,22 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 占い結果の報告
+        /// 占い行為
         /// </summary>
 #else
         /// <summary>
         /// Divination.
+        /// </summary>
+#endif
+        DIVINATION,
+
+#if JHELP
+        /// <summary>
+        /// 占い結果の報告
+        /// </summary>
+#else
+        /// <summary>
+        /// Report of a divination.
         /// </summary>
 #endif
         DIVINED,
@@ -70,10 +81,21 @@ namespace AIWolf.Lib
         /// </summary>
 #else
         /// <summary>
-        /// Inquest.
+        /// Report of an identification.
         /// </summary>
 #endif
-        INQUESTED,
+        IDENTIFIED,
+
+#if JHELP
+        /// <summary>
+        /// 護衛行為
+        /// </summary>
+#else
+        /// <summary>
+        /// Guard.
+        /// </summary>
+#endif
+        GUARD,
 
 #if JHELP
         /// <summary>
@@ -81,7 +103,7 @@ namespace AIWolf.Lib
         /// </summary>
 #else
         /// <summary>
-        /// Guard.
+        /// Report of a guard.
         /// </summary>
 #endif
         GUARDED,
