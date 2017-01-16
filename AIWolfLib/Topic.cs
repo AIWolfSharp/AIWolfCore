@@ -81,10 +81,10 @@ namespace AIWolf.Lib
         /// </summary>
 #else
         /// <summary>
-        /// Inquest.
+        /// Report of an identification.
         /// </summary>
 #endif
-        INQUESTED,
+        IDENTIFIED,
 
 #if JHELP
         /// <summary>
