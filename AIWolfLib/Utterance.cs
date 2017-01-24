@@ -73,6 +73,18 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
+        /// この発話のターン
+        /// </summary>
+#else
+        /// <summary>
+        /// The turn of this utterance.
+        /// </summary>
+#endif
+        [DataMember(Name = "turn")]
+        public int Turn { get; }
+
+#if JHELP
+        /// <summary>
         /// 発話したエージェント
         /// </summary>
 #else
@@ -97,7 +109,7 @@ namespace AIWolf.Lib
         /// The contents of this utterance.
         /// </summary>
 #endif
-        [DataMember(Name = "content")]
+        [DataMember(Name = "text")]
         public string Text { get; }
 
         /// <summary>
@@ -105,7 +117,8 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
-        protected Utterance(int idx, int day)
+        /// <param name="turn">The turn of this utterance.</param>
+        protected Utterance(int idx, int day, int turn)
         {
             Idx = idx;
             if (Idx < 0)
@@ -122,6 +135,14 @@ namespace AIWolf.Lib
                 Day = 0;
                 Error.Warning("Force it to be " + Day + ".");
             }
+
+            Turn = turn;
+            if (Turn < 0)
+            {
+                Error.RuntimeError("Invalid turn " + Turn + ".");
+                Turn = 0;
+                Error.Warning("Force it to be " + Turn + ".");
+            }
         }
 
         /// <summary>
@@ -129,9 +150,10 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
         /// <param name="agent">The agent who uttered.</param>
         /// <param name="text">The text of this utterance.</param>
-        protected Utterance(int idx, int day, Agent agent, string text) : this(idx, day)
+        protected Utterance(int idx, int day, int turn, Agent agent, string text) : this(idx, day, turn)
         {
             Agent = agent;
             if (Agent == null)
@@ -150,10 +172,11 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
         /// <param name="agent">The index of agent who uttered.</param>
         /// <param name="text">The text of this utterance.</param>
         [JsonConstructor]
-        protected Utterance(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
+        protected Utterance(int idx, int day, int turn, int agent, string text) : this(idx, day, turn, Agent.GetAgent(agent), text)
         {
         }
 
