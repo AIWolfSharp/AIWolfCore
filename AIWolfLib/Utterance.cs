@@ -8,7 +8,6 @@
 //
 
 using Newtonsoft.Json;
-using System;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 
@@ -101,34 +100,6 @@ namespace AIWolf.Lib
         [DataMember(Name = "content")]
         public string Text { get; }
 
-#if JHELP
-        /// <summary>
-        /// この発話のトピック
-        /// </summary>
-#else
-        /// <summary>
-        /// The topic of this utterance.
-        /// </summary>
-#endif
-        public Topic Topic { get; }
-
-#if JHELP
-        /// <summary>
-        /// この発話の内容
-        /// </summary>
-        /// <remarks>
-        /// 不正発話の場合Contents.TopicはDUMMYにセットされる
-        /// </remarks>
-#else
-        /// <summary>
-        /// The contents of this utterance.
-        /// </summary>
-        /// <remarks>
-        /// If this utterance is invalid, Contents.Topic is set to DUMMY.
-        /// </remarks>
-#endif
-        public Contents Contents { get; }
-
         /// <summary>
         /// Initializes a new instance of this class.
         /// </summary>
@@ -172,8 +143,6 @@ namespace AIWolf.Lib
             _Agent = Agent.AgentIdx;
 
             Text = text;
-            Contents = ParseText(Text);
-            Topic = Contents.Topic;
         }
 
         /// <summary>
@@ -188,129 +157,6 @@ namespace AIWolf.Lib
         {
         }
 
-#if JHELP
-        /// <summary>
-        /// 発話文字列を解析する
-        /// </summary>
-        /// <param name="text">解析する発話文字列</param>
-        /// <returns>発話内容</returns>
-        /// <remarks>不正文字列の場合nullを返す</remarks>
-#else
-        /// <summary>
-        /// Parses the text of utterance.
-        /// </summary>
-        /// <param name="text">The text of utterance to be parsed.</param>
-        /// <returns>Contents of this utterance.</returns>
-        /// <remarks>Returns null if the text is invalid.</remarks>
-#endif
-        public static Contents ParseText(string text)
-        {
-            if (text == null || text.Length == 0)
-            {
-                Error.RuntimeError("Text is empty or null.");
-                Error.Warning("Force the contents to be null.");
-                return null;
-            }
-
-            string[] sentence = text.Split();
-            Topic topic;
-            if (!Enum.TryParse(sentence[0], out topic))
-            {
-                Error.RuntimeError("Can not find any topic in text " + text + ".");
-                Error.Warning("Force the contents to be null.");
-                return null;
-            }
-
-            switch (sentence.Length)
-            {
-                case 1:
-                    if (topic == Topic.Skip || topic == Topic.Over)
-                    {
-                        return new Contents(topic);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 2:
-                    int targetId = GetInt(sentence[1]);
-                    Agent target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ATTACK || topic == Topic.GUARDED || topic == Topic.VOTE)
-                    {
-                        return new Contents(topic, target);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 3:
-                    targetId = GetInt(sentence[1]);
-                    if (targetId < 1)
-                    {
-                        Error.RuntimeError("Illegal text " + text + ".");
-                        Error.Warning("Force the contents to be null.");
-                        return null;
-                    }
-                    target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ESTIMATE || topic == Topic.COMINGOUT)
-                    {
-                        Role role;
-                        if (!Enum.TryParse(sentence[2], out role))
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        return new Contents(topic, target, role);
-                    }
-                    if (topic == Topic.DIVINED || topic == Topic.IDENTIFIED)
-                    {
-                        Species species;
-                        if (!Enum.TryParse(sentence[2], out species))
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        return new Contents(topic, target, species);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 4:
-                    if (topic == Topic.AGREE || topic == Topic.DISAGREE)
-                    {
-                        int day = GetInt(sentence[2]);
-                        int id = GetInt(sentence[3]);
-                        if (day < 0 || id < 0)
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        if (sentence[1].Equals("TALK"))
-                        {
-                            return new Contents(topic, new Talk(id, day));
-                        }
-                        else if (sentence[1].Equals("WHISPER"))
-                        {
-                            return new Contents(topic, new Whisper(id, day));
-                        }
-                        else
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                default:
-                    break;
-            }
-            Error.RuntimeError("Illegal text " + text + ".");
-            Error.Warning("Force the contents to be null.");
-            return null;
-        }
 
         /// <summary>
         /// Finds integer value from the given text.
