@@ -161,7 +161,7 @@ namespace AIWolf.Lib
         /// There is nothing to talk/whisper.
         /// </summary>
 #endif
-        Over,
+        OVER,
 
 #if JHELP
         /// <summary>
@@ -172,6 +172,17 @@ namespace AIWolf.Lib
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
 #endif
-        Skip
+        SKIP,
+
+#if JHELP
+        /// <summary>
+        /// 演算子（正確にはトピックではない）
+        /// </summary>
+#else
+        /// <summary>
+        /// Operator.
+        /// </summary>
+#endif
+        OPERATOR
     }
 }
