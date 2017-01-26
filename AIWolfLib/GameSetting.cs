@@ -7,6 +7,7 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -35,7 +36,7 @@ namespace AIWolf.Lib
         /// </summary>
 #endif
         [DataMember(Name = "roleNumMap")]
-        public Dictionary<Role, int> RoleNumMap { get; } = new Dictionary<Role, int>();
+        public Dictionary<Role, int> RoleNumMap { get; } //= new Dictionary<Role, int>();
 
 #if JHELP
         /// <summary>
@@ -250,6 +251,29 @@ namespace AIWolf.Lib
         /// <summary>
         /// Initializes a new instance.
         /// </summary>
-        GameSetting() { }
+        [JsonConstructor]
+        GameSetting(Dictionary<Role, int> roleNumMap, int maxTalk, int maxTalkTurn, int maxWhisper,
+            int maxWhisperTurn, int maxSkip, int maxRevote, int maxAttackRevote, bool enableNoAttack,
+            bool voteVisible, bool votableInFirstDay, bool enableNoExecution, bool talkOnFirstDay,
+            bool validateUtterance, bool whisperBeforeRevote, long randomSeed, int timeLimit)
+        {
+            RoleNumMap = roleNumMap;
+            MaxTalk = maxTalk;
+            MaxTalkTurn = maxTalkTurn;
+            MaxWhisper = maxWhisper;
+            MaxWhisperTurn = maxWhisperTurn;
+            MaxSkip = maxSkip;
+            MaxRevote = maxRevote;
+            MaxAttackRevote = maxAttackRevote;
+            EnableNoAttack = enableNoAttack;
+            VoteVisible = voteVisible;
+            VotableOnFirstDay = votableInFirstDay;
+            EnableNoExecution = enableNoExecution;
+            TalkOnFirstDay = talkOnFirstDay;
+            ValidateUtterance = validateUtterance;
+            WhisperBeforeRevote = whisperBeforeRevote;
+            RandomSeed = randomSeed;
+            TimeLimit = timeLimit;
+        }
     }
 }
