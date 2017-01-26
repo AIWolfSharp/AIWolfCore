@@ -33,7 +33,7 @@ namespace AIWolf.Lib
         /// There is nothing to utter.
         /// </summary>
 #endif
-        public const string Over = "Over";
+        public const string OVER = "Over";
 
 #if JHELP
         /// <summary>
@@ -44,7 +44,7 @@ namespace AIWolf.Lib
         /// Skip this turn though there is something to utter.
         /// </summary>
 #endif
-        public const string Skip = "Skip";
+        public const string SKIP = "Skip";
 
 #if JHELP
         /// <summary>

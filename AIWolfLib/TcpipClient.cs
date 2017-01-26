@@ -233,7 +233,7 @@ namespace AIWolf.Lib
                         string talkText = player.Talk();
                         if (talkText == null)
                         {
-                            returnObject = Utterance.Skip;
+                            returnObject = Utterance.SKIP;
                         }
                         else
                         {
@@ -245,7 +245,7 @@ namespace AIWolf.Lib
                         string whisperText = player.Whisper();
                         if (whisperText == null)
                         {
-                            returnObject = Utterance.Skip;
+                            returnObject = Utterance.SKIP;
                         }
                         else
                         {

@@ -580,7 +580,7 @@ namespace AIWolf.Lib
         {
             get
             {
-                return string.Join(" ", new string[] { Subject == null ? "" : Subject.ToString(), Utterance.Skip }).Trim();
+                return string.Join(" ", new string[] { Subject == null ? "" : Subject.ToString(), Utterance.SKIP }).Trim();
             }
         }
     }
@@ -608,7 +608,7 @@ namespace AIWolf.Lib
         {
             get
             {
-                return string.Join(" ", new string[] { Subject == null ? "" : Subject.ToString(), Utterance.Over }).Trim();
+                return string.Join(" ", new string[] { Subject == null ? "" : Subject.ToString(), Utterance.OVER }).Trim();
             }
         }
     }
