@@ -36,9 +36,10 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this whisper.</param>
         /// <param name="day">The day of this whisper.</param>
+        /// <param name="turn">The turn of this whisper.</param>
         /// <param name="agent">The agent who whispered.</param>
         /// <param name="text">The text of this whisper.</param>
-        Whisper(int idx, int day, Agent agent, string text) : base(idx, day, agent, text)
+        Whisper(int idx, int day, int turn, Agent agent, string text) : base(idx, day, turn, agent, text)
         {
         }
 
@@ -47,10 +48,11 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this whisper.</param>
         /// <param name="day">The day of this whisper.</param>
+        /// <param name="turn">The turn of this whisper.</param>
         /// <param name="agent">The index of agent who whispered.</param>
         /// <param name="text">The text of this whisper.</param>
         [JsonConstructor]
-        Whisper(int idx, int day, int agent, string text) : base(idx, day, agent, text)
+        Whisper(int idx, int day, int turn, int agent, string text) : base(idx, day, turn, agent, text)
         {
         }
 
@@ -67,7 +69,7 @@ namespace AIWolf.Lib
 #endif
         public override string ToString()
         {
-            return string.Format("Whisper: Day{0:D2}[{1:D3}]\t{2}\t{3}\t{4}", Day, Idx, Agent, Text, Contents);
+            return string.Format("Whisper: Day{0:D2} {1:D2}[{2:D3}]\t{3}\t{4}", Day, Turn, Idx, Agent, Text);
         }
     }
 }
