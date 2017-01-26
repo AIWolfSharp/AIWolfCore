@@ -27,8 +27,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this whisper.</param>
         /// <param name="day">The day of this whisper.</param>
-        /// <param name="turn">The turn of this whisper.</param>
-        internal Whisper(int idx, int day, int turn) : base(idx, day, turn)
+        internal Whisper(int idx, int day) : base(idx, day)
         {
         }
 

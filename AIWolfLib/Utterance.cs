@@ -9,7 +9,6 @@
 
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
 
 namespace AIWolf.Lib
 {
@@ -73,15 +72,15 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// この発話のターン
+        /// この発話のターン（オプション，未指定の場合-1）
         /// </summary>
 #else
         /// <summary>
-        /// The turn of this utterance.
+        /// The turn of this utterance(optional). -1 if not specified.
         /// </summary>
 #endif
         [DataMember(Name = "turn")]
-        public int Turn { get; }
+        public int Turn { get; } = -1;
 
 #if JHELP
         /// <summary>
@@ -117,8 +116,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
-        /// <param name="turn">The turn of this utterance.</param>
-        protected Utterance(int idx, int day, int turn)
+        protected Utterance(int idx, int day)
         {
             Idx = idx;
             if (Idx < 0)
@@ -135,14 +133,17 @@ namespace AIWolf.Lib
                 Day = 0;
                 Error.Warning("Force it to be " + Day + ".");
             }
+        }
 
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this utterance.</param>
+        /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
+        protected Utterance(int idx, int day, int turn) : this(idx, day)
+        {
             Turn = turn;
-            if (Turn < 0)
-            {
-                Error.RuntimeError("Invalid turn " + Turn + ".");
-                Turn = 0;
-                Error.Warning("Force it to be " + Turn + ".");
-            }
         }
 
         /// <summary>
@@ -178,22 +179,6 @@ namespace AIWolf.Lib
         [JsonConstructor]
         protected Utterance(int idx, int day, int turn, int agent, string text) : this(idx, day, turn, Agent.GetAgent(agent), text)
         {
-        }
-
-
-        /// <summary>
-        /// Finds integer value from the given text.
-        /// </summary>
-        /// <param name="text">Text.</param>
-        /// <returns>Integer value if found, otherwise -1.</returns>
-        static int GetInt(string text)
-        {
-            var m = new Regex(@"-?[\d]+").Match(text);
-            if (m.Success)
-            {
-                return int.Parse(m.Value);
-            }
-            return -1;
         }
 
 #if JHELP

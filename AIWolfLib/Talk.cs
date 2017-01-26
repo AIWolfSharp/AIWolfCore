@@ -27,8 +27,7 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this talk.</param>
         /// <param name="day">The day of this talk.</param>
-        /// <param name="turn">The turn of this talk.</param>
-        internal Talk(int idx, int day, int turn) : base(idx, day, turn)
+        internal Talk(int idx, int day) : base(idx, day)
         {
         }
 
