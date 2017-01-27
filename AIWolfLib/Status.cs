@@ -22,6 +22,17 @@ namespace AIWolf.Lib
     {
 #if JHELP
         /// <summary>
+        /// 不明
+        /// </summary>
+#else
+        /// <summary>
+        /// Uncertain.
+        /// </summary>
+#endif
+        UNC,
+
+#if JHELP
+        /// <summary>
         /// 生存
         /// </summary>
 #else
