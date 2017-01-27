@@ -75,9 +75,9 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 霊能結果
+        /// 霊媒結果
         /// </summary>
-        /// <remarks>霊能力者限定</remarks>
+        /// <remarks>霊媒師限定</remarks>
 #else
         /// <summary>
         /// The result of the inquest.
@@ -103,7 +103,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 昨夜処刑されたエージェント
+        /// 昨夜追放されたエージェント
         /// </summary>
 #else
         /// <summary>
@@ -120,7 +120,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 直近に処刑されたエージェント
+        /// 直近に追放されたエージェント
         /// </summary>
 #else
         /// <summary>
@@ -190,7 +190,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 処刑投票のリスト
+        /// 追放投票のリスト
         /// </summary>
         /// <remarks>各プレイヤーの投票先がわかる</remarks>
 #else
@@ -204,7 +204,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 直近の処刑投票のリスト
+        /// 直近の追放投票のリスト
         /// </summary>
         /// <remarks>各プレイヤーの投票先がわかる</remarks>
 #else

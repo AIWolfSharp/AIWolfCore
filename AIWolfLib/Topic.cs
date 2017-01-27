@@ -77,7 +77,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 霊能結果の報告
+        /// 霊媒結果の報告
         /// </summary>
 #else
         /// <summary>
