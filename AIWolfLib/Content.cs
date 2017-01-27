@@ -27,6 +27,28 @@ namespace AIWolf.Lib
     {
 #if JHELP
         /// <summary>
+        /// 定数SKIP
+        /// </summary>
+#else
+        /// <summary>
+        /// Constant SKIP.
+        /// </summary>
+#endif
+        public static readonly Content SKIP = new Content(new SkipContentBuilder());
+
+#if JHELP
+        /// <summary>
+        /// 定数OVER
+        /// </summary>
+#else
+        /// <summary>
+        /// Constant OVER.
+        /// </summary>
+#endif
+        public static readonly Content OVER = new Content(new OverContentBuilder());
+
+#if JHELP
+        /// <summary>
         /// Contentのテキスト表現
         /// </summary>
 #else
