@@ -22,17 +22,6 @@ namespace AIWolf.Lib
     {
 #if JHELP
         /// <summary>
-        /// 人間
-        /// </summary>
-#else
-        /// <summary>
-        /// Human.
-        /// </summary>
-#endif
-        HUMAN = 1,
-
-#if JHELP
-        /// <summary>
         /// 不明
         /// </summary>
 #else
@@ -41,6 +30,17 @@ namespace AIWolf.Lib
         /// </summary>
 #endif
         UNC,
+
+#if JHELP
+        /// <summary>
+        /// 人間
+        /// </summary>
+#else
+        /// <summary>
+        /// Human.
+        /// </summary>
+#endif
+        HUMAN,
 
 #if JHELP
         /// <summary>

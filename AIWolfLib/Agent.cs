@@ -46,10 +46,6 @@ namespace AIWolf.Lib
             {
                 return null;
             }
-            if (idx == 0)
-            {
-                Error.Warning("Agent index is 0.");
-            }
             if (!agentMap.ContainsKey(idx))
             {
                 agentMap[idx] = new Agent(idx);

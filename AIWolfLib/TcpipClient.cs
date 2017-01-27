@@ -163,7 +163,7 @@ namespace AIWolf.Lib
             {
                 foreach (var t in packet.TalkHistory)
                 {
-                    if (IsNew(t) && Valid(t))
+                    if (IsNew(t))
                     {
                         gameInfo.TalkList.Add(t);
                     }
@@ -174,7 +174,7 @@ namespace AIWolf.Lib
             {
                 foreach (var w in packet.WhisperHistory)
                 {
-                    if (IsNew(w) && Valid(w))
+                    if (IsNew(w))
                     {
                         gameInfo.WhisperList.Add(w);
                     }
@@ -186,7 +186,7 @@ namespace AIWolf.Lib
                 object returnObject = null;
                 switch (packet.Request)
                 {
-                    case Request.DUMMY:
+                    case Request.NO_REQUEST:
                         break;
                     case Request.INITIALIZE:
                         running = true;
@@ -231,9 +231,9 @@ namespace AIWolf.Lib
                     case Request.TALK:
                         player.Update(gameInfo);
                         string talkText = player.Talk();
-                        if (talkText == null || Utterance.ParseText(talkText) == null)
+                        if (talkText == null)
                         {
-                            returnObject = Utterance.Skip;
+                            returnObject = Utterance.SKIP;
                         }
                         else
                         {
@@ -243,9 +243,9 @@ namespace AIWolf.Lib
                     case Request.WHISPER:
                         player.Update(gameInfo);
                         string whisperText = player.Whisper();
-                        if (whisperText == null || Utterance.ParseText(whisperText) == null)
+                        if (whisperText == null)
                         {
-                            returnObject = Utterance.Skip;
+                            returnObject = Utterance.SKIP;
                         }
                         else
                         {
@@ -286,92 +286,6 @@ namespace AIWolf.Lib
                 Error.TimeoutError(string.Format("{0}@{1} exceeds the time limit({2}ms).", packet.Request, player.Name, timeout));
                 task.Wait(-1);
                 return task.Result;
-            }
-        }
-
-        /// <summary>
-        /// Validate the contents of utterance.
-        /// </summary>
-        /// <param name="utterance">Utterance to be validated.</param>
-        /// <returns>True if the utterance is valid.</returns>
-        bool Valid(Utterance utterance)
-        {
-            if (utterance.Contents.Topic == Topic.AGREE || utterance.Contents.Topic == Topic.DISAGREE)
-            {
-                Utterance target = utterance.Contents.Utterance;
-                int dayOfTarget = target.Day;
-                int idxOfTarget = target.Idx;
-                if (dayOfTarget == gameInfo.Day) // Today's utterance.
-                {
-                    if (target is Whisper)
-                    {
-                        if (gameInfo.WhisperList.Select(w => w.Idx).Contains(idxOfTarget)) // Known whisper.
-                        {
-                            return true;
-                        }
-                        else // Unknown whisper.
-                        {
-                            Error.RuntimeError("Invalid " + target + ".");
-                            Error.Warning("Delete this from the list.");
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if (gameInfo.TalkList.Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
-                        {
-                            return true;
-                        }
-                        else // Unknown talk.
-                        {
-                            Error.RuntimeError("Invalid " + target + ".");
-                            Error.Warning("Delete this from the list.");
-                            return false;
-                        }
-                    }
-                }
-                else // Past utterance.
-                {
-                    if (dayTalkMap.ContainsKey(dayOfTarget)) // Known day.
-                    {
-                        if (target is Whisper)
-                        {
-                            if (dayWhisperMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known whisper.
-                            {
-                                return true;
-                            }
-                            else // Unknown whisper.
-                            {
-                                Error.RuntimeError("Invalid " + target + ".");
-                                Error.Warning("Delete this from the list.");
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if (dayTalkMap[dayOfTarget].Select(t => t.Idx).Contains(idxOfTarget)) // Known talk.
-                            {
-                                return true;
-                            }
-                            else // Unknown talk.
-                            {
-                                Error.RuntimeError("Invalid " + target + ".");
-                                Error.Warning("Delete this from the list.");
-                                return false;
-                            }
-                        }
-                    }
-                    else // Unknown day.
-                    {
-                        Error.RuntimeError("Invalid day " + dayOfTarget + " of utterance.");
-                        Error.Warning("Delete this from the list.");
-                        return false;
-                    }
-                }
-            }
-            else
-            {
-                return true;
             }
         }
 
@@ -437,7 +351,7 @@ namespace AIWolf.Lib
             {
                 Error.RuntimeError("There is no request in " + line + ".");
                 Error.Warning("Force it to be Request.DUMMY.");
-                return new Packet(Request.DUMMY);
+                return new Packet(Request.NO_REQUEST);
             }
 
             Request request;
@@ -445,7 +359,7 @@ namespace AIWolf.Lib
             {
                 Error.RuntimeError("Invalid request in " + line + ".");
                 Error.Warning("Force it to be Request.DUMMY.");
-                return new Packet(Request.DUMMY);
+                return new Packet(Request.NO_REQUEST);
             }
 
             if (map["gameInfo"] != null)

@@ -14,7 +14,7 @@ namespace AIWolf.Lib
 {
 #if JHELP
     /// <summary>
-    /// 処刑投票情報
+    /// 追放投票情報
     /// </summary>
 #else
     /// <summary>

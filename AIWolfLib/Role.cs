@@ -46,18 +46,29 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 共有者（現在は使われていない）
+        /// 妖狐
         /// </summary>
 #else
         /// <summary>
-        /// Freemason. This is not used for now.
+        /// Fox.
+        /// </summary>
+#endif
+        FOX,
+
+        #if JHELP
+        /// <summary>
+        /// 共有者
+        /// </summary>
+#else
+        /// <summary>
+        /// Freemason.
         /// </summary>
 #endif
         FREEMASON,
 
 #if JHELP
         /// <summary>
-        /// 霊能力者
+        /// 霊媒師
         /// </summary>
 #else
         /// <summary>
@@ -68,7 +79,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 狂人
+        /// 裏切り者
         /// </summary>
 #else
         /// <summary>
@@ -128,7 +139,8 @@ namespace AIWolf.Lib
         {
             roleSpeciesMap[Role.UNC] = Species.UNC;
             roleSpeciesMap[Role.BODYGUARD] = Species.HUMAN;
-            roleSpeciesMap[Role.FREEMASON] = Species.HUMAN; // This is not used for now.
+            roleSpeciesMap[Role.FOX] = Species.HUMAN;
+            roleSpeciesMap[Role.FREEMASON] = Species.HUMAN;
             roleSpeciesMap[Role.MEDIUM] = Species.HUMAN;
             roleSpeciesMap[Role.POSSESSED] = Species.HUMAN;
             roleSpeciesMap[Role.SEER] = Species.HUMAN;

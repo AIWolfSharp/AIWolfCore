@@ -8,9 +8,7 @@
 //
 
 using Newtonsoft.Json;
-using System;
 using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
 
 namespace AIWolf.Lib
 {
@@ -35,7 +33,7 @@ namespace AIWolf.Lib
         /// There is nothing to utter.
         /// </summary>
 #endif
-        public const string Over = "Over";
+        public const string OVER = "Over";
 
 #if JHELP
         /// <summary>
@@ -46,7 +44,7 @@ namespace AIWolf.Lib
         /// Skip this turn though there is something to utter.
         /// </summary>
 #endif
-        public const string Skip = "Skip";
+        public const string SKIP = "Skip";
 
 #if JHELP
         /// <summary>
@@ -74,6 +72,18 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
+        /// この発話のターン（オプション，未指定の場合-1）
+        /// </summary>
+#else
+        /// <summary>
+        /// The turn of this utterance(optional). -1 if not specified.
+        /// </summary>
+#endif
+        [DataMember(Name = "turn")]
+        public int Turn { get; } = -1;
+
+#if JHELP
+        /// <summary>
         /// 発話したエージェント
         /// </summary>
 #else
@@ -98,36 +108,8 @@ namespace AIWolf.Lib
         /// The contents of this utterance.
         /// </summary>
 #endif
-        [DataMember(Name = "content")]
+        [DataMember(Name = "text")]
         public string Text { get; }
-
-#if JHELP
-        /// <summary>
-        /// この発話のトピック
-        /// </summary>
-#else
-        /// <summary>
-        /// The topic of this utterance.
-        /// </summary>
-#endif
-        public Topic Topic { get; }
-
-#if JHELP
-        /// <summary>
-        /// この発話の内容
-        /// </summary>
-        /// <remarks>
-        /// 不正発話の場合Contents.TopicはDUMMYにセットされる
-        /// </remarks>
-#else
-        /// <summary>
-        /// The contents of this utterance.
-        /// </summary>
-        /// <remarks>
-        /// If this utterance is invalid, Contents.Topic is set to DUMMY.
-        /// </remarks>
-#endif
-        public Contents Contents { get; }
 
         /// <summary>
         /// Initializes a new instance of this class.
@@ -158,9 +140,21 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
+        protected Utterance(int idx, int day, int turn) : this(idx, day)
+        {
+            Turn = turn;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this utterance.</param>
+        /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
         /// <param name="agent">The agent who uttered.</param>
         /// <param name="text">The text of this utterance.</param>
-        protected Utterance(int idx, int day, Agent agent, string text) : this(idx, day)
+        protected Utterance(int idx, int day, int turn, Agent agent, string text) : this(idx, day, turn)
         {
             Agent = agent;
             if (Agent == null)
@@ -172,8 +166,6 @@ namespace AIWolf.Lib
             _Agent = Agent.AgentIdx;
 
             Text = text;
-            Contents = ParseText(Text);
-            Topic = Contents.Topic;
         }
 
         /// <summary>
@@ -181,150 +173,12 @@ namespace AIWolf.Lib
         /// </summary>
         /// <param name="idx">The index of this utterance.</param>
         /// <param name="day">The day of this utterance.</param>
+        /// <param name="turn">The turn of this utterance.</param>
         /// <param name="agent">The index of agent who uttered.</param>
         /// <param name="text">The text of this utterance.</param>
         [JsonConstructor]
-        protected Utterance(int idx, int day, int agent, string text) : this(idx, day, Agent.GetAgent(agent), text)
+        protected Utterance(int idx, int day, int turn, int agent, string text) : this(idx, day, turn, Agent.GetAgent(agent), text)
         {
-        }
-
-#if JHELP
-        /// <summary>
-        /// 発話文字列を解析する
-        /// </summary>
-        /// <param name="text">解析する発話文字列</param>
-        /// <returns>発話内容</returns>
-        /// <remarks>不正文字列の場合nullを返す</remarks>
-#else
-        /// <summary>
-        /// Parses the text of utterance.
-        /// </summary>
-        /// <param name="text">The text of utterance to be parsed.</param>
-        /// <returns>Contents of this utterance.</returns>
-        /// <remarks>Returns null if the text is invalid.</remarks>
-#endif
-        public static Contents ParseText(string text)
-        {
-            if (text == null || text.Length == 0)
-            {
-                Error.RuntimeError("Text is empty or null.");
-                Error.Warning("Force the contents to be null.");
-                return null;
-            }
-
-            string[] sentence = text.Split();
-            Topic topic;
-            if (!Enum.TryParse(sentence[0], out topic))
-            {
-                Error.RuntimeError("Can not find any topic in text " + text + ".");
-                Error.Warning("Force the contents to be null.");
-                return null;
-            }
-
-            switch (sentence.Length)
-            {
-                case 1:
-                    if (topic == Topic.Skip || topic == Topic.Over)
-                    {
-                        return new Contents(topic);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 2:
-                    int targetId = GetInt(sentence[1]);
-                    Agent target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ATTACK || topic == Topic.GUARDED || topic == Topic.VOTE)
-                    {
-                        return new Contents(topic, target);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 3:
-                    targetId = GetInt(sentence[1]);
-                    if (targetId < 1)
-                    {
-                        Error.RuntimeError("Illegal text " + text + ".");
-                        Error.Warning("Force the contents to be null.");
-                        return null;
-                    }
-                    target = Agent.GetAgent(targetId);
-                    if (topic == Topic.ESTIMATE || topic == Topic.COMINGOUT)
-                    {
-                        Role role;
-                        if (!Enum.TryParse(sentence[2], out role))
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        return new Contents(topic, target, role);
-                    }
-                    if (topic == Topic.DIVINED || topic == Topic.INQUESTED)
-                    {
-                        Species species;
-                        if (!Enum.TryParse(sentence[2], out species))
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        return new Contents(topic, target, species);
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                case 4:
-                    if (topic == Topic.AGREE || topic == Topic.DISAGREE)
-                    {
-                        int day = GetInt(sentence[2]);
-                        int id = GetInt(sentence[3]);
-                        if (day < 0 || id < 0)
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                        if (sentence[1].Equals("TALK"))
-                        {
-                            return new Contents(topic, new Talk(id, day));
-                        }
-                        else if (sentence[1].Equals("WHISPER"))
-                        {
-                            return new Contents(topic, new Whisper(id, day));
-                        }
-                        else
-                        {
-                            Error.RuntimeError("Illegal text " + text + ".");
-                            Error.Warning("Force the contents to be null.");
-                            return null;
-                        }
-                    }
-                    Error.RuntimeError("Illegal text " + text + ".");
-                    Error.Warning("Force the contents to be null.");
-                    return null;
-                default:
-                    break;
-            }
-            Error.RuntimeError("Illegal text " + text + ".");
-            Error.Warning("Force the contents to be null.");
-            return null;
-        }
-
-        /// <summary>
-        /// Finds integer value from the given text.
-        /// </summary>
-        /// <param name="text">Text.</param>
-        /// <returns>Integer value if found, otherwise -1.</returns>
-        static int GetInt(string text)
-        {
-            var m = new Regex(@"-?[\d]+").Match(text);
-            if (m.Success)
-            {
-                return int.Parse(m.Value);
-            }
-            return -1;
         }
 
 #if JHELP
@@ -340,4 +194,129 @@ namespace AIWolf.Lib
 #endif
         public abstract override string ToString();
     }
+
+#if JHELP
+    /// <summary>
+    /// 会話クラス
+    /// </summary>
+#else
+    /// <summary>
+    /// Talk class.
+    /// </summary>
+#endif
+    public class Talk : Utterance
+    {
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
+        internal Talk(int idx, int day) : base(idx, day)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
+        /// <param name="turn">The turn of this talk.</param>
+        /// <param name="agent">The agent who talked.</param>
+        /// <param name="text">The text of this talk.</param>
+        Talk(int idx, int day, int turn, Agent agent, string text) : base(idx, day, turn, agent, text)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this talk.</param>
+        /// <param name="day">The day of this talk.</param>
+        /// <param name="turn">The turn of this talk.</param>
+        /// <param name="agent">The index of agent who talked.</param>
+        /// <param name="text">The text of this talk.</param>
+        [JsonConstructor]
+        Talk(int idx, int day, int turn, int agent, string text) : base(idx, day, turn, agent, text)
+        {
+        }
+
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+#endif
+        public override string ToString()
+        {
+            return string.Format("Talk: Day{0:D2} {1:D2}[{2:D3}]\t{3}\t{4}", Day, Turn, Idx, Agent, Text);
+        }
+    }
+
+#if JHELP
+    /// <summary>
+    /// 囁きクラス
+    /// </summary>
+#else
+    /// <summary>
+    /// Whisper class.
+    /// </summary>
+#endif
+    public class Whisper : Utterance
+    {
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
+        internal Whisper(int idx, int day) : base(idx, day)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
+        /// <param name="turn">The turn of this whisper.</param>
+        /// <param name="agent">The agent who whispered.</param>
+        /// <param name="text">The text of this whisper.</param>
+        Whisper(int idx, int day, int turn, Agent agent, string text) : base(idx, day, turn, agent, text)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of this class.
+        /// </summary>
+        /// <param name="idx">The index of this whisper.</param>
+        /// <param name="day">The day of this whisper.</param>
+        /// <param name="turn">The turn of this whisper.</param>
+        /// <param name="agent">The index of agent who whispered.</param>
+        /// <param name="text">The text of this whisper.</param>
+        [JsonConstructor]
+        Whisper(int idx, int day, int turn, int agent, string text) : base(idx, day, turn, agent, text)
+        {
+        }
+
+#if JHELP
+        /// <summary>
+        /// このオブジェクトを表す文字列を返す
+        /// </summary>
+        /// <returns>このオブジェクトを表す文字列</returns>
+#else
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>A string that represents the current object.</returns>
+#endif
+        public override string ToString()
+        {
+            return string.Format("Whisper: Day{0:D2} {1:D2}[{2:D3}]\t{3}\t{4}", Day, Turn, Idx, Agent, Text);
+        }
+    }
+
 }
