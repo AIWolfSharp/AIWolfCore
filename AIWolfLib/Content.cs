@@ -262,6 +262,250 @@ namespace AIWolf.Lib
             }
             return null;
         }
-
     }
+
+#if JHELP
+    /// <summary>
+    /// 会話/囁きのトピック
+    /// </summary>
+#else
+    /// <summary>
+    /// Enumeration type for topic of talk/whisper.
+    /// </summary>
+#endif
+    public enum Topic
+    {
+#if JHELP
+        /// <summary>
+        /// ダミートピック
+        /// </summary>
+#else
+        /// <summary>
+        /// Dummy topic.
+        /// </summary>
+#endif
+        DUMMY,
+
+#if JHELP
+        /// <summary>
+        /// 役職の推定
+        /// </summary>
+#else
+        /// <summary>
+        /// Estimation.
+        /// </summary>
+#endif
+        ESTIMATE,
+
+#if JHELP
+        /// <summary>
+        /// カミングアウト
+        /// </summary>
+#else
+        /// <summary>
+        /// Comingout.
+        /// </summary>
+#endif
+        COMINGOUT,
+
+#if JHELP
+        /// <summary>
+        /// 占い行為
+        /// </summary>
+#else
+        /// <summary>
+        /// Divination.
+        /// </summary>
+#endif
+        DIVINATION,
+
+#if JHELP
+        /// <summary>
+        /// 占い結果の報告
+        /// </summary>
+#else
+        /// <summary>
+        /// Report of a divination.
+        /// </summary>
+#endif
+        DIVINED,
+
+#if JHELP
+        /// <summary>
+        /// 霊媒結果の報告
+        /// </summary>
+#else
+        /// <summary>
+        /// Report of an identification.
+        /// </summary>
+#endif
+        IDENTIFIED,
+
+#if JHELP
+        /// <summary>
+        /// 護衛行為
+        /// </summary>
+#else
+        /// <summary>
+        /// Guard.
+        /// </summary>
+#endif
+        GUARD,
+
+#if JHELP
+        /// <summary>
+        /// 護衛先の報告
+        /// </summary>
+#else
+        /// <summary>
+        /// Report of a guard.
+        /// </summary>
+#endif
+        GUARDED,
+
+#if JHELP
+        /// <summary>
+        /// 投票先の表明
+        /// </summary>
+#else
+        /// <summary>
+        /// Vote.
+        /// </summary>
+#endif
+        VOTE,
+
+#if JHELP
+        /// <summary>
+        /// 襲撃先の表明
+        /// </summary>
+#else
+        /// <summary>
+        /// Attack.
+        /// </summary>
+#endif
+        ATTACK,
+
+#if JHELP
+        /// <summary>
+        /// 同意
+        /// </summary>
+#else
+        /// <summary>
+        /// Agreement.
+        /// </summary>
+#endif
+        AGREE,
+
+#if JHELP
+        /// <summary>
+        /// 不同意
+        /// </summary>
+#else
+        /// <summary>
+        /// Disagreement.
+        /// </summary>
+#endif
+        DISAGREE,
+
+#if JHELP
+        /// <summary>
+        /// 話す/囁くことはない
+        /// </summary>
+#else
+        /// <summary>
+        /// There is nothing to talk/whisper.
+        /// </summary>
+#endif
+        OVER,
+
+#if JHELP
+        /// <summary>
+        /// 話す/囁くことはあるがこのターンはスキップ
+        /// </summary>
+#else
+        /// <summary>
+        /// Skip this turn though there is something to talk/whisper.
+        /// </summary>
+#endif
+        SKIP,
+
+#if JHELP
+        /// <summary>
+        /// 演算子（正確にはトピックではない）
+        /// </summary>
+#else
+        /// <summary>
+        /// Operator.
+        /// </summary>
+#endif
+        OPERATOR
+    }
+
+#if JHELP
+    /// <summary>
+    /// 演算子
+    /// </summary>
+#else
+    /// <summary>
+    /// Enumeration type for operator.
+    /// </summary>
+#endif
+    public enum Operator
+    {
+#if JHELP
+        /// <summary>
+        /// 何もしない
+        /// </summary>
+#else
+        /// <summary>
+        /// No operation.
+        /// </summary>
+#endif
+        NOP,
+
+#if JHELP
+        /// <summary>
+        /// 行動の要求
+        /// </summary>
+#else
+        /// <summary>
+        /// Request for the action.
+        /// </summary>
+#endif
+        REQUEST,
+
+#if JHELP
+        /// <summary>
+        /// 行動の理由
+        /// </summary>
+#else
+        /// <summary>
+        /// Reason for the action.
+        /// </summary>
+#endif
+        BECAUSE,
+
+#if JHELP
+        /// <summary>
+        /// AND
+        /// </summary>
+#else
+        /// <summary>
+        /// AND.
+        /// </summary>
+#endif
+        AND,
+
+#if JHELP
+        /// <summary>
+        /// OR
+        /// </summary>
+#else
+        /// <summary>
+        /// OR.
+        /// </summary>
+#endif
+        OR
+    }
+
 }
