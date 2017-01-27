@@ -68,7 +68,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 霊能力者
+        /// 霊媒師
         /// </summary>
 #else
         /// <summary>
@@ -79,7 +79,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 狂人
+        /// 裏切り者
         /// </summary>
 #else
         /// <summary>

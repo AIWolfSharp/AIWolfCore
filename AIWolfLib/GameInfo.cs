@@ -75,9 +75,9 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 霊能結果
+        /// 霊媒結果
         /// </summary>
-        /// <remarks>霊能力者限定</remarks>
+        /// <remarks>霊媒師限定</remarks>
 #else
         /// <summary>
         /// The result of the inquest.
@@ -103,7 +103,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 昨夜処刑されたエージェント
+        /// 昨夜追放されたエージェント
         /// </summary>
 #else
         /// <summary>
@@ -117,6 +117,40 @@ namespace AIWolf.Lib
         /// </summary>
         [DataMember(Name = "executedAgent")]
         int _ExecutedAgent { get; }
+
+#if JHELP
+        /// <summary>
+        /// 直近に追放されたエージェント
+        /// </summary>
+#else
+        /// <summary>
+        /// The latest executed agent.
+        /// </summary>
+#endif
+        public Agent LatestExecutedAgent { get; }
+
+        /// <summary>
+        /// The index number of the latest executed agent.
+        /// </summary>
+        [DataMember(Name = "latestExecutedAgent")]
+        int _LatestExecutedAgent { get; }
+
+#if JHELP
+        /// <summary>
+        /// 呪殺された妖狐
+        /// </summary>
+#else
+        /// <summary>
+        /// The fox killed by curse.
+        /// </summary>
+#endif
+        public Agent CursedFox { get; }
+
+        /// <summary>
+        /// The index number of the fox killed by curse.
+        /// </summary>
+        [DataMember(Name = "cursedFox")]
+        int _CursedFox { get; }
 
 #if JHELP
         /// <summary>
@@ -156,7 +190,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// 処刑投票のリスト
+        /// 追放投票のリスト
         /// </summary>
         /// <remarks>各プレイヤーの投票先がわかる</remarks>
 #else
@@ -167,6 +201,20 @@ namespace AIWolf.Lib
 #endif
         [DataMember(Name = "voteList")]
         public List<Vote> VoteList { get; }
+
+#if JHELP
+        /// <summary>
+        /// 直近の追放投票のリスト
+        /// </summary>
+        /// <remarks>各プレイヤーの投票先がわかる</remarks>
+#else
+        /// <summary>
+        /// The latest list of votes for execution.
+        /// </summary>
+        /// <remarks>You can see who votes to who.</remarks>
+#endif
+        [DataMember(Name = "latestVoteList")]
+        public List<Vote> LatestVoteList { get; }
 
 #if JHELP
         /// <summary>
@@ -181,6 +229,20 @@ namespace AIWolf.Lib
 #endif
         [DataMember(Name = "attackVoteList")]
         public List<Vote> AttackVoteList { get; }
+
+#if JHELP
+        /// <summary>
+        /// 直近の襲撃投票リスト
+        /// </summary>
+        /// <remarks>人狼限定</remarks>
+#else
+        /// <summary>
+        /// The latest list of votes for attack.
+        /// </summary>
+        /// <remarks>Werewolf only.</remarks>
+#endif
+        [DataMember(Name = "latestAttackVoteList")]
+        public List<Vote> LatestAttackVoteList { get; }
 
 #if JHELP
         /// <summary>
@@ -234,6 +296,7 @@ namespace AIWolf.Lib
         /// The list of existing roles in this game.
         /// </summary>
 #endif
+        [DataMember(Name = "existingRoleList")]
         public List<Role> ExistingRoleList { get; }
 
 #if JHELP
@@ -360,10 +423,14 @@ namespace AIWolf.Lib
         /// <param name="mediumResult">The result of the inquest.</param>
         /// <param name="divineResult">The result of the divination.</param>
         /// <param name="executedAgent">The agent executed.</param>
+        /// <param name="latestExecutedAgent">The latest executed agent.</param>
+        /// <param name="cursedFox">The fox killed by curse.</param>
         /// <param name="attackedAgent">The agent attacked.</param>
         /// <param name="guardedAgent">The agent guarded.</param>
         /// <param name="voteList">The list of votes for execution.</param>
+        /// <param name="latestVoteList">The latest list of votes for execution.</param>
         /// <param name="attackVoteList">The list of votes for attack.</param>
+        /// <param name="latestAttackVoteList">The latest list of votes for attack.</param>
         /// <param name="talkList">The list of talks.</param>
         /// <param name="whisperList">The list of whispers.</param>
         /// <param name="lastDeadAgentList">The list of agents who died last night.</param>
@@ -373,8 +440,11 @@ namespace AIWolf.Lib
         /// <param name="remainTalkMap">The map between agent and its number of remaining talks.</param>
         /// <param name="remainWhisperMap">The map between agent and its number of remaining whispers.</param>
         [JsonConstructor]
-        GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent, int attackedAgent, int guardedAgent,
-            List<Vote> voteList, List<Vote> attackVoteList, List<Talk> talkList, List<Whisper> whisperList,
+        GameInfo(int day, int agent, Judge mediumResult, Judge divineResult, int executedAgent,
+            int latestExecutedAgent, int cursedFox, int attackedAgent, int guardedAgent,
+            List<Vote> voteList, List<Vote> latestVoteList,
+            List<Vote> attackVoteList, List<Vote> latestAttackVoteList,
+            List<Talk> talkList, List<Whisper> whisperList,
             List<int> lastDeadAgentList, List<Role> existingRoleList,
             Dictionary<int, string> statusMap, Dictionary<int, string> roleMap,
             Dictionary<int, int> remainTalkMap, Dictionary<int, int> remainWhisperMap)
@@ -402,6 +472,12 @@ namespace AIWolf.Lib
             ExecutedAgent = Agent.GetAgent(executedAgent);
             _ExecutedAgent = ExecutedAgent == null ? -1 : ExecutedAgent.AgentIdx;
 
+            LatestExecutedAgent = Agent.GetAgent(latestExecutedAgent);
+            _LatestExecutedAgent = LatestExecutedAgent == null ? -1 : LatestExecutedAgent.AgentIdx;
+
+            CursedFox = Agent.GetAgent(cursedFox);
+            _CursedFox = CursedFox == null ? -1 : CursedFox.AgentIdx;
+
             AttackedAgent = Agent.GetAgent(attackedAgent);
             _AttackedAgent = AttackedAgent == null ? -1 : AttackedAgent.AgentIdx;
 
@@ -409,7 +485,9 @@ namespace AIWolf.Lib
             _GuardedAgent = GuardedAgent == null ? -1 : GuardedAgent.AgentIdx;
 
             VoteList = voteList == null ? new List<Vote>() : voteList;
+            LatestVoteList = latestVoteList == null ? new List<Vote>() : latestVoteList;
             AttackVoteList = attackVoteList == null ? new List<Vote>() : attackVoteList;
+            LatestAttackVoteList = latestAttackVoteList == null ? new List<Vote>() : latestAttackVoteList;
             TalkList = talkList == null ? new List<Talk>() : talkList;
             WhisperList = whisperList == null ? new List<Whisper>() : whisperList;
             ExistingRoleList = existingRoleList == null ? new List<Role>() : existingRoleList;

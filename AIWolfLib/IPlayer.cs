@@ -115,9 +115,9 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// このプレイヤーが処刑したいエージェントを返す
+        /// このプレイヤーが追放したいエージェントを返す
         /// </summary>
-        /// <returns>このプレイヤーが処刑したいエージェント</returns>
+        /// <returns>このプレイヤーが追放したいエージェント</returns>
         /// <remarks>nullを返した場合エージェントはランダムに決められる</remarks>
 #else
         /// <summary>

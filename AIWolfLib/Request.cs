@@ -15,10 +15,10 @@ namespace AIWolf.Lib
     enum Request
     {
         /// <summary>
-        /// Dummy request.
+        /// No request.
         /// Its integer value is 0.
         /// </summary>
-        DUMMY,
+        NO_REQUEST,
 
         /// <summary>
         /// Request for agent's initialization.

@@ -186,7 +186,7 @@ namespace AIWolf.Lib
                 object returnObject = null;
                 switch (packet.Request)
                 {
-                    case Request.DUMMY:
+                    case Request.NO_REQUEST:
                         break;
                     case Request.INITIALIZE:
                         running = true;
@@ -351,7 +351,7 @@ namespace AIWolf.Lib
             {
                 Error.RuntimeError("There is no request in " + line + ".");
                 Error.Warning("Force it to be Request.DUMMY.");
-                return new Packet(Request.DUMMY);
+                return new Packet(Request.NO_REQUEST);
             }
 
             Request request;
@@ -359,7 +359,7 @@ namespace AIWolf.Lib
             {
                 Error.RuntimeError("Invalid request in " + line + ".");
                 Error.Warning("Force it to be Request.DUMMY.");
-                return new Packet(Request.DUMMY);
+                return new Packet(Request.NO_REQUEST);
             }
 
             if (map["gameInfo"] != null)
