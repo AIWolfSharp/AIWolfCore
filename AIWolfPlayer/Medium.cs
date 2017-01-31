@@ -20,9 +20,9 @@ namespace AIWolf.Player.Sample
         {
             // 霊媒師をカミングアウトしている他のエージェントは人狼候補
             var fakeMediums = AliveOthers.Where(a => GetCoRole(a) == Role.MEDIUM);
-            // 自分や死亡したエージェントを人狼と判定，あるいは自分と異なる判定の占い師は人狼候補
+            // 自分や殺されたエージェントを人狼と判定，あるいは自分と異なる判定の占い師は人狼候補
             var fakeSeers = DivinationList
-                .Where(j => (j.Result == Species.WEREWOLF && (j.Target == Me || !Alive(j.Target)))
+                .Where(j => (j.Result == Species.WEREWOLF && (j.Target == Me || Killed(j.Target)))
                || (myIdentMap.ContainsKey(j.Target) && j.Result != myIdentMap[j.Target])).Select(j => j.Agent);
             var candidates = fakeMediums.Concat(fakeSeers).Where(a => Alive(a)).Distinct();
             if(candidates.Count() > 0)
@@ -41,7 +41,10 @@ namespace AIWolf.Player.Sample
             // 人狼候補がいない場合はランダム
             else
             {
-                voteCandidate = AliveOthers.Shuffle().First();
+                if (!AliveOthers.Contains(voteCandidate))
+                {
+                    voteCandidate = AliveOthers.Shuffle().First();
+                }
             }
         }
 

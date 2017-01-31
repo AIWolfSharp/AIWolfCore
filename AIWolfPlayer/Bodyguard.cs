@@ -14,9 +14,9 @@ namespace AIWolf.Player.Sample
 
         protected override void ChooseVoteCandidate()
         {
-            // 自分や死亡したエージェントを人狼と判定していて，生存している占い師を投票先候補とする
+            // 自分や殺されたエージェントを人狼と判定していて，生存している占い師を投票先候補とする
             var candidates = DivinationList
-                .Where(j => j.Result == Species.WEREWOLF && (j.Target == Me || !Alive(j.Target)) && Alive(j.Agent))
+                .Where(j => j.Result == Species.WEREWOLF && (j.Target == Me || Killed(j.Target)) && Alive(j.Agent))
                 .Select(j => j.Agent).Distinct();
             if (candidates.Count() > 0)
             {
@@ -34,7 +34,10 @@ namespace AIWolf.Player.Sample
             // 人狼候補がいない場合はランダム
             else
             {
-                voteCandidate = AliveOthers.Shuffle().First();
+                if (!AliveOthers.Contains(voteCandidate))
+                {
+                    voteCandidate = AliveOthers.Shuffle().First();
+                }
             }
         }
 
