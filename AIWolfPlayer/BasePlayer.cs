@@ -169,7 +169,7 @@ namespace AIWolf.Player.Sample
         public virtual string Talk()
         {
             ChooseVoteCandidate();
-            if (voteCandidate != declaredVoteCandidate)
+            if (voteCandidate != null && voteCandidate != declaredVoteCandidate)
             {
                 TalkQueue.Enqueue(new Content(new VoteContentBuilder(voteCandidate)));
                 declaredVoteCandidate = voteCandidate;
@@ -184,7 +184,7 @@ namespace AIWolf.Player.Sample
         public virtual string Whisper()
         {
             ChooseAttackVoteCandidate();
-            if (attackVoteCandidate != declaredAttackVoteCandidate)
+            if (attackVoteCandidate != null && attackVoteCandidate != declaredAttackVoteCandidate)
             {
                 WhisperQueue.Enqueue(new Content(new AttackContentBuilder(attackVoteCandidate)));
                 declaredAttackVoteCandidate = attackVoteCandidate;
@@ -300,6 +300,16 @@ namespace AIWolf.Player.Sample
         protected bool Alive(Agent agent)
         {
             return CurrentGameInfo.StatusMap[agent] == Status.ALIVE;
+        }
+
+        /// <summary>
+        /// エージェントが殺されたかどうかを返す
+        /// </summary>
+        /// <param name="agent">エージェント</param>
+        /// <returns>殺された場合true</returns>
+        protected bool Killed(Agent agent)
+        {
+            return KilledAgents.Contains(agent);
         }
 
         /// <summary>
