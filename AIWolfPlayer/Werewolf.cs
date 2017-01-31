@@ -23,6 +23,8 @@ namespace AIWolf.Player.Sample
         Queue<Judge> fakeJudgeQueue = new Queue<Judge>();
         // 偽判定済みエージェントのリスト
         List<Agent> judgedAgents = new List<Agent>();
+        // 裏切り者エージェントのリスト
+        List<Agent> possessedList = new List<Agent>();
         // 裏切り者エージェント
         Agent possessed;
         // 人狼リスト
@@ -35,12 +37,17 @@ namespace AIWolf.Player.Sample
         protected override void ChooseAttackVoteCandidate()
         {
             // カミングアウトした村人陣営は襲撃先候補
-            var villagers = AliveOthers.Where(a => !werewolves.Contains(a) && a != possessed);
-            var candidates = villagers.Where(a => IsCo(a));
+            List<Agent> villagers = AliveOthers.Where(a => !werewolves.Contains(a) && a != possessed).ToList();
+            List<Agent> candidates = villagers.Where(a => IsCo(a)).ToList();
             // 候補がいなければ村人陣営から
             if (candidates.Count() == 0)
             {
                 candidates = villagers;
+            }
+            // 村人陣営がいない場合は裏切り者を襲う
+            if (candidates.Count() == 0 && possessed != null)
+            {
+                candidates.Add(possessed);
             }
             if (candidates.Count() > 0)
             {
@@ -49,21 +56,16 @@ namespace AIWolf.Player.Sample
                     attackVoteCandidate = candidates.Shuffle().First();
                 }
             }
-            // 村人陣営がいない場合は裏切り者を襲う
             else
             {
-                attackVoteCandidate = possessed;
-            }
-            if (CanWhisper)
-            {
-                WhisperQueue.Enqueue(new Content(new AttackContentBuilder(attackVoteCandidate)));
+                attackVoteCandidate = null;
             }
         }
 
         protected override void ChooseVoteCandidate()
         {
-            var villagers = AliveOthers.Where(a => !werewolves.Contains(a) && a != possessed);
-            var candidates = villagers; // 村人騙りの場合は村人陣営から
+            List<Agent> villagers = AliveOthers.Where(a => !werewolves.Contains(a) && a != possessed).ToList();
+            List<Agent> candidates = villagers; // 村人騙りの場合は村人陣営から
             if (fakeRole != Role.VILLAGER) // 占い師/霊媒師騙りの場合
             {
                 // 対抗カミングアウトしたエージェントは投票先候補
@@ -72,19 +74,24 @@ namespace AIWolf.Player.Sample
                 var fakeWolves = fakeJudgeList
                     .Where(j => AliveOthers.Contains(j.Target) && j.Result == Species.WEREWOLF)
                     .Select(j => j.Target).Distinct();
-                candidates = rivals.Concat(fakeWolves);
+                candidates = rivals.Concat(fakeWolves).ToList();
                 // 候補がいなければ人間と判定していない村人陣営から
                 if (candidates.Count() == 0)
                 {
                     candidates = fakeJudgeList
                         .Where(j => AliveOthers.Contains(j.Target) && j.Result != Species.HUMAN)
-                        .Select(j => j.Target).Distinct();
+                        .Select(j => j.Target).Distinct().ToList();
                 }
-                // それでも候補がいなければ村人陣営から
-                if (candidates.Count() == 0)
-                {
-                    candidates = villagers;
-                }
+            }
+            // 候補がいなければ村人陣営から
+            if (candidates.Count() == 0)
+            {
+                candidates = villagers;
+            }
+            // 村人陣営がいない場合は裏切り者に投票
+            if (candidates.Count() == 0 && possessed != null)
+            {
+                candidates.Add(possessed);
             }
             if (candidates.Count() > 0)
             {
@@ -98,10 +105,9 @@ namespace AIWolf.Player.Sample
                     }
                 }
             }
-            // 村人陣営がいない場合は裏切り者に投票
             else
             {
-                voteCandidate = possessed;
+                voteCandidate = null;
             }
         }
 
@@ -123,6 +129,7 @@ namespace AIWolf.Player.Sample
             fakeJudgeList.Clear();
             fakeJudgeQueue.Clear();
             judgedAgents.Clear();
+            possessedList.Clear();
         }
 
         public override void Update(GameInfo gameInfo)
@@ -134,8 +141,9 @@ namespace AIWolf.Player.Sample
                 && ((humans.Contains(j.Target) && j.Result == Species.WEREWOLF)
                 || (werewolves.Contains(j.Target) && j.Result == Species.HUMAN)))
                 .Select(j => j.Agent).Distinct().Shuffle().FirstOrDefault();
-            if (possessed != null)
+            if (possessed != null && !possessedList.Contains(possessed))
             {
+                possessedList.Add(possessed);
                 WhisperQueue.Enqueue(new Content(new EstimateContentBuilder(possessed, Role.POSSESSED)));
             }
         }
@@ -144,8 +152,12 @@ namespace AIWolf.Player.Sample
         {
             base.DayStart();
             talkTurn = -1;
+            if(Day == 0)
+            {
+                WhisperQueue.Enqueue(new Content(new ComingoutContentBuilder(Me, fakeRole)));
+            }
             // 偽の判定
-            if (Day > 0)
+            else
             {
                 Judge fakeJudge = GetFakeJudge(fakeRole);
                 if (fakeJudge != null)
