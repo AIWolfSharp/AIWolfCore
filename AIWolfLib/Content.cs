@@ -212,8 +212,8 @@ namespace AIWolf.Lib
                 }
                 switch (Topic)
                 {
-                    case Topic.SKIP:
-                    case Topic.OVER:
+                    case Topic.Skip:
+                    case Topic.Over:
                         break;
                     case Topic.AGREE:
                     case Topic.DISAGREE:
@@ -438,7 +438,7 @@ namespace AIWolf.Lib
         /// There is nothing to talk/whisper.
         /// </summary>
 #endif
-        OVER,
+        Over,
 
 #if JHELP
         /// <summary>
@@ -449,7 +449,7 @@ namespace AIWolf.Lib
         /// Skip this turn though there is something to talk/whisper.
         /// </summary>
 #endif
-        SKIP,
+        Skip,
 
 #if JHELP
         /// <summary>
