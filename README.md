@@ -6,12 +6,11 @@ This library is written in C#, and current version number is 1.0.0-prerelease2.
 
 1. QUICK START
 
-    1. AIWolfCore's two libraries, AIWolfLib and AIWolfPlayer,
+    1. Install .NET Core SDK 1.1.0.
+    2. AIWolfCore's two libraries, AIWolfLib and AIWolfPlayer,
        are NuGet packages, so you do not have to install them to your solution
         because NuGet package manager automatically do it.
-
     1. Try sample agent.
-
        1. Download the [AIWolf platform version 0.4.x](http://aiwolf.org/server/),
         and launch the game server.
        2. Download [ClientStarter-1.0.0-pre2.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre2/ClientStarter-1.0.0-pre2.zip),
