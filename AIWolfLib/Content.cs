@@ -189,6 +189,7 @@ namespace AIWolf.Lib
             {
                 Topic = Topic.OPERATOR;
                 Operator = Operator.REQUEST;
+                ContentList = new List<Content>();
                 ContentList.Add(new Content(sentence));
             }
             else // Simple sentence.
