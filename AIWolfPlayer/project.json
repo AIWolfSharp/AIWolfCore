@@ -2,8 +2,9 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "AIWolfLib": "1.0.0-*",
-    "NETStandard.Library": "1.6.0"
+    "AIWolfLib": "1.0.0-prerelease1",
+    "NETStandard.Library": "1.6.1",
+    "System.Linq": "4.3.0"
   },
 
   "frameworks": {
