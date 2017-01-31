@@ -2,7 +2,7 @@
   "profiles": {
     "ClientStarter": {
       "commandName": "Project",
-      "commandLineArgs": "-d"
+      "commandLineArgs": "-c AIWolf.Player.Sample.RoleAssignPlayer ..\\AIWolfPlayer\\bin\\Debug\\netstandard1.6\\AIWolfPlayer.dll"
     }
   }
 }

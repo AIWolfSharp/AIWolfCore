@@ -1,10 +1,10 @@
 {
   "title": "AIWolfLib",
-  "copyright": "Copyright © 2016 Takashi OTSUKI",
+  "copyright": "Copyright © 2017 Takashi OTSUKI",
   "description": "The AIWolf library.",
-  "version": "0.9.7-*",
+  "version": "1.0.0-prerelease2",
   "dependencies": {
-    "NETStandard.Library": "1.6.0",
+    "NETStandard.Library": "1.6.1",
     "Newtonsoft.Json": "9.0.1"
   },
   "frameworks": {
@@ -13,6 +13,7 @@
     }
   },
   "buildOptions": {
-    "xmlDoc": false
+    "xmlDoc": false,
+    "optimize": true
   }
 }

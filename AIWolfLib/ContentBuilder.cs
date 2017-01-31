@@ -573,7 +573,7 @@ namespace AIWolf.Lib
         /// </summary>
         public SkipContentBuilder()
         {
-            Topic = Topic.SKIP;
+            Topic = Topic.Skip;
         }
 
         internal override string Text
@@ -601,7 +601,7 @@ namespace AIWolf.Lib
         /// </summary>
         public OverContentBuilder()
         {
-            Topic = Topic.OVER;
+            Topic = Topic.Over;
         }
 
         internal override string Text
