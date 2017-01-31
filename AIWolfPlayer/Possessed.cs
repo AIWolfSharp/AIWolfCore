@@ -20,9 +20,9 @@ namespace AIWolf.Player.Sample
 
         protected override void ChooseVoteCandidate()
         {
-            // 自分や死亡したエージェントを人狼と判定していて，生存している占い師は人狼候補
+            // 自分や殺されたエージェントを人狼と判定していて，生存している占い師は人狼候補
             var werewolves = DivinationList
-                .Where(j => j.Result == Species.WEREWOLF && (j.Target == Me || !Alive(j.Target))).Select(j => j.Agent);
+                .Where(j => j.Result == Species.WEREWOLF && (j.Target == Me || Killed(j.Target))).Select(j => j.Agent);
             // 対抗カミングアウトのエージェントは投票先候補
             var rivals = AliveOthers.Where(a => !werewolves.Contains(a) && GetCoRole(a) == Role.SEER);
             // 人狼と判定したエージェントは投票先候補
@@ -79,8 +79,8 @@ namespace AIWolf.Player.Sample
 
         public override string Talk()
         {
-            // 初日カミングアウト
-            if (!isCameout && Day == 0)
+            // 即占い師カミングアウト
+            if (!isCameout)
             {
                 TalkQueue.Enqueue(new Content(new ComingoutContentBuilder(Me, Role.SEER)));
                 isCameout = true;
