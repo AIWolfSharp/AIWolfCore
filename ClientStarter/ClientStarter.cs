@@ -1,13 +1,14 @@
 ﻿//
 // ClientStarter.cs
 //
-// Copyright (c) 2016 Takashi OTSUKI
+// Copyright (c) 2017 Takashi OTSUKI
 //
 // This software is released under the MIT License.
 // http://opensource.org/licenses/mit-license.php
 //
 
 using AIWolf.Lib;
+using AIWolf.Player.Sample;
 using Microsoft.Extensions.DependencyModel;
 using System;
 using System.IO;
@@ -148,7 +149,7 @@ namespace AIWolf
             IPlayer player;
             if (useDefaultPlayer)
             {
-                player = new DefaultPlayer();
+                player = new RoleAssignPlayer();
             }
             else
             {
@@ -229,67 +230,6 @@ namespace AIWolf
                 }
             }
             return Assembly.Load(assemblyName);
-        }
-    }
-
-    class DefaultPlayer : IPlayer
-    {
-        public string Name
-        {
-            get
-            {
-                return GetType().ToString();
-            }
-        }
-
-        public Agent Attack()
-        {
-            return null;
-        }
-
-        public void DayStart()
-        {
-            return;
-        }
-
-        public Agent Divine()
-        {
-            return null;
-        }
-
-        public void Finish()
-        {
-            return;
-        }
-
-        public Agent Guard()
-        {
-            return null;
-        }
-
-        public void Initialize(GameInfo gameInfo, GameSetting gameSetting)
-        {
-            return;
-        }
-
-        public string Talk()
-        {
-            return Utterance.OVER;
-        }
-
-        public void Update(GameInfo gameInfo)
-        {
-            return;
-        }
-
-        public Agent Vote()
-        {
-            return null;
-        }
-
-        public string Whisper()
-        {
-            return Utterance.OVER;
         }
     }
 }

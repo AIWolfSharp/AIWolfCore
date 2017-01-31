@@ -9,10 +9,11 @@
 
   "dependencies": {
     "AIWolfLib": "1.0.0-prerelease2",
+    "AIWolfPlayer": "1.0.0-prerelease2",
     "Microsoft.Extensions.DependencyModel": "1.1.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.0.1"
+      "version": "1.1.0"
     },
     "System.Runtime.Loader": "4.3.0"
   },
