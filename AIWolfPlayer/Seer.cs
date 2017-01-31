@@ -23,6 +23,8 @@ namespace AIWolf.Player.Sample
         List<Agent> grayList;
         // 人狼候補リスト
         List<Agent> semiWolves = new List<Agent>();
+        // 裏切り者リスト
+        List<Agent> possessedList = new List<Agent>();
 
         protected override void ChooseVoteCandidate()
         {
@@ -42,31 +44,52 @@ namespace AIWolf.Player.Sample
                 return;
             }
             // 確定人狼がいない場合は推測する
-            // 占い師カミングアウトした灰色エージェントは人狼候補
-            var fakeSeers = grayList.Where(a => GetCoRole(a) == Role.SEER);
-            // 自分の占い結果と異なる判定の灰色霊媒師は人狼候補
-            var fakeMediums = IdentList.Where(j => grayList.Contains(j.Agent)
-                && myDivinationMap.ContainsKey(j.Target) && j.Result != myDivinationMap[j.Target])
-                .Select(j => j.Agent);
+            // 偽占い師
+            var fakeSeers = AliveOthers.Where(a => GetCoRole(a) == Role.SEER);
+            // 偽霊媒師
+            var fakeMediums = IdentList.Where(j => myDivinationMap.ContainsKey(j.Target)
+                && j.Result != myDivinationMap[j.Target]).Select(j => j.Agent);
             var candidates = fakeSeers.Concat(fakeMediums).Where(a => Alive(a)).Distinct();
-            semiWolves = candidates.ToList();
-            if (candidates.Count() > 0)
+            // 人狼候補なのに人間⇒裏切り者
+            foreach (Agent possessed in candidates.Where(a => whiteList.Contains(a)))
             {
-                if (!candidates.Contains(voteCandidate))
+                if (!possessedList.Contains(possessed))
                 {
-                    voteCandidate = candidates.Shuffle().First();
-                    // 以前の投票先から変わる場合，新たに推測発言と占い要請をする
+                    TalkQueue.Enqueue(new Content(new EstimateContentBuilder(possessed, Role.POSSESSED)));
+                    possessedList.Add(possessed);
+                }
+            }
+            semiWolves = candidates.Where(a => !whiteList.Contains(a)).ToList();
+            if (semiWolves.Count() > 0)
+            {
+                if (!semiWolves.Contains(voteCandidate))
+                {
+                    voteCandidate = semiWolves.Shuffle().First();
+                    // 以前の投票先から変わる場合，新たに推測発言をする
                     if (CanTalk)
                     {
                         TalkQueue.Enqueue(new Content(new EstimateContentBuilder(voteCandidate, Role.WEREWOLF)));
-                        TalkQueue.Enqueue(new Content(new RequestContentBuilder(null, new Content(new DivinationContentBuilder(voteCandidate)))));
                     }
                 }
             }
-            // 人狼候補がいない場合はランダム
             else
             {
-                voteCandidate = AliveOthers.Shuffle().First();
+                // 人狼候補がいない場合はグレイからランダム
+                if (grayList.Count != 0)
+                {
+                    if (!grayList.Contains(voteCandidate))
+                    {
+                        voteCandidate = grayList.Shuffle().First();
+                    }
+                }
+                // グレイがいない場合ランダム
+                else
+                {
+                    if (!AliveOthers.Contains(voteCandidate))
+                    {
+                        voteCandidate = AliveOthers.Shuffle().First();
+                    }
+                }
             }
         }
 
@@ -81,6 +104,7 @@ namespace AIWolf.Player.Sample
             blackList.Clear();
             grayList = new List<Agent>(AliveOthers);
             semiWolves.Clear();
+            possessedList.Clear();
         }
 
         public override void DayStart()
