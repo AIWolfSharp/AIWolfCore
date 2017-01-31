@@ -8,6 +8,7 @@
 //
 
 using AIWolf.Lib;
+using AIWolf.Player.Lib;
 
 namespace AIWolf.Player.Sample
 {
@@ -20,156 +21,54 @@ namespace AIWolf.Player.Sample
     /// Player class which switches player actually used according to its role.
     /// </summary>
 #endif
-    public class RoleAssignPlayer : IPlayer
+    public class RoleAssignPlayer : AbstractRoleAssignPlayer
     {
-#if JHELP
-        /// <summary>
-        /// 村人プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Villager player.
-        /// </summary>
-#endif
-        IPlayer villagerPlayer = new Villager();
-
-#if JHELP
-        /// <summary>
-        /// 狩人プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Bodyguard player.
-        /// </summary>
-#endif
-        IPlayer bodyguardPlayer = new Bodyguard();
-
-#if JHELP
-        /// <summary>
-        /// 占い師プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Seer player.
-        /// </summary>
-#endif
-        IPlayer seerPlayer = new Seer();
-
-#if JHELP
-        /// <summary>
-        /// 霊媒師プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Medium player.
-        /// </summary>
-#endif
-        IPlayer mediumPlayer = new Medium();
-
-#if JHELP
-        /// <summary>
-        /// 裏切り者プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Possessed player.
-        /// </summary>
-#endif
-        IPlayer possessedPlayer = new Possessed();
-
-#if JHELP
-        /// <summary>
-        /// 人狼プレイヤー
-        /// </summary>
-#else
-        /// <summary>
-        /// Werewolf player.
-        /// </summary>
-#endif
-        IPlayer werewolfPlayer = new Werewolf();
-
-        IPlayer player;
-
-        public string Name
+        protected override IPlayer BodyguardPlayer
         {
             get
             {
-                return GetType().ToString();
+                return new Bodyguard();
             }
         }
 
-        public void Update(GameInfo gameInfo)
+        protected override IPlayer MediumPlayer
         {
-            player.Update(gameInfo);
-        }
-
-        public void Initialize(GameInfo gameInfo, GameSetting gameSetting)
-        {
-            switch (gameInfo.Role)
+            get
             {
-                case Role.VILLAGER:
-                    player = villagerPlayer;
-                    break;
-                case Role.SEER:
-                    player = seerPlayer;
-                    break;
-                case Role.MEDIUM:
-                    player = mediumPlayer;
-                    break;
-                case Role.BODYGUARD:
-                    player = bodyguardPlayer;
-                    break;
-                case Role.POSSESSED:
-                    player = possessedPlayer;
-                    break;
-                case Role.WEREWOLF:
-                    player = werewolfPlayer;
-                    break;
-                default:
-                    player = villagerPlayer;
-                    break;
+                return new Medium();
             }
-            player.Initialize(gameInfo, gameSetting);
         }
 
-        public void DayStart()
+        protected override IPlayer PossessedPlayer
         {
-            player.DayStart();
+            get
+            {
+                return new Possessed();
+            }
         }
 
-        public string Talk()
+        protected override IPlayer SeerPlayer
         {
-            return player.Talk();
+            get
+            {
+                return new Seer();
+            }
         }
 
-        public string Whisper()
+        protected override IPlayer VillagerPlayer
         {
-            return player.Whisper();
+            get
+            {
+                return new Villager();
+            }
         }
 
-        public Agent Vote()
+        protected override IPlayer WerewolfPlayer
         {
-            return player.Vote();
-        }
-
-        public Agent Attack()
-        {
-            return player.Attack();
-        }
-
-        public Agent Divine()
-        {
-            return player.Divine();
-        }
-
-        public Agent Guard()
-        {
-            return player.Guard();
-        }
-
-        public void Finish()
-        {
-            player.Finish();
+            get
+            {
+                return new Werewolf();
+            }
         }
     }
 }
