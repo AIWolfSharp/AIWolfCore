@@ -3,16 +3,20 @@
   "copyright": "Copyright ? 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
   "version": "1.0.0-prerelease2",
-
   "dependencies": {
     "AIWolfLib": "1.0.0-prerelease2",
     "NETStandard.Library": "1.6.1",
     "System.Linq": "4.3.0"
   },
-
   "frameworks": {
     "netstandard1.6": {
       "imports": "dnxcore50"
+    }
+  },
+  "buildOptions": {
+    "optimize": false,
+    "compile": {
+      "include": "../AIWolfPlayerShared/**.cs"
     }
   }
 }
