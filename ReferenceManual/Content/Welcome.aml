@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic id="a8d68761-e4cd-4515-a3cc-ed224c6de1dc" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>AIWolfLib is a library for building an AI werewolf agent.</para>
+		</introduction>
+
+		<relatedTopics>
+			<link xlink:href="d2b0d3ed-37cb-4cbc-b307-513a96fb0806" />
+		</relatedTopics>
+	</developerConceptualDocument>
+</topic>
