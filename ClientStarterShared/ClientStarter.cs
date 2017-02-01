@@ -9,12 +9,14 @@
 
 using AIWolf.Lib;
 using AIWolf.Player.Sample;
+#if !NET4
 using Microsoft.Extensions.DependencyModel;
+using System.Runtime.Loader;
+#endif
 using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Loader;
 
 namespace AIWolf
 {
@@ -156,7 +158,11 @@ namespace AIWolf
                 Assembly assembly;
                 try
                 {
+#if NET4
+                    assembly = Assembly.LoadFrom(dllName);
+#else
                     assembly = new AssemblyLoader(Path.GetDirectoryName(dllName)).LoadFromAssemblyPath(Path.GetFullPath(dllName));
+#endif
                 }
                 catch (Exception e)
                 {
@@ -204,6 +210,7 @@ namespace AIWolf
         }
     }
 
+#if !NET4
     class AssemblyLoader : AssemblyLoadContext
     {
         string folderPath;
@@ -232,4 +239,5 @@ namespace AIWolf
             return Assembly.Load(assemblyName);
         }
     }
+#endif
 }
