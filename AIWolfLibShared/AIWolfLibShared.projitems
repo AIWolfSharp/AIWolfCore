@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ContentBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Error.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ShuffleExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameSetting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IPlayer.cs" />
