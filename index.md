@@ -1,44 +1,35 @@
 # AIWolf.NET Core
 ## .NET Core version of AIWolf Library
 
-AIWolf.NET Core is the AIWolf (artificial intelligence based werewolf) library for .NET Core,
-which is compatible with AIWolf platform version 0.4.4.
-The current version number is 1.0.0-prerelease3.
-The next release will be version 1.0.0 if no issue is found.
+AIWolf.NET Coreは人狼知能プラットフォーム0.4.4互換の.NET Core版人狼知能ライブラリです．
+最新版はバージョン1.0.0のプレリリース3版で，問題がなければ次の版がリリース版1.0.0となるはずです．
 
-1. QUICK START
-
-    1. Install .NET Core SDK 1.1.0.
-    2. Though AIWolf.NET Core has two libraries (AIWolfLib and AIWolfPlayer),
-you do not have to install them manually since NuGet package manager automatically does.
-    3. AIWolf.NET Core does not have own game server, so you have to download
-[AIWolf platform version 0.4.4](http://aiwolf.org/server/)
-to run the server.
-    4. We do not distribute the executable for starting client agent,
-so you first have to build it by yourself.
-       1. Download [ClientStarter-1.0.0-pre3.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/ClientStarter-1.0.0-pre3.zip),
-and put two files (ClientStarter.cs and project.json) in the zip file
-into the folder you like.
-       2. Execute the following commands in the folder to build ClientStarter.  
+1. クイックスタート
+    1. .NET Core SDK 1.1.0をインストールしてください．
+    2. AIWolf.NET CoreにはAIWolfLibとAIWolfPlayerの2つのライブラリがあるのですが，
+NuGetパッケージマネージャが管理しますので，インストール作業は不要です．
+    3. AIWolf.NET Coreには自前のゲームサーバがありませんので，サーバを動かすために
+[人狼知能プラットフォームversion 0.4.4](http://aiwolf.org/server/)をダウンロードしてください．
+    4. クライアントエージェントを起動するClientStarterの実行ファイルは配布していませんので，
+まずはClientStarterをビルドするところから始めましょう．
+       1. [ClientStarter-1.0.0-pre3.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/ClientStarter-1.0.0-pre3.zip)をダウンロードして，
+その中にあるClientStarter.csとproject.jsonをお好きなフォルダに入れてください．
+       2. ClientStarterをビルドするために以下のコマンドを実行してください．  
 `dotnet restore`  
 `dotnet build`
-    5. After the successful build, execute the following command
-to try connecting sample agent with the local server waiting the connection at port 10000.  
+    5. ビルドに成功したら，以下のコマンドでサンプルエージェントが10000番ポートで接続待ちのゲームサーバに接続できるか確認しましょう．
 `dotnet run -d`
 
-    6. Making your own agent
+    6. 自分でエージェントを作るには
+      * [リファレンスマニュアル](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/AIWolf_NET_ReferenceManual.zip) が役に立つでしょう．
+      * エージェント作成のチュートリアルを準備中です．
+1. 履歴と変更点
 
-      * You can download [Reference Manual](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/AIWolf_NET_ReferenceManual.zip) to be aid in making your own agent.
-      * You will soon be able to view the tutorial.
-
-1. HISTORY and CHANGES
-
-    * 1.0.0-prerelease1 : The private prerelease.  
-    * 1.0.0-prerelease2 : The first public prerelease.
-    * 1.0.0-prerelease3 : This release.  
-CHANGES in this release.
-      * Extension method Shuffle() for IEnumerable is moved from namespace AIWolf.Player.Sample
-to namespace AIWolf.Lib because this method is useful in various situations.
+    * 1.0.0-prerelease1 : プライベート版  
+    * 1.0.0-prerelease2 : 最初の公開版
+    * 1.0.0-prerelease3 : このリリース  
+変更点
+      * IEnumerableの拡張メソッドShuffle()は結構使われそうなので，名前空間AIWolf.Player.SampleからAIWolf.Libに移動しました．
 
 ---
-This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
+このソフトウェアは，MITライセンスのもとで公開されています．[LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE)を参照のこと.
