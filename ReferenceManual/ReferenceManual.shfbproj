@@ -27,12 +27,12 @@
       <Argument Key="maxVersionParts" Value="" xmlns="" />
     </TransformComponentArguments>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\AIWolfLib4\bin\Debug\AIWolfLib4.dll" />
-      <DocumentationSource sourceFile="..\AIWolfLib4\bin\Debug\AIWolfLib4.xml" />
-      <DocumentationSource sourceFile="..\AIWolfPlayer4\bin\Debug\AIWolfPlayer4.dll" />
-      <DocumentationSource sourceFile="..\AIWolfPlayer4\bin\Debug\AIWolfPlayer4.xml" />
-      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\ClientStarter4.exe" />
-      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\ClientStarter4.xml" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\AIWolfLib.dll" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\AIWolfLib.xml" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\AIWolfPlayer.dll" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\AIWolfPlayer.xml" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\ClientStarter.exe" />
+      <DocumentationSource sourceFile="..\ClientStarter4\bin\Debug\ClientStarter.xml" />
     </DocumentationSources>
     <SaveComponentCacheCapacity>100</SaveComponentCacheCapacity>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>

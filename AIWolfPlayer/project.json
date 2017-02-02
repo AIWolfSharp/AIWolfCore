@@ -1,6 +1,6 @@
 {
   "title": "AIWolfPlayer",
-  "copyright": "Copyright ? 2017 Takashi OTSUKI",
+  "copyright": "Copyright (c) 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
   "version": "1.0.0-prerelease2",
   "dependencies": {
