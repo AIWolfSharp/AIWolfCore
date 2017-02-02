@@ -1,6 +1,5 @@
 # AIWolf.NET Core
-## .NET Core version of AIWolf Library
-
+## .NET Core版人狼知能ライブラリ
 AIWolf.NET Coreは人狼知能プラットフォーム0.4.4互換の.NET Core版人狼知能ライブラリです．
 最新版はバージョン1.0.0のプレリリース3版で，問題がなければ次の版がリリース版1.0.0となるはずです．
 
