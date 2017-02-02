@@ -7,9 +7,11 @@
 // http://opensource.org/licenses/mit-license.php
 //
 
-
 using System.Collections.Generic;
 
+/// <summary>
+/// 人狼知能エージェントライブラリ
+/// </summary>
 namespace AIWolf.Lib
 {
 #if JHELP
@@ -167,12 +169,21 @@ namespace AIWolf.Lib
 #endif
     public class AgreeContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// AgreeContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="utteranceType">同意される発話の種類.</param>
+        /// <param name="talkDay">同意される発話の発話日</param>
+        /// <param name="talkID">同意される発話のID</param>
+#else
         /// <summary>
         /// Initializes a new instance of AgreeContentBuilder.
         /// </summary>
         /// <param name="utteranceType">The type of the utterance agreed with.</param>
         /// <param name="talkDay">The day of the utterance agreed with.</param>
         /// <param name="talkID">The ID of the utterance agreed with.</param>
+#endif
         public AgreeContentBuilder(UtteranceType utteranceType, int talkDay, int talkID)
         {
             Topic = Topic.AGREE;
@@ -202,7 +213,7 @@ namespace AIWolf.Lib
 
 #if JHELP
     /// <summary>
-    /// 不意発話ビルダークラス
+    /// 不同意発話ビルダークラス
     /// </summary>
 #else
     /// <summary>
@@ -211,12 +222,21 @@ namespace AIWolf.Lib
 #endif
     public class DisagreeContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// DisagreeContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="utteranceType">不同意される発話の種類.</param>
+        /// <param name="talkDay">不同意される発話の発話日</param>
+        /// <param name="talkID">不同意される発話のID</param>
+#else
         /// <summary>
         /// Initializes a new instance of DisagreeContentBuilder.
         /// </summary>
         /// <param name="utteranceType">The type of the utterance disagreed with.</param>
         /// <param name="talkDay">The day of the utterance disagreed with.</param>
         /// <param name="talkID">The ID of the utterance disagreed with.</param>
+#endif
         public DisagreeContentBuilder(UtteranceType utteranceType, int talkDay, int talkID)
         {
             Topic = Topic.DISAGREE;
@@ -255,10 +275,17 @@ namespace AIWolf.Lib
 #endif
     public class AttackContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// AttackContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">襲撃先エージェント</param>
+#else
         /// <summary>
         /// Initializes a new instance of AttackContentBuilder.
         /// </summary>
         /// <param name="target">The agent to be attacked.</param>
+#endif
         public AttackContentBuilder(Agent target)
         {
             Topic = Topic.ATTACK;
@@ -285,10 +312,17 @@ namespace AIWolf.Lib
 #endif
     public class DivinationContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// DivinationContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">占い先エージェント</param>
+#else
         /// <summary>
         /// Initializes a new instance of DivinationContentBuilder.
         /// </summary>
         /// <param name="target">The agent to be divined.</param>
+#endif
         public DivinationContentBuilder(Agent target)
         {
             Topic = Topic.DIVINATION;
@@ -315,10 +349,17 @@ namespace AIWolf.Lib
 #endif
     public class GuardContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// GuardContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">護衛先エージェント</param>
+#else
         /// <summary>
         /// Initializes a new instance of GuardContentBuilder.
         /// </summary>
         /// <param name="target">The agent to be guarded.</param>
+#endif
         public GuardContentBuilder(Agent target)
         {
             Topic = Topic.GUARD;
@@ -345,10 +386,17 @@ namespace AIWolf.Lib
 #endif
     public class GuardedAgentContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// GuardedAgentContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">占ったエージェント</param>
+#else
         /// <summary>
         /// Initializes a new instance of GuardedAgentContentBuilder.
         /// </summary>
         /// <param name="target">The guarded agent.</param>
+#endif
         public GuardedAgentContentBuilder(Agent target)
         {
             Topic = Topic.GUARDED;
@@ -375,10 +423,17 @@ namespace AIWolf.Lib
 #endif
     public class VoteContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// VoteContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">投票先エージェント</param>
+#else
         /// <summary>
         /// Initializes a new instance of VoteContentBuilder.
         /// </summary>
         /// <param name="target">The agent to be voted for.</param>
+#endif
         public VoteContentBuilder(Agent target)
         {
             Topic = Topic.VOTE;
@@ -405,11 +460,19 @@ namespace AIWolf.Lib
 #endif
     public class ComingoutContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// ComingoutContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">役職を明らかにされるエージェント</param>
+        /// <param name="role">明らかにされる役職</param>
+#else
         /// <summary>
         /// Initializes a new instance of ComingoutContentBuilder.
         /// </summary>
         /// <param name="target">The agent whose role is come out with.</param>
         /// <param name="role">The role come out with.</param>
+#endif
         public ComingoutContentBuilder(Agent target, Role role)
         {
             Topic = Topic.COMINGOUT;
@@ -437,11 +500,19 @@ namespace AIWolf.Lib
 #endif
     public class EstimateContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// EstimateContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">推測されるエージェント</param>
+        /// <param name="role">推測される役職</param>
+#else
         /// <summary>
         /// Initializes a new instance of EstimateContentBuilder.
         /// </summary>
         /// <param name="target">The estimated agent.</param>
         /// <param name="role">The estimated role.</param>
+#endif
         public EstimateContentBuilder(Agent target, Role role)
         {
             Topic = Topic.ESTIMATE;
@@ -469,11 +540,19 @@ namespace AIWolf.Lib
 #endif
     public class DivinedResultContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// DivinedResultContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">占われたエージェント</param>
+        /// <param name="result">占われたエージェントの種族</param>
+#else
         /// <summary>
         /// Initializes a new instance of DivinedResultContentBuilder.
         /// </summary>
         /// <param name="target">The divined agent.</param>
         /// <param name="result">The species of target.</param>
+#endif
         public DivinedResultContentBuilder(Agent target, Species result)
         {
             Topic = Topic.DIVINED;
@@ -501,11 +580,19 @@ namespace AIWolf.Lib
 #endif
     public class IdentContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// IdentContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="target">霊媒されたエージェント</param>
+        /// <param name="result">霊媒されたエージェントの種族</param>
+#else
         /// <summary>
         /// Initializes a new instance of IdentContentBuilder.
         /// </summary>
         /// <param name="target">The identified agent.</param>
         /// <param name="result">The species of target.</param>
+#endif
         public IdentContentBuilder(Agent target, Species result)
         {
             Topic = Topic.IDENTIFIED;
@@ -533,11 +620,19 @@ namespace AIWolf.Lib
 #endif
     public class RequestContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// RequestContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+        /// <param name="agent">要求先エージェント</param>
+        /// <param name="content">要求されるアクションを表すContent</param>
+#else
         /// <summary>
         /// Initializes a new instance of RequestContentBuilder.
         /// </summary>
         /// <param name="agent">The requested agent.</param>
         /// <param name="content">Content representing the requested action.</param>
+#endif
         public RequestContentBuilder(Agent agent, Content content)
         {
             Topic = Topic.OPERATOR;
@@ -568,9 +663,15 @@ namespace AIWolf.Lib
 #endif
     public class SkipContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// SkipContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+#else
         /// <summary>
         /// Initializes a new instance of SkipContentBuilder.
         /// </summary>
+#endif
         public SkipContentBuilder()
         {
             Topic = Topic.Skip;
@@ -596,9 +697,15 @@ namespace AIWolf.Lib
 #endif
     public class OverContentBuilder : ContentBuilder
     {
+#if JHELP
+        /// <summary>
+        /// OverContentBuilderクラスの新しいインスタンスを初期化します
+        /// </summary>
+#else
         /// <summary>
         /// Initializes a new instance of OverContentBuilder.
         /// </summary>
+#endif
         public OverContentBuilder()
         {
             Topic = Topic.Over;
@@ -612,6 +719,5 @@ namespace AIWolf.Lib
             }
         }
     }
-
 }
 
