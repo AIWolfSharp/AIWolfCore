@@ -25,39 +25,67 @@ namespace AIWolf.Player.Sample
 #endif
     public class BasePlayer : IPlayer
     {
-        // このエージェント
+        /// <summary>
+        /// このエージェント
+        /// </summary>
         protected Agent Me { get; private set; }
-        // 日付
+        /// <summary>
+        /// 日付
+        /// </summary>
         protected int Day { get; private set; }
-        // Talk()できるか否か
+        /// <summary>
+        /// Talk()できるか否か
+        /// </summary>
         protected bool CanTalk { get; private set; }
-        // Whisper()できるか否か
+        /// <summary>
+        /// Whisper()できるか否か
+        /// </summary>
         protected bool CanWhisper { get; private set; }
-        // 最新のゲーム情報
+        /// <summary>
+        /// 最新のゲーム情報
+        /// </summary>
         protected GameInfo CurrentGameInfo { get; private set; }
-        // 自分以外の生存エージェントのリスト
+        /// <summary>
+        /// 自分以外の生存エージェントのリスト
+        /// </summary>
         protected List<Agent> AliveOthers { get; private set; }
-        // 追放されたエージェントのリスト
+        /// <summary>
+        /// 追放されたエージェントのリスト
+        /// </summary>
         protected List<Agent> ExecutedAgents { get; private set; } = new List<Agent>();
-        // 殺されたエージェントのリスト
+        /// <summary>
+        /// 殺されたエージェントのリスト
+        /// </summary>
         protected List<Agent> KilledAgents { get; private set; } = new List<Agent>();
-        // 占い報告リスト
+        /// <summary>
+        /// 占い報告リスト
+        /// </summary>
         protected List<Judge> DivinationList { get; private set; } = new List<Judge>();
-        // 霊媒報告リスト
+        /// <summary>
+        /// 霊媒報告リスト
+        /// </summary>
         protected List<Judge> IdentList { get; private set; } = new List<Judge>();
-        // 発言の待ち行列
+        /// <summary>
+        /// 発言の待ち行列
+        /// </summary>
         protected Queue<Content> TalkQueue { get; private set; } = new Queue<Content>();
-        // 囁きの待ち行列
+        /// <summary>
+        /// 囁きの待ち行列
+        /// </summary>
         protected Queue<Content> WhisperQueue { get; private set; } = new Queue<Content>();
 
-        // 投票先候補
+        /// <summary>
+        /// 投票先候補
+        /// </summary>
         protected Agent voteCandidate;
         // 宣言した投票先
-        protected Agent declaredVoteCandidate;
-        // 襲撃投票先候補
+        Agent declaredVoteCandidate;
+        /// <summary>
+        /// 襲撃投票先候補
+        /// </summary>
         protected Agent attackVoteCandidate;
         // 宣言した襲撃投票先
-        protected Agent declaredAttackVoteCandidate;
+        Agent declaredAttackVoteCandidate;
 
         // カミングアウト状況
         Dictionary<Agent, Role> comingoutMap = new Dictionary<Agent, Role>();
@@ -139,7 +167,7 @@ namespace AIWolf.Player.Sample
             {
                 Talk talk = CurrentGameInfo.TalkList[i];
                 Agent talker = talk.Agent;
-                if(talker == Me)
+                if (talker == Me)
                 {
                     continue;
                 }
@@ -357,17 +385,32 @@ namespace AIWolf.Player.Sample
         }
     }
 
+#if JHELP
+    /// <summary>
+    /// IEnumerableインターフェースを実装したクラスに対するShuffle拡張メソッド定義
+    /// </summary>
+#else
     /// <summary>
     /// Defines extension method to shuffle what implements IEnumerable interface.
     /// </summary>
+#endif
     public static class ShuffleExtensions
     {
+#if JHELP
         /// <summary>
-        /// Returns randomized sequence of T.
+        /// IEnumerableをシャッフルしたものを返す
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="s">Sequence of T.</param>
-        /// <returns>Randomized sequence of T.</returns>
+        /// <typeparam name="T">IEnumerableの要素の型</typeparam>
+        /// <param name="s">TのIEnumerable</param>
+        /// <returns>シャッフルされたIEnumerable</returns>
+#else
+        /// <summary>
+        /// Returns shuffled IEnumerable of T.
+        /// </summary>
+        /// <typeparam name="T">Type of element of IEnumerable.</typeparam>
+        /// <param name="s">IEnumerable of T.</param>
+        /// <returns>Shuffled IEnumerable of T.</returns>
+#endif
         public static IOrderedEnumerable<T> Shuffle<T>(this IEnumerable<T> s)
         {
             return s.OrderBy(x => Guid.NewGuid());

@@ -23,6 +23,15 @@ namespace AIWolf.Player.Sample
 #endif
     public class RoleAssignPlayer : AbstractRoleAssignPlayer
     {
+#if JHELP
+        /// <summary>
+        /// 狩人プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Bodyguard player.
+        /// </summary>
+#endif
         protected override IPlayer BodyguardPlayer
         {
             get
@@ -31,6 +40,15 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 霊媒師プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Medium player.
+        /// </summary>
+#endif
         protected override IPlayer MediumPlayer
         {
             get
@@ -39,6 +57,15 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 裏切り者プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Possessed player.
+        /// </summary>
+#endif
         protected override IPlayer PossessedPlayer
         {
             get
@@ -47,6 +74,15 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 占い師プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Seer player.
+        /// </summary>
+#endif
         protected override IPlayer SeerPlayer
         {
             get
@@ -55,6 +91,15 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 村人プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Villager player.
+        /// </summary>
+#endif
         protected override IPlayer VillagerPlayer
         {
             get
@@ -63,6 +108,15 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 人狼プレイヤー
+        /// </summary>
+#else
+        /// <summary>
+        /// Werewolf player.
+        /// </summary>
+#endif
         protected override IPlayer WerewolfPlayer
         {
             get

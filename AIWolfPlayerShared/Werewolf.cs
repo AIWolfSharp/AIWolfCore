@@ -5,6 +5,15 @@ using System.Linq;
 
 namespace AIWolf.Player.Sample
 {
+#if JHELP
+    /// <summary>
+    /// 人狼プレイヤーの見本
+    /// </summary>
+#else
+    /// <summary>
+    /// Sample werewolf player.
+    /// </summary>
+#endif
     public sealed class Werewolf : BasePlayer
     {
         // 規定人狼数
@@ -34,6 +43,10 @@ namespace AIWolf.Player.Sample
         // talk()のターン
         int talkTurn;
 
+        /// <summary>
+        /// 襲撃先候補を選ぶ
+        /// </summary>
+        /// <returns>襲撃先候補のエージェント</returns>
         protected override void ChooseAttackVoteCandidate()
         {
             // カミングアウトした村人陣営は襲撃先候補
@@ -62,6 +75,10 @@ namespace AIWolf.Player.Sample
             }
         }
 
+        /// <summary>
+        /// 投票先候補を選ぶ
+        /// </summary>
+        /// <returns>投票先候補のエージェント</returns>
         protected override void ChooseVoteCandidate()
         {
             List<Agent> villagers = AliveOthers.Where(a => !werewolves.Contains(a) && a != possessed).ToList();
@@ -111,6 +128,19 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// ゲーム開始時に呼ばれる
+        /// </summary>
+        /// <param name="gameInfo">最新のゲーム情報</param>
+        /// <param name="gameSetting">ゲーム設定</param>
+#else
+        /// <summary>
+        /// Called when the game started.
+        /// </summary>
+        /// <param name="gameInfo">The current information of this game.</param>
+        /// <param name="gameSetting">The setting of this game.</param>
+#endif
         public override void Initialize(GameInfo gameInfo, GameSetting gameSetting)
         {
             base.Initialize(gameInfo, gameSetting);
@@ -132,6 +162,17 @@ namespace AIWolf.Player.Sample
             possessedList.Clear();
         }
 
+#if JHELP
+        /// <summary>
+        /// ゲーム情報更新の際に呼ばれる
+        /// </summary>
+        /// <param name="gameInfo">最新のゲーム情報</param>
+#else
+        /// <summary>
+        /// Called when the game information is updated.
+        /// </summary>
+        /// <param name="gameInfo">The current information of this game.</param>
+#endif
         public override void Update(GameInfo gameInfo)
         {
             base.Update(gameInfo);
@@ -148,11 +189,20 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// 新しい日が始まるときに呼ばれる
+        /// </summary>
+#else
+        /// <summary>
+        /// Called when the day started.
+        /// </summary>
+#endif
         public override void DayStart()
         {
             base.DayStart();
             talkTurn = -1;
-            if(Day == 0)
+            if (Day == 0)
             {
                 WhisperQueue.Enqueue(new Content(new ComingoutContentBuilder(Me, fakeRole)));
             }
@@ -172,6 +222,23 @@ namespace AIWolf.Player.Sample
             }
         }
 
+#if JHELP
+        /// <summary>
+        /// プレイヤーの発言を返す
+        /// </summary>
+        /// <returns>発言の文字列</returns>
+        /// <remarks>
+        /// nullはSkipを意味する
+        /// </remarks>
+#else
+        /// <summary>
+        /// Returns this player's talk.
+        /// </summary>
+        /// <returns>The string representing this player's talk.</returns>
+        /// <remarks>
+        /// Null means Skip.
+        /// </remarks>
+#endif
         public override string Talk()
         {
             talkTurn++;
@@ -276,5 +343,42 @@ namespace AIWolf.Player.Sample
                 return null;
             }
         }
+
+#if JHELP
+        /// <summary>
+        /// この占い師が占いたいエージェントを返す
+        /// </summary>
+        /// <returns>この占い師が占いたいエージェント</returns>
+        /// <remarks>nullは占いなしを意味する</remarks>
+#else
+        /// <summary>
+        /// Returns the agent this seer wants to divine.
+        /// </summary>
+        /// <returns>The agent this seer wants to divine.</returns>
+        /// <remarks>No divination in case of null.</remarks>
+#endif
+        public override Agent Divine()
+        {
+            throw new NotImplementedException();
+        }
+
+#if JHELP
+        /// <summary>
+        /// この狩人が護衛したいエージェントを返す
+        /// </summary>
+        /// <returns>この狩人が護衛したいエージェント</returns>
+        /// <remarks>nullは護衛なしを意味する</remarks>
+#else
+        /// <summary>
+        /// Returns the agent this bodyguard wants to guard.
+        /// </summary>
+        /// <returns>The agent this bodyguard wants to guard.</returns>
+        /// <remarks>No guard in case of null.</remarks>
+#endif
+        public override Agent Guard()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

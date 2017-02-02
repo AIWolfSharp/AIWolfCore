@@ -73,11 +73,10 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// プレイヤーの発話を返す
+        /// プレイヤーの発言を返す
         /// </summary>
-        /// <returns>プレイヤーの発話文字列</returns>
+        /// <returns>発言の文字列</returns>
         /// <remarks>
-        /// 文字列は人狼知能プロトコルに準拠すること
         /// nullはSkipを意味する
         /// </remarks>
 #else
@@ -86,7 +85,6 @@ namespace AIWolf.Lib
         /// </summary>
         /// <returns>The string representing this player's talk.</returns>
         /// <remarks>
-        /// The returned string must be written in aiwolf protocol.
         /// Null means Skip.
         /// </remarks>
 #endif
@@ -96,9 +94,8 @@ namespace AIWolf.Lib
         /// <summary>
         /// プレイヤーの囁きを返す
         /// </summary>
-        /// <returns>プレイヤーの囁き文字列</returns>
+        /// <returns>囁きの文字列</returns>
         /// <remarks>
-        /// 文字列は人狼知能プロトコルに準拠すること
         /// nullはSkipを意味する
         /// </remarks>
 #else
@@ -107,7 +104,6 @@ namespace AIWolf.Lib
         /// </summary>
         /// <returns>The string representing this werewolf's whisper.</returns>
         /// <remarks>
-        /// The returned string must be written in aiwolf protocol.
         /// Null means Skip.
         /// </remarks>
 #endif

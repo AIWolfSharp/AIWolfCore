@@ -9,9 +9,6 @@
 
 using System.Collections.Generic;
 
-/// <summary>
-/// 人狼知能エージェントライブラリ
-/// </summary>
 namespace AIWolf.Lib
 {
 #if JHELP
