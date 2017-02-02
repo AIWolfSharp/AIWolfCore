@@ -1,37 +1,44 @@
-## Welcome to GitHub Pages
+# AIWolf.NET Core
+## .NET Core version of AIWolf Library
 
-You can use the [editor on GitHub](https://github.com/AIWolfSharp/AIWolfCore/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+AIWolf.NET Core is the AIWolf (artificial intelligence based werewolf) library for .NET Core,
+which is compatible with AIWolf platform version 0.4.4.
+The current version number is 1.0.0-prerelease3.
+The next release will be version 1.0.0 if no issue is found.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+1. QUICK START
 
-### Markdown
+    1. Install .NET Core SDK 1.1.0.
+    2. Though AIWolf.NET Core has two libraries (AIWolfLib and AIWolfPlayer),
+you do not have to install them manually since NuGet package manager automatically does.
+    3. AIWolf.NET Core does not have own game server, so you have to download
+[AIWolf platform version 0.4.4](http://aiwolf.org/server/)
+to run the server.
+    4. We do not distribute the executable for starting client agent,
+so you first have to build it by yourself.
+       1. Download [ClientStarter-1.0.0-pre3.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/ClientStarter-1.0.0-pre3.zip),
+and put two files (ClientStarter.cs and project.json) in the zip file
+into the folder you like.
+       2. Execute the following commands in the folder to build ClientStarter.  
+`dotnet restore`  
+`dotnet build`
+    5. After the successful build, execute the following command
+to try connecting sample agent with the local server waiting the connection at port 10000.  
+`dotnet run -d`
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    6. Making your own agent
 
-```markdown
-Syntax highlighted code block
+      * You can download [Reference Manual](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/AIWolf_NET_ReferenceManual.zip) to be aid in making your own agent.
+      * You will soon be able to view the tutorial.
 
-# Header 1
-## Header 2
-### Header 3
+1. HISTORY and CHANGES
 
-- Bulleted
-- List
+    * 1.0.0-prerelease1 : The private prerelease.  
+    * 1.0.0-prerelease2 : The first public prerelease.
+    * 1.0.0-prerelease3 : This release.  
+CHANGES in this release.
+      * Extension method Shuffle() for IEnumerable is moved from namespace AIWolf.Player.Sample
+to namespace AIWolf.Lib because this method is useful in various situations.
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/AIWolfSharp/AIWolfCore/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+---
+This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
