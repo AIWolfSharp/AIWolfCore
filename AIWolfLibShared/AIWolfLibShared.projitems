@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Agent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)AIWolfLibException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Content.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContentBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataConverter.cs" />
