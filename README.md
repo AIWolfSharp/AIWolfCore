@@ -1,3 +1,4 @@
+[View in Japanese](https://github.com/AIWolfSharp/AIWolfCore/blob/master/index.md)
 # AIWolf.NET Core
 ## .NET Core version of AIWolf Library
 
