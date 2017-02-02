@@ -2,24 +2,18 @@
 <topic id="d2b0d3ed-37cb-4cbc-b307-513a96fb0806" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>The topics in this section describe the various changes made to the [TODO: Project Title] over the
-life of the project.</para>
+			<para></para>
 		</introduction>
 
 		<section>
-			<title>Version History</title>
+			<title>バージョン履歴</title>
 			<content>
-				<para>Select a version below to see a description of its changes.</para>
+				<para></para>
 
 				<list class="bullet">
 					<listItem>
 						<para><link xlink:href="8e7e7db8-4cbf-4025-9682-69bed3422a09" /></para>
 					</listItem>
-
-					<listItem>
-						<para>[TODO: Add links to each specific version page]</para>
-					</listItem>
-
 				</list>
 
 			</content>
