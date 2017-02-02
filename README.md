@@ -26,8 +26,10 @@ into the folder you like.
 to try connecting sample agent with the local server waiting the connection at port 10000.  
 `dotnet run -d`
 
-    6. Making your own agent  
-You will soon be able to view the tutorial for making an AIWolf agent using AIWolf.NET Core.
+    6. Making your own agent
+
+      * You can download [Reference Manual](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/AIWolf_NET_ReferenceManual.zip) to be aid in making your own agent.
+      * You will soon be able to view the tutorial.
 
 1. HISTORY and CHANGES
 
@@ -37,5 +39,6 @@ You will soon be able to view the tutorial for making an AIWolf agent using AIWo
 CHANGES in this release.
       * Extension method Shuffle() for IEnumerable is moved from namespace AIWolf.Player.Sample
 to namespace AIWolf.Lib because this method is useful in various situations.
+
 ---
 This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).
