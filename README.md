@@ -1,11 +1,10 @@
-[View in Japanese](https://github.com/AIWolfSharp/AIWolfCore/blob/master/index.md)
+[View in Japanese](https://github.com/AIWolfSharp/AIWolfCore/blob/core/README-J.md)
 # AIWolf.NET Core
 ## .NET Core version of AIWolf Library
 
 AIWolf.NET Core is the AIWolf (artificial intelligence based werewolf) library for .NET Core,
 which is compatible with AIWolf platform version 0.4.4.
-The current version number is 1.0.0-prerelease3.
-The next release will be version 1.0.0 if no issue is found.
+The current version number is 1.0.0-prerelease4.
 
 1. QUICK START
 
@@ -17,7 +16,7 @@ you do not have to install them manually since NuGet package manager automatical
 to run the server.
     4. We do not distribute the executable for starting client agent,
 so you first have to build it by yourself.
-       1. Download [ClientStarter-1.0.0-pre3.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/ClientStarter-1.0.0-pre3.zip),
+       1. Download [ClientStarter-1.0.0-pre4.zip](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre4/ClientStarter-1.0.0-pre4.zip),
 and put two files (ClientStarter.cs and project.json) in the zip file
 into the folder you like.
        2. Execute the following commands in the folder to build ClientStarter.  
@@ -29,17 +28,15 @@ to try connecting sample agent with the local server waiting the connection at p
 
     6. Making your own agent
 
-      * You can download [Reference Manual](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre3/AIWolf_NET_ReferenceManual.zip) to be aid in making your own agent.
+      * You can download [Reference Manual](https://github.com/AIWolfSharp/AIWolfCore/releases/download/v1.0.0-pre4/AIWolf_NET_ReferenceManual.zip) to be aid in making your own agent.
       * You will soon be able to view the tutorial.
 
 1. HISTORY and CHANGES
 
-    * 1.0.0-prerelease1 : The private prerelease.  
     * 1.0.0-prerelease2 : The first public prerelease.
-    * 1.0.0-prerelease3 : This release.  
-CHANGES in this release.
-      * Extension method Shuffle() for IEnumerable is moved from namespace AIWolf.Player.Sample
+    * 1.0.0-prerelease3 : Extension method Shuffle() for IEnumerable is moved from namespace AIWolf.Player.Sample
 to namespace AIWolf.Lib because this method is useful in various situations.
+    * 1.0.0-prerelease4 : Make projects generate portable PDBs to debug in VS Code.
 
 ---
 This software is released under the MIT License, see [LICENSE](https://github.com/AIWolfSharp/AIWolf_NET/blob/master/LICENSE).

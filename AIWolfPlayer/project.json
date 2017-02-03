@@ -1,10 +1,10 @@
 {
   "title": "AIWolfPlayer",
-  "copyright": "Copyright ? 2017 Takashi OTSUKI",
+  "copyright": "Copyright (c) 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
-  "version": "1.0.0-prerelease3",
+  "version": "1.0.0-prerelease4",
   "dependencies": {
-    "AIWolfLib": "1.0.0-prerelease3",
+    "AIWolfLib": "1.0.0-prerelease4",
     "NETStandard.Library": "1.6.1",
     "System.Linq": "4.3.0"
   },
