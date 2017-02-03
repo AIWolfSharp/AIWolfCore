@@ -148,7 +148,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// Contentクラスの新しインスタンスを初期化する
+        /// Contentクラスの新しいインスタンスを初期化する
         /// </summary>
         /// <param name="builder">発話内容に応じたContentBuilder</param>
 #else
@@ -172,7 +172,7 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
-        /// Contentクラスの新しインスタンスを初期化する
+        /// Contentクラスの新しいインスタンスを初期化する
         /// </summary>
         /// <param name="text">発話テキスト</param>
 #else
