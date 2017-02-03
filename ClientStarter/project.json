@@ -9,7 +9,8 @@
     "compile": {
       "include": "../ClientStarterShared/**.cs"
     },
-    "define": [ "DEBUG", "TRACE" ]
+    "define": [ "DEBUG", "TRACE" ],
+    "debugType": "portable"
   },
 
   "dependencies": {

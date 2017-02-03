@@ -18,6 +18,7 @@
     "compile": {
       "include": "../AIWolfPlayerShared/**.cs"
     },
-    "define": [ "DEBUG", "TRACE" ]
+    "define": [ "DEBUG", "TRACE" ],
+    "debugType": "portable"
   }
 }

@@ -18,6 +18,7 @@
     "compile": {
       "include": "../AIWolfLibShared/**.cs"
     },
-    "define": [ "DEBUG", "TRACE" ]
+    "define": [ "DEBUG", "TRACE" ],
+    "debugType": "portable"
   }
 }
