@@ -2,9 +2,9 @@
   "title": "AIWolfPlayer",
   "copyright": "Copyright (c) 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
-  "version": "1.0.0-prerelease4",
+  "version": "1.0.0",
   "dependencies": {
-    "AIWolfLib": "1.0.0-prerelease4",
+    "AIWolfLib": "1.0.0",
     "NETStandard.Library": "1.6.1",
     "System.Linq": "4.3.0"
   },
@@ -18,7 +18,7 @@
     "compile": {
       "include": "../AIWolfPlayerShared/**.cs"
     },
-    "define": [ "DEBUG", "TRACE" ],
+    "define": [],
     "debugType": "portable"
   }
 }
