@@ -2,30 +2,30 @@
   "title": "ClientStarter",
   "copyright": "Copyright © 2017 Takashi OTSUKI",
   "description": "The starter for AIWolf client.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "buildOptions": {
     "emitEntryPoint": true,
-    "optimize": true,
+    "optimize": false,
     "compile": {
       "include": "../ClientStarterShared/**.cs"
     },
-    "define": [],
+    "define": [ "DEBUG", "TRACE" ],
     "debugType": "portable"
   },
 
   "dependencies": {
-    "AIWolfLib": "1.0.0",
-    "AIWolfPlayer": "1.0.0",
+    "AIWolfLib": "1.0.1",
+    "AIWolfPlayer": "1.0.1",
     "Microsoft.Extensions.DependencyModel": "1.1.0",
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.1.0"
+      "version": "1.0.3"
     },
     "System.Runtime.Loader": "4.3.0"
   },
 
   "frameworks": {
-    "netcoreapp1.1": {
+    "netcoreapp1.0": {
       "imports": "dnxcore50"
     }
   }
