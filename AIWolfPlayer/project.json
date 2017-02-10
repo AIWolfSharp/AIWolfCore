@@ -2,9 +2,9 @@
   "title": "AIWolfPlayer",
   "copyright": "Copyright (c) 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
-    "AIWolfLib": "1.0.0",
+    "AIWolfLib": "1.0.1",
     "NETStandard.Library": "1.6.1",
     "System.Linq": "4.3.0"
   },
@@ -14,7 +14,7 @@
     }
   },
   "buildOptions": {
-    "optimize": false,
+    "optimize": true,
     "compile": {
       "include": "../AIWolfPlayerShared/**.cs"
     },
