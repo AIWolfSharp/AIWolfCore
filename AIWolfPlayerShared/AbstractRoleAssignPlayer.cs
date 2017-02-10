@@ -8,7 +8,6 @@
 //
 
 using AIWolf.Lib;
-using AIWolf.Player.Sample;
 
 namespace AIWolf.Player.Lib
 {
@@ -32,7 +31,7 @@ namespace AIWolf.Player.Lib
         /// Villager player.
         /// </summary>
 #endif
-        protected abstract IPlayer VillagerPlayer { get; }
+        protected IPlayer VillagerPlayer { get; set; } = new Sample.Villager();
 
 #if JHELP
         /// <summary>
@@ -43,7 +42,7 @@ namespace AIWolf.Player.Lib
         /// Bodyguard player.
         /// </summary>
 #endif
-        protected abstract IPlayer BodyguardPlayer { get; }
+        protected IPlayer BodyguardPlayer { get; set; } = new Sample.Bodyguard();
 
 #if JHELP
         /// <summary>
@@ -54,7 +53,7 @@ namespace AIWolf.Player.Lib
         /// Seer player.
         /// </summary>
 #endif
-        protected abstract IPlayer SeerPlayer { get; }
+        protected IPlayer SeerPlayer { get; set; } = new Sample.Seer();
 
 #if JHELP
         /// <summary>
@@ -65,7 +64,7 @@ namespace AIWolf.Player.Lib
         /// Medium player.
         /// </summary>
 #endif
-        protected abstract IPlayer MediumPlayer { get; }
+        protected IPlayer MediumPlayer { get; set; } = new Sample.Medium();
 
 #if JHELP
         /// <summary>
@@ -76,7 +75,7 @@ namespace AIWolf.Player.Lib
         /// Possessed player.
         /// </summary>
 #endif
-        protected abstract IPlayer PossessedPlayer { get; }
+        protected IPlayer PossessedPlayer { get; set; } = new Sample.Possessed();
 
 #if JHELP
         /// <summary>
@@ -87,7 +86,7 @@ namespace AIWolf.Player.Lib
         /// Werewolf player.
         /// </summary>
 #endif
-        protected abstract IPlayer WerewolfPlayer { get; }
+        protected IPlayer WerewolfPlayer { get; set; } = new Sample.Werewolf();
 
         IPlayer player;
 
@@ -100,13 +99,36 @@ namespace AIWolf.Player.Lib
         /// This player's name.
         /// </summary>
 #endif
-        public string Name
-        {
-            get
-            {
-                return GetType().ToString();
-            }
-        }
+        public string Name => GetType().ToString();
+
+#if JHELP
+        /// <summary>
+        /// 各役職用のプレイヤーエージェントを設定する
+        /// </summary>
+        /// <example>
+        /// 例えば村人エージェントとしてMyVillagerクラスを使うには
+        /// <code>
+        /// VillagerPlayer = new MyVillager();
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// ここで設定しなかった役職についてはサンプルエージェントが使われる
+        /// </remarks>
+#else
+        /// <summary>
+        /// Set the player agent to each role.
+        /// </summary>
+        /// <example>
+        /// To use MyVillager class for villager agent,
+        /// <code>
+        /// VillagerPlayer = new MyVillager();
+        /// </code>
+        /// </example>
+        /// <remarks>
+        /// If no agent is set to the role here, the sample agent will be used.
+        /// </remarks>
+#endif
+        public abstract void SetPlayers();
 
 #if JHELP
         /// <summary>
@@ -119,10 +141,7 @@ namespace AIWolf.Player.Lib
         /// </summary>
         /// <param name="gameInfo">The current information of this game.</param>
 #endif
-        public void Update(GameInfo gameInfo)
-        {
-            player.Update(gameInfo);
-        }
+        public void Update(GameInfo gameInfo) => player.Update(gameInfo);
 
 #if JHELP
         /// <summary>
@@ -175,10 +194,7 @@ namespace AIWolf.Player.Lib
         /// Called when the day started.
         /// </summary>
 #endif
-        public void DayStart()
-        {
-            player.DayStart();
-        }
+        public void DayStart() => player.DayStart();
 
 #if JHELP
         /// <summary>
@@ -197,10 +213,7 @@ namespace AIWolf.Player.Lib
         /// Null means Skip.
         /// </remarks>
 #endif
-        public string Talk()
-        {
-            return player.Talk();
-        }
+        public string Talk() => player.Talk();
 
 #if JHELP
         /// <summary>
@@ -219,10 +232,7 @@ namespace AIWolf.Player.Lib
         /// Null means Skip.
         /// </remarks>
 #endif
-        public string Whisper()
-        {
-            return player.Whisper();
-        }
+        public string Whisper() => player.Whisper();
 
 #if JHELP
         /// <summary>
@@ -237,10 +247,7 @@ namespace AIWolf.Player.Lib
         /// <returns>The agent this player wants to execute.</returns>
         /// <remarks>Null results in random vote.</remarks>
 #endif
-        public Agent Vote()
-        {
-            return player.Vote();
-        }
+        public Agent Vote() => player.Vote();
 
 #if JHELP
         /// <summary>
@@ -255,10 +262,7 @@ namespace AIWolf.Player.Lib
         /// <returns>The agent this werewolf wants to attack.</returns>
         /// <remarks>No attack in case of null.</remarks>
 #endif
-        public Agent Attack()
-        {
-            return player.Attack();
-        }
+        public Agent Attack() => player.Attack();
 
 #if JHELP
         /// <summary>
@@ -273,10 +277,7 @@ namespace AIWolf.Player.Lib
         /// <returns>The agent this seer wants to divine.</returns>
         /// <remarks>No divination in case of null.</remarks>
 #endif
-        public Agent Divine()
-        {
-            return player.Divine();
-        }
+        public Agent Divine() => player.Divine();
 
 #if JHELP
         /// <summary>
@@ -291,10 +292,7 @@ namespace AIWolf.Player.Lib
         /// <returns>The agent this bodyguard wants to guard.</returns>
         /// <remarks>No guard in case of null.</remarks>
 #endif
-        public Agent Guard()
-        {
-            return player.Guard();
-        }
+        public Agent Guard() => player.Guard();
 
 #if JHELP
         /// <summary>
@@ -307,9 +305,6 @@ namespace AIWolf.Player.Lib
         /// </summary>
         /// <remarks>Before this method is called, the game information is updated with all information.</remarks>
 #endif
-        public void Finish()
-        {
-            player.Finish();
-        }
+        public void Finish() => player.Finish();
     }
 }
