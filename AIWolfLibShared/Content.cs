@@ -148,6 +148,30 @@ namespace AIWolf.Lib
 
 #if JHELP
         /// <summary>
+        /// コピーコンストラクタ
+        /// </summary>
+        /// <param name="content">オリジナルのContent</param>
+#else
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="content">Original content.</param>
+#endif
+        public Content(Content content)
+        {
+            Text = content.Text;
+            Topic = content.Topic;
+            Subject = content.Subject;
+            Target = content.Target;
+            Role = content.Role;
+            Result = content.Result;
+            Utterance = content.Utterance;
+            Operator = content.Operator;
+            ContentList = content.ContentList;
+        }
+
+#if JHELP
+        /// <summary>
         /// Contentクラスの新しいインスタンスを初期化する
         /// </summary>
         /// <param name="builder">発話内容に応じたContentBuilder</param>

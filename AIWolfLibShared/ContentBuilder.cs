@@ -634,10 +634,11 @@ namespace AIWolf.Lib
         {
             Topic = Topic.OPERATOR;
             Operator = Operator.REQUEST;
-            content.Subject = agent;
-            content.Text = string.Join(" ", new string[] { agent == null ? "" : agent.ToString(), content.Text }).Trim();
+            Content cloneContent = new Content(content);
+            cloneContent.Subject = agent;
+            cloneContent.Text = string.Join(" ", new string[] { agent == null ? "" : agent.ToString(), content.Text }).Trim();
             ContentList = new List<Content>();
-            ContentList.Add(content);
+            ContentList.Add(cloneContent);
         }
 
         internal override string Text
