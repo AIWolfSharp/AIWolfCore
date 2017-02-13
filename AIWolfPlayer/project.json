@@ -2,9 +2,9 @@
   "title": "AIWolfPlayer",
   "copyright": "Copyright (c) 2017 Takashi OTSUKI",
   "description": "The AIWolf sample player.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
-    "AIWolfLib": "1.0.1",
+    "AIWolfLib": "1.0.2",
     "NETStandard.Library": "1.6.1",
     "System.Linq": "4.3.0"
   },
