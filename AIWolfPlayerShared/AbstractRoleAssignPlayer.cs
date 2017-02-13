@@ -128,7 +128,7 @@ namespace AIWolf.Player.Lib
         /// If no agent is set to the role here, the sample agent will be used.
         /// </remarks>
 #endif
-        public abstract void SetPlayers();
+        protected abstract void SetPlayers();
 
 #if JHELP
         /// <summary>

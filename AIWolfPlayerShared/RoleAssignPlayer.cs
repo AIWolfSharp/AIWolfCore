@@ -32,7 +32,7 @@ namespace AIWolf.Player.Sample
         /// There is no setting to use sample agents.
         /// </summary>
 #endif
-        public override void SetPlayers()
+        protected override void SetPlayers()
         {
         }
     }
