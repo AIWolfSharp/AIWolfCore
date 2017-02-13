@@ -103,6 +103,20 @@ namespace AIWolf.Player.Lib
 
 #if JHELP
         /// <summary>
+        /// AbstractRoleAssignPlayerの新しいインスタンスを初期化する
+        /// </summary>
+#else
+        /// <summary>
+        /// Initializes a new instance of AbstractRoleAssignPlayer.
+        /// </summary>
+#endif
+        public AbstractRoleAssignPlayer()
+        {
+            SetPlayers();
+        }
+
+#if JHELP
+        /// <summary>
         /// 各役職用のプレイヤーエージェントを設定する
         /// </summary>
         /// <example>
