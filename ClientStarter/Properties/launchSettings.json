@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ClientStarter": {
-      "commandName": "Project",
-      "commandLineArgs": "-d"
-    }
-  }
-}
