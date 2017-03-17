@@ -1,3 +1,5 @@
+## AIWolf.NET Coreはバージョン1.0.4から[AIWolf.NET](https://github.com/AIWolfSharp/AIWolf_NET)に統合されました．
+
 # AIWolf.NET Core
 ## .NET Core版人狼知能ライブラリ
 AIWolf.NET Coreは人狼知能プラットフォーム0.4.x互換の.NET Core版人狼知能ライブラリです．

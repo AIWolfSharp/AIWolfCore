@@ -1,4 +1,7 @@
 [View in Japanese](https://github.com/AIWolfSharp/AIWolfCore/blob/core/README-J.md)
+## From version 1.0.4, AIWolf.NET Core is merged into [AIWolf.NET](https://github.com/AIWolfSharp/AIWolf_NET).
+
+
 # AIWolf.NET Core
 ## .NET Core version of AIWolf Library
 
